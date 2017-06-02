@@ -1,0 +1,11 @@
+<div id="chatroom">
+<h2>Chatroom</h2>
+
+<app-message
+  *ngFor="let message of messages "
+  [messageContent]="message"
+></app-message>
+</div>
+<app-chat-bar
+  (messageEntered)="onMessageEntered($event)"
+></app-chat-bar>

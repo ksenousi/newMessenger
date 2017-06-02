@@ -1,0 +1,5 @@
+#chatlist {
+  height: 80vh;
+  border: solid;
+  overflow: auto;
+}
