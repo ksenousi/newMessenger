@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./chat-list.component.css']
 })
 export class ChatListComponent implements OnInit {
-
+  chats = [1, 1, 1];
   constructor() { }
 
   ngOnInit() {

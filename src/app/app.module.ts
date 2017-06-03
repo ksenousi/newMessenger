@@ -11,6 +11,7 @@ import { ChatBarComponent } from './content/chat-room/chat-bar/chat-bar.componen
 import {ContentComponent} from './content/content.component';
 import { MessageComponent } from './content/chat-room/message/message.component';
 import { ChatItemComponent } from './content/chat-list/chat-item/chat-item.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ChatItemComponent } from './content/chat-list/chat-item/chat-item.compo
     ChatBarComponent,
     ContentComponent,
     MessageComponent,
-    ChatItemComponent
+    ChatItemComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

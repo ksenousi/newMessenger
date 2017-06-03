@@ -1,3 +1,11 @@
 .navbar {
   padding: 10px;
 }
+a {
+  font-weight: bold;
+  font-size: small;
+}
+
+.navbar-brand {
+  font-size: large;
+}
