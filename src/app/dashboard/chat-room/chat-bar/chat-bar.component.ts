@@ -16,7 +16,7 @@ export class ChatBarComponent implements OnInit {
 
   sendMessage() {
     this.messageEntered.emit({message: this.messageInput,
-      outgoing: false});
+      outgoing: true});
     this.messageInput = '';
   }
 
