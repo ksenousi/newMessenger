@@ -1,0 +1,14 @@
+#chatbar {
+  padding-top: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.btn {
+  border-radius:10px;
+}
+
+input {
+  border-radius:5px;
+}
+

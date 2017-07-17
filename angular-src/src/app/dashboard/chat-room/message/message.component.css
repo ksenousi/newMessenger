@@ -1,0 +1,26 @@
+.outgoing {
+  background-color: cornflowerblue;
+  float: right;
+  clear: both;
+  border-radius:25px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-right: 5px;
+  word-break: normal;
+}
+
+.incoming {
+  background-color: orangered;
+  float: left;
+  clear: both;
+  border-radius:25px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-left: 5px;
+}
+
+
