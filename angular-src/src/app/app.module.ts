@@ -23,9 +23,11 @@ import {AuthService} from './services/auth.service';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
-  {path: 'chatroom', component: DashboardComponent},
+  {path: 'dashboard', component: DashboardComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
+  {path: 'profile', component: ProfileComponent},
+
 
 ]
 
