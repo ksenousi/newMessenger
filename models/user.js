@@ -20,10 +20,10 @@ const UserSchema = mongoose.Schema({
     required: true
   },
   contacts: {
-    
+   
   },
   chats: {
-
+    
   }
 });
 
