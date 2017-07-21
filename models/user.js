@@ -20,10 +20,12 @@ const UserSchema = mongoose.Schema({
     required: true
   },
   contacts: {
-   
+   type: mongoose.Schema.Types.ObjectId,
+   ref:'User'
   },
   chats: {
-    
+   type:[mongoose.Schema.Types.ObjectId],
+   ref: 'Chat' 
   }
 });
 
