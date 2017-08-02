@@ -33,7 +33,6 @@ const appRoutes: Routes = [
 
 ]
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,7 +55,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     FlashMessagesModule
   ],
-  providers: [ValidateService, AuthService],
+  providers: [ValidateService, AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
