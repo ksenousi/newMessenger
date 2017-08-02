@@ -22,6 +22,7 @@ import {FlashMessagesModule} from 'angular2-flash-messages';
 import {AuthService} from './services/auth.service';
 
 import { AuthGuard } from './guards/auth.guard';
+import { ContactsComponent } from './contacts/contacts.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -46,7 +47,8 @@ const appRoutes: Routes = [
     HomeComponent,
     LoginComponent,
     RegisterComponent,
-    ProfileComponent
+    ProfileComponent,
+    ContactsComponent
   ],
   imports: [
     BrowserModule,
