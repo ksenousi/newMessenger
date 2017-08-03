@@ -70,4 +70,23 @@ router.get('/validate', (req, res, next) => {
     res.send('validate');
 });
 
+// Search Contacts
+router.get('/search',passport.authenticate('jwt', {session:false}),(req,res,next) => {
+    const contact = req.body.contact;
+    res.json(db.users.find({"username" : {$regex : ".*"+contact+".*"}}));
+
+});
+
+// Add Contact
+router.get('/addcontact', passport.authenticate('jwt', {session:false}), (req, res, next) => {
+    
+    const username = req.body.username;
+    const contact = req.body.contact;
+    const user = User.getUserByUsername(contact);
+
+    User.update({'username':contact},{'$push':{'contacts':contact}});
+
+
+});
+
 module.exports = router;
