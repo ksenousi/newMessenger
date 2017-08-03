@@ -16,13 +16,13 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ContactsComponent } from './contacts/contacts.component';
 
 import {ValidateService} from './services/validate.service';
 import {FlashMessagesModule} from 'angular2-flash-messages';
 import {AuthService} from './services/auth.service';
 
 import { AuthGuard } from './guards/auth.guard';
-import { ContactsComponent } from './contacts/contacts.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -30,6 +30,7 @@ const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'profile', component: ProfileComponent, canActivate:[AuthGuard]},
+  {path: 'contacts', component: ContactsComponent, canActivate:[AuthGuard]},
 
 
 ]
