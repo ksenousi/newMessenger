@@ -1,3 +1,6 @@
-<p>
-  contacts works!
-</p>
+<form (submit)="onSubmit()">
+<input type="text" class="form-control" [(ngModel)]="searchCriteria" name="search-criteria">
+<input type="submit" class="btn btn-primary" value="Search">
+</form>
+
+<p>{{searchCriteria}}</p>
