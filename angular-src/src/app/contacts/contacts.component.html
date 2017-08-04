@@ -1,6 +1,26 @@
-<form (submit)="onSubmit()">
-<input type="text" class="form-control" [(ngModel)]="searchCriteria" name="search-criteria">
-<input type="submit" class="btn btn-primary" value="Search">
-</form>
+<h3>Contacts</h3>
 
-<p>{{searchCriteria}}</p>
+<div id="searchbar">
+  <form ng-submit="searchContact()">
+
+    <div class="input-group">
+      <input type="text"
+             class="form-control"
+             [(ngModel)]="searchCriteria"
+              name="search-criteria">
+      <span class="input-group-btn">
+  <input type="submit"
+         class="btn btn-primary"
+         (click)="searchContact()"
+         value="Send"
+         [disabled] = "messageInput === ''"
+  >
+  </span>
+    </div>
+
+
+  </form>
+
+</div>
+
+<p *ngFor="let result of results">{{result}}</p>

@@ -71,8 +71,8 @@ router.get('/validate', (req, res, next) => {
 });
 
 // Search Contacts
-router.get('/search',/*passport.authenticate('jwt', {session:false}),*/(req,res,next) => {
-    const contact = req.query.contact;
+router.get('/search'/*,passport.authenticate('jwt', {session:false})*/,(req,res,next) => {
+    const contact = req.get('username');
     User.find({"username" : {$regex : ".*"+contact+".*"}},(err,contacts) => {
        if (err) return handleError(err);
        if (contacts != null) {
@@ -89,7 +89,7 @@ router.get('/search',/*passport.authenticate('jwt', {session:false}),*/(req,res,
 });
 
 // Add Contact
-router.get('/addcontact', passport.authenticate('jwt', {session:false}), (req, res, next) => {
+router.post('/addcontact', passport.authenticate('jwt', {session:false}), (req, res, next) => {
     
     const username = req.username;
     const contact = req.contact;

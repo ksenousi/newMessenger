@@ -39,6 +39,20 @@ export class AuthService {
       .map(res => res.json());
   }
 
+  searchUsers(searchCriteria:string){
+    let headers = new Headers();
+    this.loadToken();
+    headers.append('Authorization', this.authToken);
+    headers.append('Content-Type','application/json');
+    headers.append('username', searchCriteria);
+    console.log(headers);
+    let ep = this.prepEndpoint('users/search');
+    var results = this.http.get(ep,{headers: headers})
+      .map(res => res.json());
+    return results;
+    
+  }
+
   storeUserData(token, user){
     localStorage.setItem('id_token', token);
     localStorage.setItem('user', JSON.stringify(user));

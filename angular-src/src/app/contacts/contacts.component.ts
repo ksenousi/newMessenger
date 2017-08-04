@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthService} from '../services/auth.service';
 
 @Component({
   selector: 'app-contacts',
@@ -7,15 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContactsComponent implements OnInit {
 
-  searchCriteria: String;
+  searchCriteria: string;
+  results = [];
 
-  constructor() { }
+  constructor(private authService: AuthService) {}
 
   ngOnInit() {
   }
 
-  onSubmit(){
-    
+  searchContact(){
+    this.results = [];
+    this.authService.searchUsers(this.searchCriteria).subscribe( users => {
+      for(var i=0;i< users.length;i++){
+        this.results.push(users[i].username);
+      }
+    });
   }
 
 }
