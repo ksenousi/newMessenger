@@ -33,4 +33,15 @@ export class ContactsComponent implements OnInit {
     });
   }
 
+  addContact(contact: string){
+    this.authService.addContact({'contact':contact}).subscribe( status=> {
+      if(status.success == 1){
+         this.flashMessage.show('Contact has been added', {cssClass: 'alert-success', timeout: 3000});
+
+      } else {
+         this.flashMessage.show('Failed to add contact', {cssClass: 'alert-danger', timeout: 3000});
+      }
+    })
+  }
+
 }

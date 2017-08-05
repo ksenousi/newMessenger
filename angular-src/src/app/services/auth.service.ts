@@ -45,12 +45,20 @@ export class AuthService {
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type','application/json');
     headers.append('username', searchCriteria);
-    console.log(headers);
     let ep = this.prepEndpoint('users/search');
     var results = this.http.get(ep,{headers: headers})
       .map(res => res.json());
     return results;
-    
+  }
+
+  addContact(contact){
+    let headers = new Headers();
+    this.loadToken();
+    headers.append('Authorization', this.authToken);
+    headers.append('Content-Type','application/json');
+    let ep = this.prepEndpoint('users/addcontact');
+    return this.http.post(ep,contact,{headers: headers})
+      .map(res => res.json());
   }
 
   storeUserData(token, user){

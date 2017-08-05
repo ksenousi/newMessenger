@@ -91,12 +91,27 @@ router.get('/search',passport.authenticate('jwt', {session:false}),(req,res,next
 // Add Contact
 router.post('/addcontact', passport.authenticate('jwt', {session:false}), (req, res, next) => {
     
-    const username = req.username;
-    const contact = req.contact;
-    const user = User.getUserByUsername(contact);
+    const username = req.user.username;
+    const contact = req.body.contact;
 
-    User.update({'username':contact},{'$push':{'contacts':contact}});
+     User.findOne({'username':req.user.username},(err, user) => {
+        console.log(user);
+    });
 
+    User.update({'username':username},{'$push':{'contacts':contact}},(err,any) => {
+        if(err){
+            throw err;
+            res.json({'success':0});
+        } else {
+            res.json({'success':1});
+        }
+    });
+
+    User.findOne({'username':req.user.username},(err, user) => {
+        console.log(user);
+    });
+
+    
 
 });
 

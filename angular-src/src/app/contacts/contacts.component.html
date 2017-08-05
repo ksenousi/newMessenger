@@ -26,7 +26,7 @@
 <table>
   <tr *ngFor="let result of results">
     <td style="padding-right:5%"> <p>{{result}}</p> </td>
-    <td><button class="btn btn-success">Add to Contacts</button></td>
+    <td><button (click)="addContact(result)" class="btn btn-success">Add to Contacts</button></td>
   </tr>
 
 </table>
