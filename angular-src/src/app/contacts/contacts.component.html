@@ -23,4 +23,10 @@
 
 </div>
 
-<p *ngFor="let result of results">{{result}}</p>
+<table>
+  <tr *ngFor="let result of results">
+    <td style="padding-right:5%"> <p>{{result}}</p> </td>
+    <td><button class="btn btn-success">Add to Contacts</button></td>
+  </tr>
+
+</table>
