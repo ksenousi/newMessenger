@@ -71,18 +71,18 @@ router.get('/validate', (req, res, next) => {
 });
 
 // Search Contacts
-router.get('/search'/*,passport.authenticate('jwt', {session:false})*/,(req,res,next) => {
+router.get('/search',passport.authenticate('jwt', {session:false}),(req,res,next) => {
     const contact = req.get('username');
     User.find({"username" : {$regex : ".*"+contact+".*"}},(err,contacts) => {
        if (err) return handleError(err);
-       if (contacts != null) {
+       if (contacts != null && contacts != '') {
            var results = [];
            for(var i=0;i<contacts.length;i++){
                results.push({'username': contacts[i].username});
            }
            res.json(results);
        } else {
-           res.send("not found");
+           res.send({'error': 404});
        }
     });
 
