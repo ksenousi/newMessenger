@@ -13,7 +13,7 @@ const ChatSchema = mongoose.Schema({
   },
   messages: [{
     content: String,
-    sender: String,
+    outgoing: Boolean,
     timeSent: String,
     timeReceived: String,
     timeSeen: String
