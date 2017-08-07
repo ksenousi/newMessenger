@@ -2,5 +2,6 @@
   <h3>chat list</h3>
   <app-chat-item
     *ngFor="let chatItem of chats"
+    [chatName]="chatItem"
   ></app-chat-item>
 </div>
