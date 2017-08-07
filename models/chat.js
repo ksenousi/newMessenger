@@ -5,7 +5,7 @@ const UserSchema = require('./user');
 
 // chat schema
 const ChatSchema = mongoose.Schema({
-  user: {
+  username: {
     type: String,
   },
   recipient: {
