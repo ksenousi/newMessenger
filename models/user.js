@@ -22,10 +22,6 @@ const UserSchema = mongoose.Schema({
   contacts: {
    type: [String],
   },
-  chats: {
-   type:[mongoose.Schema.Types.ObjectId],
-   ref: 'Chat' 
-  }
 });
 
 const User = module.exports = mongoose.model('User', UserSchema);

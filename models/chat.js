@@ -5,14 +5,19 @@ const UserSchema = require('./user');
 
 // chat schema
 const ChatSchema = mongoose.Schema({
-  recipient: {
-   type:[mongoose.Schema.Types.ObjectId],
-   ref: 'User' 
+  user: {
+    type: String,
   },
-  messages: {
-   type:[mongoose.Schema.Types.ObjectId],
-   ref: 'Message' 
-  }
+  recipient: {
+   type: String,
+  },
+  messages: [{
+    content: String,
+    sender: String,
+    timeSent: String,
+    timeReceived: String,
+    timeSeen: String
+  }]
     
 });
 
