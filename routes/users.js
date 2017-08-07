@@ -4,6 +4,7 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const config = require('../config/database');
 const User = require('../models/user');
+const Chat = require('../models/chat');
 
 // Register
 router.post('/register', (req, res, next) => {
@@ -114,5 +115,21 @@ router.post('/addcontact', passport.authenticate('jwt', {session:false}), (req, 
     
 
 });
+
+// Get Chats
+router.get('/getchat', passport.authenticate('jwt', {session:false}), (req,res,next) => {
+
+    const username = req.user.username;
+    const recipient =  req.get('recipient');
+
+    Chat.findOne({'username': username, 'recipient': recipient},(err, chat) => {
+        if(err) {
+            throw err;
+        }
+       res.json(chat);
+    });
+
+});
+
 
 module.exports = router;
