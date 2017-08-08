@@ -39,6 +39,17 @@ export class AuthService {
       .map(res => res.json());
   }
 
+  getChat(recipient){
+    let headers = new Headers();
+    this.loadToken();
+    headers.append('Authorization', this.authToken);
+    headers.append('Content-Type','application/json');
+    headers.append('recipient',recipient);
+    let ep = this.prepEndpoint('users/chat');
+    return this.http.get(ep,{headers: headers})
+      .map(res => res.json());
+  }
+  
   searchUsers(searchCriteria:string){
     let headers = new Headers();
     this.loadToken();
