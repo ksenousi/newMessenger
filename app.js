@@ -5,6 +5,7 @@ const cors = require('cors');
 const passport = require('passport');
 const mongoose = require('mongoose');
 const config = require('./config/database');
+var io = require('socket.io')(http);
 
 // Connect to database
 mongoose.connect(config.database, {
