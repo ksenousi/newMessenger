@@ -5,6 +5,9 @@ const UserSchema = require('./user');
 
 // chat schema
 const ChatSchema = mongoose.Schema({
+  chatname: {
+    type: String
+  },
   username: {
     type: String,
   },
@@ -21,5 +24,16 @@ const ChatSchema = mongoose.Schema({
     
 });
 
-const User = module.exports = mongoose.model('Chat', ChatSchema);
+const Chat = module.exports = mongoose.model('Chat', ChatSchema);
+
+module.exports.getChatByName = function(username, chatname, callback) {
+
+   Chat.findOne({'username': username, 'chatname': chatname},callback);
+}
+
+module.exports.addMessage = function(user, chatname, message, callback) {
+
+  Chat.update({'username': username, 'chatname': chatname},{'$push':{'messages':message}},callback);
+}
+
 
