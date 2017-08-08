@@ -22,9 +22,8 @@ export class ChatRoomComponent implements OnInit, OnChanges {
   }
 
 ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
     this.authService.getChat(this.chatname).subscribe( chat => {
-      this.messages = chat;
+      this.messages = chat.messages;
     });
 
   }
