@@ -1,4 +1,4 @@
-import { Component,Input, OnInit } from '@angular/core';
+import { Component,Input, Output, EventEmitter, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-chat-item',
@@ -8,6 +8,7 @@ import { Component,Input, OnInit } from '@angular/core';
 export class ChatItemComponent implements OnInit {
 
   @Input() chatName: string
+  @Output('chatSelected') chatSelected = new EventEmitter<string>();
 
   constructor() { }
 
@@ -16,6 +17,7 @@ export class ChatItemComponent implements OnInit {
 
   onChatSelected(){
     console.log(this.chatName +"selected");
+    this.chatSelected.emit(this.chatName);
   }
 
 }

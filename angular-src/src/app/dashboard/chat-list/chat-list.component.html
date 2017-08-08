@@ -3,5 +3,6 @@
   <app-chat-item
     *ngFor="let chatItem of chats"
     [chatName]="chatItem"
+    (chatSelected)="onChatSelected($event)"
   ></app-chat-item>
 </div>

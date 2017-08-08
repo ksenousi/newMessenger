@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 
 @Component({
@@ -7,6 +7,9 @@ import {AuthService} from '../../services/auth.service';
   styleUrls: ['./chat-list.component.css']
 })
 export class ChatListComponent implements OnInit {
+  
+  @Output('chatSelected') chatSelected = new EventEmitter<string>();
+
   chats = [1, 1, 1];
   
   constructor(private authService: AuthService) {
@@ -25,4 +28,7 @@ export class ChatListComponent implements OnInit {
   ngOnInit() {
   }
 
+  onChatSelected(chatname: string) {
+    this.chatSelected.emit(chatname);
+  }
 }

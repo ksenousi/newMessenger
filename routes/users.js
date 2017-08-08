@@ -112,8 +112,6 @@ router.post('/addcontact', passport.authenticate('jwt', {session:false}), (req, 
         console.log(user);
     });
 
-    
-
 });
 
 // Get Chats
