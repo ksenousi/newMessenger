@@ -108,6 +108,8 @@ router.post('/addcontact', passport.authenticate('jwt', {session:false}), (req, 
         }
     });
 
+    new Chat({'chatname': contact}).save();
+
     User.findOne({'username':req.user.username},(err, user) => {
         console.log(user);
     });
@@ -120,7 +122,7 @@ router.get('/getchat', passport.authenticate('jwt', {session:false}), (req,res,n
     const username = req.user.username;
     const recipient =  req.get('recipient');
 
-    Chat.findOne({'username': username, 'recipient': recipient},(err, chat) => {
+    Chat.getChatByRecipient(username, recipient, (err, chat) => {
         if(err) {
             throw err;
         }
