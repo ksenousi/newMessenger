@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const mongoose = require('mongoose');
 const config = require('./config/database');
@@ -59,8 +60,23 @@ app.listen(port, ()=> {
 
 var clients = [];
 
+ioServer.use(function(socket, next){
+  if (socket.handshake.query && socket.handshake.query.token){
+    let token = socket.handshake.query.token.replace(/^JWT\s/, '');
+    jwt.verify(token, config.secret, function(err, decoded) {
+      if(err) return next(new Error('Authentication error'));
+      socket.decoded = decoded;
+      console.log('decode: '+JSON.stringify(decoded,null,2));
+      next();
+    });
+  }
+  next(new Error('Authentication error'));
+});
+
+
 ioServer.on('connection', socket => {
   console.info('New client connected (id=' + socket.id + ').');
+  console.info('New client connected (username=' + socket.decoded._doc.username + ').');
   clients.push(socket);
 
   socket.on('disconnect', () => {
@@ -69,5 +85,7 @@ ioServer.on('connection', socket => {
       clients.splice(index,1);
       console.info('Client gone (id=' + socket.id + ').');
     }
-  })
-})
+  });
+
+});
+
