@@ -5,7 +5,9 @@ const cors = require('cors');
 const passport = require('passport');
 const mongoose = require('mongoose');
 const config = require('./config/database');
-var io = require('socket.io')(http);
+var io = require('socket.io');
+var ioServer = io.listen(8000);
+
 
 // Connect to database
 mongoose.connect(config.database, {
@@ -54,3 +56,18 @@ app.get('/',(req,res) => {
 app.listen(port, ()=> {
   console.log('Server started on port ' + port);
 });
+
+var clients = [];
+
+ioServer.on('connection', socket => {
+  console.info('New client connected (id=' + socket.id + ').');
+  clients.push(socket);
+
+  socket.on('disconnect', () => {
+    var index = clients.indexOf(socket);
+    if(index != -1) {
+      clients.splice(index,1);
+      console.info('Client gone (id=' + socket.id + ').');
+    }
+  })
+})

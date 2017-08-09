@@ -120,9 +120,9 @@ router.post('/addcontact', passport.authenticate('jwt', {session:false}), (req, 
 router.get('/getchat', passport.authenticate('jwt', {session:false}), (req,res,next) => {
 
     const username = req.user.username;
-    const recipient =  req.get('recipient');
+    const recipient =  req.get('chatname');
 
-    Chat.getChatByRecipient(username, recipient, (err, chat) => {
+    Chat.getChatByName(username, chatname, (err, chat) => {
         if(err) {
             throw err;
         }

@@ -21,6 +21,7 @@ import { ContactsComponent } from './contacts/contacts.component';
 import {ValidateService} from './services/validate.service';
 import {FlashMessagesModule} from 'angular2-flash-messages';
 import {AuthService} from './services/auth.service';
+import {ChatService} from './services/chat.service';
 
 import { AuthGuard } from './guards/auth.guard';
 import { LoggedInGuard } from './guards/loggedIn.guard';
@@ -59,7 +60,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     FlashMessagesModule
   ],
-  providers: [ValidateService, AuthService, AuthGuard,LoggedInGuard],
+  providers: [ValidateService, AuthService, ChatService, AuthGuard,LoggedInGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
