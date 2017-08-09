@@ -27,9 +27,9 @@ export class ChatRoomComponent implements OnInit, OnChanges, OnDestroy {
   }
 
 ngOnChanges(changes: SimpleChanges): void {
-    this.authService.getChat(this.chatname).subscribe( chat => {
+   /* this.authService.getChat(this.chatname).subscribe( chat => {
       this.messages = chat.messages;
-    });
+    }); */
   }
 
 ngOnDestroy() {

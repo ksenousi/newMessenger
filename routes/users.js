@@ -116,7 +116,7 @@ router.post('/addcontact', passport.authenticate('jwt', {session:false}), (req, 
 
 });
 
-// Get Chats
+// Get Chat
 router.get('/getchat', passport.authenticate('jwt', {session:false}), (req,res,next) => {
 
     const username = req.user.username;
