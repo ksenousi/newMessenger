@@ -6,13 +6,16 @@ const UserSchema = require('./user');
 // chat schema
 const ChatSchema = mongoose.Schema({
   chatname: {
-    type: String
+    type: String,
+    require:true
   },
   username: {
     type: String,
+    require:true
   },
   recipient: {
    type: String,
+   require:true
   },
   messages: [{
     content: String,
@@ -29,6 +32,10 @@ const Chat = module.exports = mongoose.model('Chat', ChatSchema);
 module.exports.getChatByName = function(username, chatname, callback) {
 
    Chat.findOne({'username': username, 'chatname': chatname},callback);
+}
+
+module.exports.addChat = function(newChat,callback) {
+  newChat.save(callback);
 }
 
 module.exports.addMessage = function(user, chatname, message, callback) {
