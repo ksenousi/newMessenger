@@ -32,9 +32,8 @@ export class ContactsComponent implements OnInit {
         return;
       }
 
-      for(var i=0;i< users.length;i++){
-        this.results.push(users[i].username);
-      }
+      this.results = users.map(user => user.username);
+
     });
   }
 
