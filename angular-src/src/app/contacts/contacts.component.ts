@@ -12,10 +12,15 @@ export class ContactsComponent implements OnInit {
 
   searchCriteria: string;
   results = [];
+  contacts = [];
 
   constructor(private authService: AuthService, private flashMessage: FlashMessagesService) {}
 
   ngOnInit() {
+    this.authService.getProfile().subscribe( profile => {
+      this.contacts = profile.user.contacts;
+    });
+
   }
 
   searchContact(){
@@ -42,6 +47,10 @@ export class ContactsComponent implements OnInit {
          this.flashMessage.show('Failed to add contact', {cssClass: 'alert-danger', timeout: 3000});
       }
     })
+  }
+
+  isContact(contact: string) {
+    return this.contacts.indexOf(contact) > -1
   }
 
 }
