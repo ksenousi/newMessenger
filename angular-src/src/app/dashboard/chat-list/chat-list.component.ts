@@ -15,7 +15,7 @@ export class ChatListComponent implements OnInit {
   constructor(private authService: AuthService) {
 
     this.authService.getProfile().subscribe(profile => {
-      this.chats = profile.user.contacts;
+      this.chats = profile.user.chats;
       console.log(this.chats);
      },
      err => {
