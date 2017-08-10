@@ -58,7 +58,6 @@ app.listen(port, ()=> {
   console.log('Server started on port ' + port);
 });
 
-var clients = [];
 
 ioServer.use(function(socket, next){
   if (socket.handshake.query && socket.handshake.query.token){
@@ -66,24 +65,33 @@ ioServer.use(function(socket, next){
     jwt.verify(token, config.secret, function(err, decoded) {
       if(err) return next(new Error('Authentication error'));
       socket.decoded = decoded;
-      console.log('decode: '+JSON.stringify(decoded,null,2));
       next();
     });
   }
   next(new Error('Authentication error'));
 });
 
+var clients = [];
+
+function client (username, socket) {
+ this.username = username;
+ this.socket = socket;
+}
 
 ioServer.on('connection', socket => {
+  let username = socket.decoded._doc.username;
   console.info('New client connected (id=' + socket.id + ').');
-  console.info('New client connected (username=' + socket.decoded._doc.username + ').');
-  clients.push(socket);
+  console.info('New client connected (username=' + username+ ').');
+  clients.push(new client(username,socket));
+  console.log(clients.length);
 
   socket.on('disconnect', () => {
-    var index = clients.indexOf(socket);
+    var index = clients.findIndex(client => client.socket.id == socket.id);
     if(index != -1) {
-      clients.splice(index,1);
+      const toDelete = new Set([socket.id]);
+      clients = clients.filter(obj => !toDelete.has(obj.socket.id));
       console.info('Client gone (id=' + socket.id + ').');
+      console.log(clients.length);
     }
   });
 
