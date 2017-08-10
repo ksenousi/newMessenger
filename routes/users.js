@@ -91,7 +91,7 @@ router.get('/search',passport.authenticate('jwt', {session:false}),(req,res,next
 
 // Add Contact
 router.post('/addcontact', passport.authenticate('jwt', {session:false}), (req, res, next) => {
-    
+
     const username = req.user.username;
     const contact = req.body.contact;
 
@@ -99,7 +99,7 @@ router.post('/addcontact', passport.authenticate('jwt', {session:false}), (req, 
         console.log(user);
     });
 
-    User.update({'username':username},{'$push':{'contacts':contact}},(err,any) => {
+    User.update({'username':username},{'$addToSet':{'contacts':contact}},(err,any) => {
         if(err){
             throw err;
             res.json({'success':0});
@@ -108,14 +108,33 @@ router.post('/addcontact', passport.authenticate('jwt', {session:false}), (req, 
         }
     });
 
-    new Chat({'chatname': contact}).save();
+    new Chat({'chatname': contact,'username': username, 'recipient': contact}).save();
 
     User.findOne({'username':req.user.username},(err, user) => {
-        console.log(user);
+        console.log('newUser: '+user);
     });
+
+    Chat.findOne({'username': username}, (err, chat) => {
+        console.log('chats: ' + chat);
+    })
 
 });
 
+// delete contact
+router.post('/deletecontact', passport.authenticate('jwt', {session:false}), (req, res, next) => {
+    const username = req.user.username;
+    const contact = req.body.contact;
+
+    User.remove({'username':req.user.username}, err => {
+        if(err) throw err;
+    });
+
+    Chat.remove({'chatname':req.user.username}, err => {
+        if(err) throw err;
+    });
+
+
+});
 // Get Chat
 router.get('/getchat', passport.authenticate('jwt', {session:false}), (req,res,next) => {
 
@@ -131,5 +150,14 @@ router.get('/getchat', passport.authenticate('jwt', {session:false}), (req,res,n
 
 });
 
+// Add Chat
+router.post('/addchat', passport.authenticate('jwt', {session:false}), (req, res, next) => {
+    const newChat = req.body.newChat;
+    
+    Chat.addChat(newChat, (err,user) => {
+        if(err) throw err;
+    });
+
+});
 
 module.exports = router;
