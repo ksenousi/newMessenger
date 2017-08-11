@@ -10,30 +10,41 @@ import {ChatService} from '../../services/chat.service';
 export class ChatRoomComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input() chatname: string;
-  messages: any[] = [{message:'Hi',outgoing:false},{message:'Hello',outgoing:true}];
+  messages: any[];
   connection;
 
   constructor(private authService: AuthService, private chatService: ChatService) { }
 
    ngOnInit() {
-    this.connection = this.chatService.getMessages().subscribe(message => {
-      this.messages.push(message);
+    this.connection = this.chatService.getMessages().subscribe((incomingMessage:any) => {
+      console.log("message received"+JSON.stringify(incomingMessage));
+      var chatname = incomingMessage.chatname;
+      var message = incomingMessage.messageData;
+      console.log("chatname: "+chatname);
+      console.log("message:  "+message);
+      if(chatname == this.chatname){
+        this.messages.push(message);
+      }
     })
   }
 
-  onMessageEntered(messageData: {message: string, outgoing: boolean}) {
+  onMessageEntered(messageData) {
     this.messages.push(messageData);
     console.log('added to list' + messageData.message);
+    this.chatService.sendMessage({messageData, 'chatname' :this.chatname});
   }
 
-ngOnChanges(changes: SimpleChanges): void {
-   /* this.authService.getChat(this.chatname).subscribe( chat => {
-      this.messages = chat.messages;
-    }); */
+  ngOnChanges(changes: SimpleChanges): void {
+      console.log("chatname: "+this.chatname);
+      if(typeof this.chatname != 'undefined'){
+        this.authService.getChat(this.chatname).subscribe( chat => {
+        this.messages = chat.messages;
+        }); 
+      }
   }
 
-ngOnDestroy() {
-  this.connection.unsubscribe();
-}
+  ngOnDestroy() {
+    this.connection.unsubscribe();
+  }
 
 }

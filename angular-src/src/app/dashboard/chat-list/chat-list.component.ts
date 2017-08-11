@@ -10,12 +10,12 @@ export class ChatListComponent implements OnInit {
   
   @Output('chatSelected') chatSelected = new EventEmitter<string>();
 
-  chats = [1, 1, 1];
+  chats: string[];
   
   constructor(private authService: AuthService) {
 
     this.authService.getProfile().subscribe(profile => {
-      this.chats = profile.user.chats;
+      this.chats = profile.user.contacts;
       console.log(this.chats);
      },
      err => {

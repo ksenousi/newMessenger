@@ -15,11 +15,13 @@ export class ChatService {
   getMessages() {
     this.loadToken();
     let observable = new Observable(observer => {
+
       this.socket = io(this.url, {
         query: {
           token: this.authToken
         }
       });
+
       this.socket.on('message', (data) => {
         observer.next(data);    
       });

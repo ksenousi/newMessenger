@@ -38,7 +38,7 @@ module.exports.addChat = function(newChat,callback) {
   newChat.save(callback);
 }
 
-module.exports.addMessage = function(user, chatname, message, callback) {
+module.exports.addMessage = function(username, chatname, message, callback) {
 
   Chat.update({'username': username, 'chatname': chatname},{'$push':{'messages':message}},callback);
 }

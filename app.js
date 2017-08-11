@@ -6,8 +6,9 @@ const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const mongoose = require('mongoose');
 const config = require('./config/database');
-var io = require('socket.io');
-var ioServer = io.listen(8000);
+const io = require('socket.io');
+const ioServer = io.listen(8000);
+const Chat = require('./models/chat');
 
 
 // Connect to database
@@ -84,6 +85,35 @@ ioServer.on('connection', socket => {
   console.info('New client connected (username=' + username+ ').');
   clients.push(new client(username,socket));
   console.log(clients.length);
+
+  socket.on('add-message', incomingMessage => {
+    var chatname = incomingMessage.chatname;
+    var message = incomingMessage.messageData;
+    //delete message.chatname;
+    // add message for both parties
+    console.log("incomingmessage: "+JSON.stringify(incomingMessage));
+    console.log("message: "+JSON.stringify(message));
+    console.log("chatname: "+chatname);
+    
+    Chat.addMessage(username, chatname, message, err => {
+      if(err) throw err;
+    });
+
+    message.outgoing = false;
+    Chat.addMessage(chatname, username, message, err => {
+      if(err) throw err;
+    });
+
+    //if recipient is online
+    var index = clients.findIndex(client => client.username === chatname);
+    console.log("index: "+index);
+    if(index > -1){
+      console.log("sent");
+      incomingMessage.chatname = username;
+      clients[index].socket.emit("message",incomingMessage);
+    }
+      
+  });
 
   socket.on('disconnect', () => {
     var index = clients.findIndex(client => client.socket.id == socket.id);
