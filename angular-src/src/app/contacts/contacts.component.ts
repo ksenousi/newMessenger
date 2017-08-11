@@ -10,6 +10,8 @@ import {FlashMessagesService} from 'angular2-flash-messages';
 })
 export class ContactsComponent implements OnInit {
 
+  username: string;
+
   searchCriteria: string;
   results = [];
   contacts = [];
@@ -19,6 +21,7 @@ export class ContactsComponent implements OnInit {
   ngOnInit() {
     this.authService.getProfile().subscribe( profile => {
       this.contacts = profile.user.contacts;
+      this.username = profile.user.username;
     });
 
   }
@@ -32,7 +35,7 @@ export class ContactsComponent implements OnInit {
         return;
       }
 
-      this.results = users.map(user => user.username);
+      this.results = users.map(user => user.username).filter(result => result != this.username );
 
     });
   }
@@ -45,11 +48,23 @@ export class ContactsComponent implements OnInit {
       } else {
          this.flashMessage.show('Failed to add contact', {cssClass: 'alert-danger', timeout: 3000});
       }
-    })
+    });
+  }
+
+  removeContact(contact: string) {
+    this.authService.removeContact({'contact':contact}).subscribe( status=> {
+      if(status.success == 1){
+         this.flashMessage.show('Contact has been removed', {cssClass: 'alert-success', timeout: 3000});
+
+      } else {
+         this.flashMessage.show('Failed to remove contact', {cssClass: 'alert-danger', timeout: 3000});
+      }
+    });
   }
 
   isContact(contact: string) {
-    return this.contacts.indexOf(contact) > -1
+    console.log("iscontact" + (this.contacts.indexOf(contact) > -1));
+    return this.contacts.indexOf(contact) > -1;
   }
 
 }
