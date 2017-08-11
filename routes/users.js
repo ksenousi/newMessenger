@@ -120,13 +120,18 @@ router.post('/addcontact', passport.authenticate('jwt', {session:false}), (req, 
 
 });
 
-// delete contact
-router.post('/deletecontact', passport.authenticate('jwt', {session:false}), (req, res, next) => {
+// remove contact
+router.post('/removecontact', passport.authenticate('jwt', {session:false}), (req, res, next) => {
     const username = req.user.username;
     const contact = req.body.contact;
 
     User.remove({'username':req.user.username}, err => {
-        if(err) throw err;
+        if(err) { 
+            throw err;
+            res.json({'success':0});
+        } else {
+            res.json({'success':1});
+        }
     });
 
     Chat.remove({'chatname':req.user.username}, err => {
@@ -139,7 +144,7 @@ router.post('/deletecontact', passport.authenticate('jwt', {session:false}), (re
 router.get('/getchat', passport.authenticate('jwt', {session:false}), (req,res,next) => {
 
     const username = req.user.username;
-    const recipient =  req.get('chatname');
+    const chatname =  req.get('chatname');
 
     Chat.getChatByName(username, chatname, (err, chat) => {
         if(err) {
