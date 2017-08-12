@@ -6,10 +6,14 @@ const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const mongoose = require('mongoose');
 const config = require('./config/database');
-const io = require('socket.io');
-const ioServer = io.listen(8000);
 const Chat = require('./models/chat');
+const app = express();
+var server = require('http').createServer(app);  
+const io = require('socket.io')(server);
+const users = require('./routes/users');
 
+// Port Number
+const port = process.env.PORT || 8080;
 
 // Connect to database
 mongoose.connect(config.database, {
@@ -27,12 +31,6 @@ mongoose.connection.on('error', (err) => {
 });
 
 
-const app = express();
-
-const users = require('./routes/users');
-
-// Port Number
-const port = 3000;
 
 // CORS Middleware
 app.use(cors());
@@ -55,12 +53,12 @@ app.get('/',(req,res) => {
   res.send('Invalid Endpoint');
 });
 
-app.listen(port, ()=> {
+server.listen(port, ()=> {
   console.log('Server started on port ' + port);
 });
 
 
-ioServer.use(function(socket, next){
+io.use(function(socket, next){
   if (socket.handshake.query && socket.handshake.query.token){
     let token = socket.handshake.query.token.replace(/^JWT\s/, '');
     jwt.verify(token, config.secret, function(err, decoded) {
@@ -79,7 +77,7 @@ function client (username, socket) {
  this.socket = socket;
 }
 
-ioServer.on('connection', socket => {
+io.on('connection', socket => {
   let username = socket.decoded._doc.username;
   console.info('New client connected (id=' + socket.id + ').');
   console.info('New client connected (username=' + username+ ').');

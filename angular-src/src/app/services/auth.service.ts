@@ -10,7 +10,7 @@ export class AuthService {
   isDev:boolean;
 
   constructor(private http:Http) {
-    this.isDev = false; // Change to false before deployment
+    this.isDev = true; // Change to false before deployment
   }
 
   registerUser(user){
@@ -109,6 +109,7 @@ export class AuthService {
       return ep;
     } else {
       return 'http://localhost:3000/'+ep;
+      //return 'http://192.168.1.104:3000/'+ep;
     }
   }
 }
