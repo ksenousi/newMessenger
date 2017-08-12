@@ -49,6 +49,7 @@ export class ContactsComponent implements OnInit {
          this.flashMessage.show('Failed to add contact', {cssClass: 'alert-danger', timeout: 3000});
       }
     });
+    this.results = [];
   }
 
   removeContact(contact: string) {
@@ -60,6 +61,7 @@ export class ContactsComponent implements OnInit {
          this.flashMessage.show('Failed to remove contact', {cssClass: 'alert-danger', timeout: 3000});
       }
     });
+    this.results = [];
   }
 
   isContact(contact: string) {
