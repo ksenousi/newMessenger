@@ -10,7 +10,6 @@ import { ChatRoomComponent } from './dashboard/chat-room/chat-room.component';
 import { ChatBarComponent } from './dashboard/chat-room/chat-bar/chat-bar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MessageComponent } from './dashboard/chat-room/message/message.component';
-import { ChatItemComponent } from './dashboard/chat-list/chat-item/chat-item.component';
 import { HomeComponent } from './home/home.component';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
@@ -46,7 +45,6 @@ const appRoutes: Routes = [
     ChatBarComponent,
     DashboardComponent,
     MessageComponent,
-    ChatItemComponent,
     HomeComponent,
     LoginComponent,
     RegisterComponent,
