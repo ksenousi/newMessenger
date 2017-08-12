@@ -227,6 +227,7 @@ var ContactsComponent = (function () {
                 _this.flashMessage.show('Failed to add contact', { cssClass: 'alert-danger', timeout: 3000 });
             }
         });
+        this.results = [];
     };
     ContactsComponent.prototype.removeContact = function (contact) {
         var _this = this;
@@ -238,6 +239,7 @@ var ContactsComponent = (function () {
                 _this.flashMessage.show('Failed to remove contact', { cssClass: 'alert-danger', timeout: 3000 });
             }
         });
+        this.results = [];
     };
     ContactsComponent.prototype.isContact = function (contact) {
         console.log("iscontact" + (this.contacts.indexOf(contact) > -1));
@@ -446,11 +448,13 @@ var ChatRoomComponent = (function () {
             console.log("message:  " + message);
             if (chatname == _this.chatname) {
                 _this.messages.push(message);
+                _this.scrollToBottom();
             }
         });
     };
     ChatRoomComponent.prototype.onMessageEntered = function (messageData) {
         this.messages.push(messageData);
+        this.scrollToBottom();
         console.log('added to list' + messageData.message);
         this.chatService.sendMessage({ messageData: messageData, 'chatname': this.chatname });
     };
@@ -460,8 +464,15 @@ var ChatRoomComponent = (function () {
         if (typeof this.chatname != 'undefined') {
             this.authService.getChat(this.chatname).subscribe(function (chat) {
                 _this.messages = chat.messages;
+                _this.scrollToBottom();
             });
         }
+    };
+    ChatRoomComponent.prototype.scrollToBottom = function () {
+        try {
+            this.messageScroller.nativeElement.scrollTop = this.messageScroller.nativeElement.scrollHeight;
+        }
+        catch (err) { }
     };
     ChatRoomComponent.prototype.ngOnDestroy = function () {
         this.connection.unsubscribe();
@@ -472,16 +483,20 @@ __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
     __metadata("design:type", String)
 ], ChatRoomComponent.prototype, "chatname", void 0);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('messageScroll'),
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"]) === "function" && _a || Object)
+], ChatRoomComponent.prototype, "messageScroller", void 0);
 ChatRoomComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'app-chat-room',
         template: __webpack_require__(223),
         styles: [__webpack_require__(204)]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__services_chat_service__["a" /* ChatService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_chat_service__["a" /* ChatService */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__services_chat_service__["a" /* ChatService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_chat_service__["a" /* ChatService */]) === "function" && _c || Object])
 ], ChatRoomComponent);
 
-var _a, _b;
+var _a, _b, _c;
 //# sourceMappingURL=chat-room.component.js.map
 
 /***/ }),
