@@ -1,4 +1,4 @@
-import { Component, OnInit,OnChanges, OnDestroy, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, OnDestroy, Input, SimpleChanges, ElementRef, ViewChild } from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {ChatService} from '../../services/chat.service';
 
@@ -10,6 +10,7 @@ import {ChatService} from '../../services/chat.service';
 export class ChatRoomComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input() chatname: string;
+  @ViewChild('messageScroll') private messageScroller: ElementRef;
   messages: any[];
   connection;
 
@@ -24,12 +25,14 @@ export class ChatRoomComponent implements OnInit, OnChanges, OnDestroy {
       console.log("message:  "+message);
       if(chatname == this.chatname){
         this.messages.push(message);
+        this.scrollToBottom();
       }
     })
   }
 
   onMessageEntered(messageData) {
     this.messages.push(messageData);
+    this.scrollToBottom();
     console.log('added to list' + messageData.message);
     this.chatService.sendMessage({messageData, 'chatname' :this.chatname});
   }
@@ -39,9 +42,16 @@ export class ChatRoomComponent implements OnInit, OnChanges, OnDestroy {
       if(typeof this.chatname != 'undefined'){
         this.authService.getChat(this.chatname).subscribe( chat => {
         this.messages = chat.messages;
+        this.scrollToBottom();
         }); 
       }
   }
+
+  scrollToBottom(): void {
+    try {
+        this.messageScroller.nativeElement.scrollTop = this.messageScroller.nativeElement.scrollHeight;
+    } catch(err) { }                 
+}
 
   ngOnDestroy() {
     this.connection.unsubscribe();
