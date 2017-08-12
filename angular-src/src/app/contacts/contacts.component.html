@@ -31,14 +31,14 @@
     <td>
       <button 
         *ngIf="isContact(result); else notContactButton"
-        (click)="addContact(result)" 
+        (click)="removeContact(result)" 
         class="btn btn-danger"
       >Remove from Contacts
       </button>
 
       <ng-template #notContactButton>
        <button 
-        (click)="removeContact(result)" 
+        (click)="addContact(result)" 
         class="btn btn-success"
        >Add to Contacts
        </button>
