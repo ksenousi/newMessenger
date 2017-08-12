@@ -1,10 +1,11 @@
 <div id="chatlist">
   <h3>chat list</h3>
   <ul class="nav nav-pills nav-stacked">
-    <app-chat-item
+   <!-- <app-chat-item
       *ngFor="let chatItem of chats"
       [chatName]="chatItem"
       (chatSelected)="onChatSelected($event)"
-    ></app-chat-item>
+    ></app-chat-item> -->
+    <li *ngFor="let chatItem of chats"><a (click)="onChatSelected(chatItem)" style="cursor:pointer">{{chatItem}}</a></li>
   </ul>
 </div>

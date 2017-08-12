@@ -17,6 +17,7 @@ export class ChatRoomComponent implements OnInit, OnChanges, OnDestroy {
   constructor(private authService: AuthService, private chatService: ChatService) { }
 
    ngOnInit() {
+
     this.connection = this.chatService.getMessages().subscribe((incomingMessage:any) => {
       console.log("message received"+JSON.stringify(incomingMessage));
       var chatname = incomingMessage.chatname;
