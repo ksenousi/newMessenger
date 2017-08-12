@@ -53,6 +53,8 @@ app.get('/',(req,res) => {
   res.send('Invalid Endpoint');
 });
 
+app.get('*', routes.index);
+
 server.listen(port, ()=> {
   console.log('Server started on port ' + port);
 });
