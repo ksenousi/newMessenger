@@ -1,8 +1,10 @@
 <div id="chatlist">
   <h3>chat list</h3>
-  <app-chat-item
-    *ngFor="let chatItem of chats"
-    [chatName]="chatItem"
-    (chatSelected)="onChatSelected($event)"
-  ></app-chat-item>
+  <ul class="nav nav-pills nav-stacked">
+    <app-chat-item
+      *ngFor="let chatItem of chats"
+      [chatName]="chatItem"
+      (chatSelected)="onChatSelected($event)"
+    ></app-chat-item>
+  </ul>
 </div>

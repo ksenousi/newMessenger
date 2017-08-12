@@ -1227,14 +1227,14 @@ module.exports = "<h3>Contacts</h3>\n\n<div id=\"searchbar\">\n  <form ng-submit
 /***/ 220:
 /***/ (function(module, exports) {
 
-module.exports = "<p \n  (click)=\"onChatSelected()\"\n  style=\"padding:1%;font-size:12pt\"\n>\n  {{chatName}}\n</p>\n"
+module.exports = "<li \n  (click)=\"onChatSelected()\"\n  style=\"padding:1%;font-size:12pt\"\n>\n <a href=\"#\"> {{chatName}} </a>\n<li>\n"
 
 /***/ }),
 
 /***/ 221:
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"chatlist\">\n  <h3>chat list</h3>\n  <app-chat-item\n    *ngFor=\"let chatItem of chats\"\n    [chatName]=\"chatItem\"\n    (chatSelected)=\"onChatSelected($event)\"\n  ></app-chat-item>\n</div>\n"
+module.exports = "<div id=\"chatlist\">\n  <h3>chat list</h3>\n  <ul class=\"nav nav-pills nav-stacked\">\n    <app-chat-item\n      *ngFor=\"let chatItem of chats\"\n      [chatName]=\"chatItem\"\n      (chatSelected)=\"onChatSelected($event)\"\n    ></app-chat-item>\n  </ul>\n</div>"
 
 /***/ }),
 
