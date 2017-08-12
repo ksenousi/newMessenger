@@ -4,3 +4,11 @@
   border-radius: 23px;
   overflow: auto;
 }
+
+.badge {
+  background-color:#00b300;
+}
+
+a {
+  cursor: pointer;
+}
