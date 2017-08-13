@@ -8,7 +8,7 @@ import {ChatService} from '../../services/chat.service';
 })
 export class ChatRoomComponent implements OnInit, OnChanges{
 
-  @ViewChild('messageScroll') private messageScroller: ElementRef;
+  @ViewChild('messageScroller') private messageScroller: ElementRef;
   @Input() chatroomData:{ chatname: string, messages: any[]};
 
   constructor(private chatService: ChatService) { }
