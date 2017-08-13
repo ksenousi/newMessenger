@@ -1,8 +1,8 @@
 <div id="chatroom">
-<h2 style="margin-left:20px">{{chatname}}</h2>
+<h2 style="margin-left:20px">{{chatroomData.chatname}}</h2>
 
 <app-message
-  *ngFor="let message of messages "
+  *ngFor="let message of chatroomData.messages "
   [messageContent]="message"
 ></app-message>
 </div>

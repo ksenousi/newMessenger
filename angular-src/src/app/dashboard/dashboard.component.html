@@ -3,11 +3,12 @@
     <div class="col-md-2">
       <app-chat-list
         (chatSelected)="onChatSelected($event)"
+        [chatlistData]="chatlistData"
       ></app-chat-list>
     </div>
     <div class="col-md-10">
       <app-chat-room
-        [chatname]="chatname"
+        [chatroomData]="chatroomData"
       ></app-chat-room>
     </div>
   </div>

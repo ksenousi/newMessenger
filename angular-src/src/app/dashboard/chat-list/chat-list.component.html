@@ -1,10 +1,10 @@
 <div id="chatlist">
   <h3>chat list</h3>
   <ul class="nav nav-pills nav-stacked">
-    <li *ngFor="let chatItem of chats">
+    <li *ngFor="let chatItem of chatlistData">
       <a (click)="onChatSelected(chatItem)">
 
-        {{chatItem}} <span class="badge">1</span>
+        {{chatItem.chat}} <span *ngIf="chatItem.badge != 0" class="badge">{{chatItem.badge}}</span>
         
       </a>
     </li>
