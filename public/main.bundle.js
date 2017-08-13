@@ -400,7 +400,7 @@ var ChatRoomComponent = (function () {
     return ChatRoomComponent;
 }());
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('messageScroll'),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('messageScroller'),
     __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"]) === "function" && _a || Object)
 ], ChatRoomComponent.prototype, "messageScroller", void 0);
 __decorate([
@@ -1185,7 +1185,7 @@ module.exports = "<div id=\"chatbar\">\n  <form ng-submit=\"sendMessage()\">\n\n
 /***/ 220:
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"chatroom\">\n<h2 style=\"margin-left:20px\">{{chatroomData.chatname}}</h2>\n\n<app-message\n  *ngFor=\"let message of chatroomData.messages \"\n  [messageContent]=\"message\"\n></app-message>\n</div>\n<app-chat-bar\n  (messageEntered)=\"onMessageEntered($event)\"\n></app-chat-bar>\n"
+module.exports = "<div id=\"chatroom\" #messageScroller>\n<h2 style=\"margin-left:20px\">{{chatroomData.chatname}}</h2>\n\n<app-message\n  *ngFor=\"let message of chatroomData.messages \"\n  [messageContent]=\"message\"\n></app-message>\n</div>\n<app-chat-bar\n  (messageEntered)=\"onMessageEntered($event)\"\n></app-chat-bar>\n"
 
 /***/ }),
 
