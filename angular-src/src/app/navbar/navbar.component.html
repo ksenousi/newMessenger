@@ -4,12 +4,12 @@
       New Messenger
     </a>
     <ul class="nav navbar-nav navbar-right">
-      <li *ngIf="authService.loggedIn()"><a routerLink="/dashboard" href="#">Dashboard</a></li>
-      <li *ngIf="!authService.loggedIn()"><a routerLink="/login" href="#">Login</a></li>
-      <li *ngIf="!authService.loggedIn()"><a routerLink="/register" href="#">Register</a></li>
-      <li *ngIf="authService.loggedIn()"><a routerLink="/contacts" href="#">Contacts</a></li>
-      <li *ngIf="authService.loggedIn()"><a routerLink="/profile" href="#">Profile</a></li>
-      <li *ngIf="authService.loggedIn()"><a (click)="onLogout()" style="cursor:pointer">Log out</a></li>
+      <li *ngIf="authService.loggedIn()"  routerLinkActive="active"><a routerLink="/dashboard" href="#">Dashboard</a></li>
+      <li *ngIf="!authService.loggedIn()" routerLinkActive="active"><a routerLink="/login"    href="#">Login</a></li>
+      <li *ngIf="!authService.loggedIn()" routerLinkActive="active"><a routerLink="/register" href="#">Register</a></li>
+      <li *ngIf="authService.loggedIn()"  routerLinkActive="active"><a routerLink="/contacts" href="#">Contacts</a></li>
+      <li *ngIf="authService.loggedIn()"  routerLinkActive="active"><a routerLink="/profile" href="#">Profile</a></li>
+      <li *ngIf="authService.loggedIn()"  routerLinkActive="active"><a (click)="onLogout()" style="cursor:pointer">Log out</a></li>
 
     </ul>
  
