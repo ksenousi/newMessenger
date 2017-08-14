@@ -1,11 +1,17 @@
-<div id="chatroom" #messageScroller>
-<h2 style="margin-left:20px">{{chatroomData.chatname}}</h2>
-
-<app-message
-  *ngFor="let message of chatroomData.messages "
-  [messageContent]="message"
-></app-message>
+<div id="chatroom" >
+<div id="chatHeader">
+  <h2 >{{chatroomData.chatname}}</h2>
+  <hr>
 </div>
+
+<div id="chatBody" #messageScroller > 
+  <app-message 
+    *ngFor="let message of chatroomData.messages "
+    [messageContent]="message"
+  ></app-message>
+  </div>
+</div>
+
 <app-chat-bar
   (messageEntered)="onMessageEntered($event)"
 ></app-chat-bar>

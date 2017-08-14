@@ -27,13 +27,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
 
    this.connection = this.chatService.getMessages().subscribe((incomingMessage:any) => {
-      console.log("message received"+JSON.stringify(incomingMessage));
       var chatname = incomingMessage.chatname;
       var message = incomingMessage.messageData;
-      console.log("chatname: "+chatname);
-      console.log("message:  "+message);
       if(chatname == this.chatroomData.chatname){
         this.chatroomData.messages.push(message);
+        this.chatroomData = Object.assign({},this.chatroomData);
       } else {
         let index = this.chatlistData.findIndex(chatItem => chatItem.chat == chatname);
         this.chatlistData[index].badge +=1 ;
@@ -45,13 +43,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
   onChatSelected(chatItem) {
    this.chatroomData.chatname =  chatItem.chat;
    chatItem.badge = 0;
-   console.log("chatname: "+this.chatroomData.chatname);
 
       if(typeof this.chatroomData.chatname != 'undefined'){
         this.authService.getChat(this.chatroomData.chatname).subscribe( chat => {
         this.chatroomData.messages = chat.messages;
+        this.chatroomData = Object.assign({}, this.chatroomData);
         }); 
       }
+
   }
 
   ngOnDestroy() {

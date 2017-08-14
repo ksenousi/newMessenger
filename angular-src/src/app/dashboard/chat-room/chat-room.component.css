@@ -1,6 +1,21 @@
 #chatroom {
-  height:80vh;
-  overflow: auto;
   border: solid;
   border-radius: 23px;
+}
+
+#chatBody {
+  overflow: auto;
+  height: 60vh;
+}
+
+hr {
+  border: none;
+  height: 1px;
+  /* Set the hr color */
+  color: white; /* old IE */
+  background-color:white; /* Modern Browsers */
+}
+
+h2 {
+  margin-left:20px;
 }
