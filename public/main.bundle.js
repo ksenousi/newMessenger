@@ -236,7 +236,6 @@ var ContactsComponent = (function () {
                 _this.flashMessage.show('Failed to remove contact', { cssClass: 'alert-danger', timeout: 3000 });
             }
         });
-        this.results = [];
     };
     ContactsComponent.prototype.isContact = function (contact) {
         console.log("iscontact" + (this.contacts.indexOf(contact) > -1));
@@ -384,24 +383,26 @@ var ChatRoomComponent = (function () {
     ChatRoomComponent.prototype.onMessageEntered = function (messageData) {
         this.chatroomData.messages.push(messageData);
         this.scrollToBottom();
-        console.log('added to list' + messageData.message);
         this.chatService.sendMessage({ messageData: messageData, 'chatname': this.chatroomData.chatname });
     };
     ChatRoomComponent.prototype.ngOnChanges = function (changes) {
-        console.log("chatroom: " + JSON.stringify(this.chatroomData));
         this.scrollToBottom();
+        console.log('things changed');
     };
     ChatRoomComponent.prototype.scrollToBottom = function () {
-        try {
-            this.messageScroller.nativeElement.scrollTop = this.messageScroller.nativeElement.scrollHeight;
-        }
-        catch (err) { }
+        var _this = this;
+        setTimeout(function () {
+            try {
+                _this.messageScroller.nativeElement.scrollTop = _this.messageScroller.nativeElement.scrollHeight;
+            }
+            catch (err) { }
+        });
     };
     return ChatRoomComponent;
 }());
 __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('messageScroller'),
-    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"]) === "function" && _a || Object)
+    __metadata("design:type", Object)
 ], ChatRoomComponent.prototype, "messageScroller", void 0);
 __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
@@ -413,10 +414,10 @@ ChatRoomComponent = __decorate([
         template: __webpack_require__(220),
         styles: [__webpack_require__(202)]
     }),
-    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__services_chat_service__["a" /* ChatService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_chat_service__["a" /* ChatService */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_chat_service__["a" /* ChatService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_chat_service__["a" /* ChatService */]) === "function" && _a || Object])
 ], ChatRoomComponent);
 
-var _a, _b;
+var _a;
 //# sourceMappingURL=chat-room.component.js.map
 
 /***/ }),
@@ -498,13 +499,11 @@ var DashboardComponent = (function () {
             return false;
         });
         this.connection = this.chatService.getMessages().subscribe(function (incomingMessage) {
-            console.log("message received" + JSON.stringify(incomingMessage));
             var chatname = incomingMessage.chatname;
             var message = incomingMessage.messageData;
-            console.log("chatname: " + chatname);
-            console.log("message:  " + message);
             if (chatname == _this.chatroomData.chatname) {
                 _this.chatroomData.messages.push(message);
+                _this.chatroomData = Object.assign({}, _this.chatroomData);
             }
             else {
                 var index = _this.chatlistData.findIndex(function (chatItem) { return chatItem.chat == chatname; });
@@ -516,10 +515,10 @@ var DashboardComponent = (function () {
         var _this = this;
         this.chatroomData.chatname = chatItem.chat;
         chatItem.badge = 0;
-        console.log("chatname: " + this.chatroomData.chatname);
         if (typeof this.chatroomData.chatname != 'undefined') {
             this.authService.getChat(this.chatroomData.chatname).subscribe(function (chat) {
                 _this.chatroomData.messages = chat.messages;
+                _this.chatroomData = Object.assign({}, _this.chatroomData);
             });
         }
     };
@@ -964,7 +963,7 @@ exports = module.exports = __webpack_require__(6)(false);
 
 
 // module
-exports.push([module.i, ".btn {\n    float: right;\n    \n}\n\ntd {\n    padding-bottom: 3%;\n    \n}\n\ntable {\n    font-size: 12pt;\n    margin: 5%;\n    width:25%;\n}\n\n#searchbar {\n    width:50%;\n    margin-left: 2%;\n}\n\nh3{\n    margin-left: 3%;\n    margin-bottom: 1%;\n}\n", ""]);
+exports.push([module.i, ".btn {\n    float: right;\n    border-radius: 10px;\n    \n}\n\ninput {\n    border-radius: 10px;\n}\n\ntd {\n    padding-bottom: 7%;\n    \n}\n\ntable {\n    font-size: 12pt;\n    margin: 5%;\n    width:25%;\n}\n\n#searchbar {\n    width:50%;\n    margin-left: 2%;\n}\n\nh3{\n    margin-left: 3%;\n    margin-bottom: 1%;\n}\n", ""]);
 
 // exports
 
@@ -1000,7 +999,7 @@ exports = module.exports = __webpack_require__(6)(false);
 
 
 // module
-exports.push([module.i, "#chatbar {\n  padding-top: 10px;\n  padding-left: 20px;\n  padding-right: 20px;\n}\n\n.btn {\n  border-radius:10px;\n}\n\ninput {\n  border-radius:5px;\n}\n\n", ""]);
+exports.push([module.i, "#chatbar {\n  padding-top: 10px;\n  padding-left: 20px;\n  padding-right: 20px;\n  margin-bottom: 20px;\n}\n\n.btn {\n  border-radius:10px;\n}\n\ninput {\n  border-radius:5px;\n}\n\n", ""]);
 
 // exports
 
@@ -1018,7 +1017,7 @@ exports = module.exports = __webpack_require__(6)(false);
 
 
 // module
-exports.push([module.i, "#chatroom {\n  height:80vh;\n  overflow: auto;\n  border: solid;\n  border-radius: 23px;\n}\n", ""]);
+exports.push([module.i, "#chatroom {\n  border: solid;\n  border-radius: 23px;\n}\n\n#chatBody {\n  overflow: auto;\n  height: 60vh;\n}\n\nhr {\n  border: none;\n  height: 1px;\n  /* Set the hr color */\n  color: white; /* old IE */\n  background-color:white; /* Modern Browsers */\n}\n\nh2 {\n  margin-left:20px;\n}", ""]);
 
 // exports
 
@@ -1185,7 +1184,7 @@ module.exports = "<div id=\"chatbar\">\n  <form ng-submit=\"sendMessage()\">\n\n
 /***/ 220:
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"chatroom\" #messageScroller>\n<h2 style=\"margin-left:20px\">{{chatroomData.chatname}}</h2>\n\n<app-message\n  *ngFor=\"let message of chatroomData.messages \"\n  [messageContent]=\"message\"\n></app-message>\n</div>\n<app-chat-bar\n  (messageEntered)=\"onMessageEntered($event)\"\n></app-chat-bar>\n"
+module.exports = "<div id=\"chatroom\" >\n<div id=\"chatHeader\">\n  <h2 >{{chatroomData.chatname}}</h2>\n  <hr>\n</div>\n\n<div id=\"chatBody\" #messageScroller > \n  <app-message \n    *ngFor=\"let message of chatroomData.messages \"\n    [messageContent]=\"message\"\n  ></app-message>\n  </div>\n</div>\n\n<app-chat-bar\n  (messageEntered)=\"onMessageEntered($event)\"\n></app-chat-bar>\n"
 
 /***/ }),
 
