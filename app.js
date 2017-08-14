@@ -30,8 +30,6 @@ mongoose.connection.on('error', (err) => {
   console.log('Error : ' + err);
 });
 
-
-
 // CORS Middleware
 app.use(cors());
 
@@ -92,22 +90,21 @@ io.on('connection', socket => {
   socket.on('add-message', incomingMessage => {
     var chatname = incomingMessage.chatname;
     var message = incomingMessage.messageData;
-    //delete message.chatname;
-    // add message for both parties
-    console.log("incomingmessage: "+JSON.stringify(incomingMessage));
-    console.log("message: "+JSON.stringify(message));
-    console.log("chatname: "+chatname);
     
+    // add to db for the sending user
     Chat.addMessage(username, chatname, message, err => {
       if(err) throw err;
     });
 
+    // inverse direction for receiving user
     message.outgoing = false;
+
+    // add to db for receiving user
     Chat.addMessage(chatname, username, message, err => {
       if(err) throw err;
     });
 
-    //if recipient is online
+    //if recipient is online send the message
     var index = clients.findIndex(client => client.username === chatname);
     console.log("index: "+index);
     if(index > -1){
