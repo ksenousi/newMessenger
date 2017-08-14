@@ -10,15 +10,15 @@ import {AuthService} from '../services/auth.service';
 export class DashboardComponent implements OnInit, OnDestroy {
 
   chatroomData= { chatname: '', messages: [] };
-  chatlistData = [{ chat: '' , badge: 0}];
+  chatlistData = {chatlist:[{ chat: '' , badge: 0}], selectedChat: '' };
   connection: any;
 
   constructor(private authService: AuthService, private chatService:ChatService) { }
 
   ngOnInit() {
     this.authService.getProfile().subscribe(profile => {
-      this.chatlistData = profile.user.contacts.map( chatItem => {return {chat: chatItem, badge:0}});
-      this.onChatSelected(this.chatlistData[0]);
+      this.chatlistData.chatlist = profile.user.contacts.map( chatItem => {return {chat: chatItem, badge:0}});
+      this.onChatSelected(this.chatlistData.chatlist[0]);
     },
     err => {
       console.log(err);
@@ -33,14 +33,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.chatroomData.messages.push(message);
         this.chatroomData = Object.assign({},this.chatroomData);
       } else {
-        let index = this.chatlistData.findIndex(chatItem => chatItem.chat == chatname);
-        this.chatlistData[index].badge +=1 ;
+        let index = this.chatlistData.chatlist.findIndex(chatItem => chatItem.chat == chatname);
+        this.chatlistData.chatlist[index].badge +=1 ;
       }
     });
 
   }
 
   onChatSelected(chatItem) {
+   this.chatlistData.selectedChat = chatItem.chat;
    this.chatroomData.chatname =  chatItem.chat;
    chatItem.badge = 0;
 

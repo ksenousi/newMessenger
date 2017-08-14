@@ -1,8 +1,8 @@
 <div id="chatlist">
-  <h3>chat list</h3>
+  <h3> &nbsp; Chat List</h3>
   <ul class="nav nav-pills nav-stacked">
-    <li *ngFor="let chatItem of chatlistData">
-      <a (click)="onChatSelected(chatItem)">
+    <li *ngFor="let chatItem of chatlistData.chatlist" [ngClass]=" chatItem.chat == chatlistData.selectedChat  ? 'active' : ''" >
+      <a (click)="onChatSelected(chatItem)" >
 
         {{chatItem.chat}} <span *ngIf="chatItem.badge != 0" class="badge">{{chatItem.badge}}</span>
         
