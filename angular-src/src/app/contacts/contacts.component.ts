@@ -42,7 +42,7 @@ export class ContactsComponent implements OnInit {
 
   addContact(contact: string){
     this.authService.addContact({'contact':contact}).subscribe( status=> {
-      if(status.success == 1){
+      if(status.success == true){
          this.flashMessage.show('Contact has been added', {cssClass: 'alert-success', timeout: 3000});
 
       } else {
@@ -54,7 +54,7 @@ export class ContactsComponent implements OnInit {
 
   removeContact(contact: string) {
     this.authService.removeContact({'contact':contact}).subscribe( status=> {
-      if(status.success == 1){
+      if(status.success == true){
          this.flashMessage.show('Contact has been removed', {cssClass: 'alert-success', timeout: 3000});
 
       } else {
