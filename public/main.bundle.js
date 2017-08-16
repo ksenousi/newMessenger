@@ -964,7 +964,7 @@ exports = module.exports = __webpack_require__(6)(false);
 
 
 // module
-exports.push([module.i, ".btn {\n    float: right;\n    border-radius: 10px;\n    \n}\n\ninput {\n    border-radius: 10px;\n}\n\ntd {\n    padding-bottom: 7%;\n    \n}\n\ntable {\n    font-size: 12pt;\n    margin: 5%;\n    width:25%;\n}\n\n#searchbar {\n    width:50%;\n    margin-left: 2%;\n}\n\nh3{\n    margin-left: 3%;\n    margin-bottom: 1%;\n}\n", ""]);
+exports.push([module.i, ".btn {\n    float: right;\n    border-radius: 10px;\n    \n}\n\ninput {\n    border-radius: 10px;\n}\n\ntd {\n    padding-bottom: 7%;\n    padding: 20px;\n    \n}\n\ntable {\n    font-size: 12pt;\n}\n\n#searchbar {\n    width:70%;\n    margin-bottom:20px;\n}\n\n#searchContactsHeader{\n    margin-bottom: 10px;\n}\n", ""]);
 
 // exports
 
@@ -1090,7 +1090,7 @@ exports = module.exports = __webpack_require__(6)(false);
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, "input {\n    width:40%;\n    border-radius:10px;\n}\n\n.btn {\n    width:auto;\n}\n\nform {\n    margin-left: 2%;\n}\n\nh2 {\n    margin-left: 2%;\n}\n", ""]);
 
 // exports
 
@@ -1144,7 +1144,7 @@ exports = module.exports = __webpack_require__(6)(false);
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, "input {\n    width:40%;\n    border-radius:10px;\n}\n\n.btn {\n    width:auto;\n    \n}\n\nform {\n    margin-left: 2%;\n}\n\nh2 {\n    margin-left: 2%;\n}\n\n", ""]);
 
 // exports
 
@@ -1164,7 +1164,7 @@ module.exports = "<app-navbar></app-navbar>\n<flash-messages></flash-messages>\n
 /***/ 217:
 /***/ (function(module, exports) {
 
-module.exports = "<h3>Contacts</h3>\n\n<div id=\"searchbar\">\n  <form ng-submit=\"searchContact()\">\n\n    <div class=\"input-group\">\n      <input type=\"text\"\n             class=\"form-control\"\n             [(ngModel)]=\"searchCriteria\"\n              name=\"search-criteria\">\n      <span class=\"input-group-btn\">\n  <input type=\"submit\"\n         class=\"btn btn-primary\"\n         (click)=\"searchContact()\"\n         value=\"Send\"\n         [disabled] = \"messageInput === ''\"\n  >\n  </span>\n    </div>\n\n\n  </form>\n\n</div>\n\n<table>\n  <tr *ngFor=\"let result of results\">\n\n    <td style=\"padding-right:5%\"> <p>{{result}}</p> </td>\n\n    <td>\n      <button \n        *ngIf=\"isContact(result); else notContactButton\"\n        (click)=\"removeContact(result)\" \n        class=\"btn btn-danger\"\n      >Remove from Contacts\n      </button>\n\n      <ng-template #notContactButton>\n       <button \n        (click)=\"addContact(result)\" \n        class=\"btn btn-success\"\n       >Add to Contacts\n       </button>\n      </ng-template>\n\n    </td>\n\n  </tr>\n</table>\n"
+module.exports = "<div class=\"container-fluid\">\n  <div class=\"row\">\n    <div class=\"col-md-6\">\n      <h3 id=\"searchContactsHeader\">Search Contacts</h3>\n\n      <div id=\"searchbar\">\n        <form ng-submit=\"searchContact()\">\n\n          <div class=\"input-group\">\n            <input type=\"text\"\n                  class=\"form-control\"\n                  [(ngModel)]=\"searchCriteria\"\n                    name=\"search-criteria\">\n            <span class=\"input-group-btn\">\n        <input type=\"submit\"\n              class=\"btn btn-primary\"\n              (click)=\"searchContact()\"\n              value=\"Search\"\n              [disabled] = \"messageInput === ''\"\n        >\n        </span>\n          </div>\n\n\n        </form>\n\n      </div>\n\n      <table>\n        <tr *ngFor=\"let result of results\">\n\n          <td style=\"padding-right:10%\"> <p>{{result}}</p> </td>\n\n          <td>\n            <button \n              *ngIf=\"isContact(result); else notContactButton\"\n              (click)=\"removeContact(result)\" \n              class=\"btn btn-danger\"\n            >Remove from Contacts\n            </button>\n\n            <ng-template #notContactButton>\n            <button \n              (click)=\"addContact(result)\" \n              class=\"btn btn-success\"\n            >Add to Contacts\n            </button>\n            </ng-template>\n\n          </td>\n\n        </tr>\n      </table>\n    </div>\n    <div class=\"col-md-4\">\n      <h3>Contact requests</h3>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
