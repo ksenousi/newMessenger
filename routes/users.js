@@ -102,9 +102,9 @@ router.post('/addcontact', passport.authenticate('jwt', {session:false}), (req, 
     User.update({'username':username},{'$addToSet':{'contacts':contact}},(err,any) => {
         if(err){
             throw err;
-            res.json({'success':0});
+            res.json({'success':false});
         } else {
-            res.json({'success':1});
+            res.json({'success':true});
         }
     });
 
@@ -128,9 +128,9 @@ router.post('/removecontact', passport.authenticate('jwt', {session:false}), (re
     User.remove({'username':req.user.username}, err => {
         if(err) { 
             throw err;
-            res.json({'success':0});
+            res.json({'success':false});
         } else {
-            res.json({'success':1});
+            res.json({'success':true});
         }
     });
 
@@ -164,5 +164,9 @@ router.post('/addchat', passport.authenticate('jwt', {session:false}), (req, res
     });
 
 });
+
+//add contact request
+
+//get contact request
 
 module.exports = router;
