@@ -1,59 +1,10 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-6">
-      <h3 id="searchContactsHeader">Search Contacts</h3>
-
-      <div id="searchbar">
-        <form ng-submit="searchContact()">
-
-          <div class="input-group">
-            <input type="text"
-                  class="form-control"
-                  [(ngModel)]="searchCriteria"
-                    name="search-criteria">
-            <span class="input-group-btn">
-        <input type="submit"
-              class="btn btn-primary"
-              (click)="searchContact()"
-              value="Search"
-              [disabled] = "messageInput === ''"
-        >
-        </span>
-          </div>
-
-
-        </form>
-
-      </div>
-
-      <table>
-        <tr *ngFor="let result of results">
-
-          <td style="padding-right:10%"> <p>{{result}}</p> </td>
-
-          <td>
-            <button 
-              *ngIf="isContact(result); else notContactButton"
-              (click)="removeContact(result)" 
-              class="btn btn-danger"
-            >Remove from Contacts
-            </button>
-
-            <ng-template #notContactButton>
-            <button 
-              (click)="addContact(result)" 
-              class="btn btn-success"
-            >Add to Contacts
-            </button>
-            </ng-template>
-
-          </td>
-
-        </tr>
-      </table>
+      <app-search-contacts></app-search-contacts>
     </div>
     <div class="col-md-4">
-      <h3>Contact requests</h3>
+      <app-contact-requests></app-contact-requests>
     </div>
   </div>
 </div>
