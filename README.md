@@ -1,2 +1,3 @@
 make sure other person also added you as a contact
-fix contacts page
+check contacts search result if request has been sent
+create accepts/reject ui for contacts requests
