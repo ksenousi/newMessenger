@@ -53,7 +53,7 @@ app.get('/',(req,res) => {
 
 app.use(function(req, res) {
   // Use res.sendfile, as it streams instead of reading the file into memory.
-  res.sendfile(__dirname + '/public/index.html');
+  res.sendFile(__dirname + '/public/index.html');
 });
 
 server.listen(port, ()=> {
