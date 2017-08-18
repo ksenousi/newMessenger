@@ -19,8 +19,8 @@ const contactRequestSchema = mongoose.Schema({
 
 const ContactRequest = module.exports = mongoose.model('ContactRequest', contactRequestSchema);
 
-module.exports.addContactRequest = function(contactRequest) {
-  contactRequest.save();
+module.exports.addContactRequest = function(contactRequest, callback) {
+  contactRequest.save(callback);
 }
 
 module.exports.getContactRequests = function(username, callback) {
