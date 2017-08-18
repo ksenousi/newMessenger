@@ -3,6 +3,7 @@
   border: solid;
   border-radius: 23px;
   overflow: auto;
+  margin-bottom: 10px;
 }
 
 .badge {
@@ -15,4 +16,10 @@ a {
 
 .active a{
   background-color: rgb(78, 93, 108) !important;
+}
+
+@media (max-width: 767px) {
+  #chatlist {
+      height: 30vh;
+  } 
 }
