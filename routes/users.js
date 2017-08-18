@@ -75,13 +75,13 @@ router.get('/validate', (req, res, next) => {
 // Search Contacts
 router.get('/search', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     const contact = req.get('username');
+    const username = req.user.username;
     User.find({ "username": { $regex: ".*" + contact + ".*" } }, (err, contacts) => {
         if (err) return handleError(err);
         if (contacts != null && contacts != '') {
             var results = [];
-            for (var i = 0; i < contacts.length; i++) {
-                results.push({ 'username': contacts[i].username });
-            }
+            results = contacts.map(result => result.username).filter(result => result != username);
+
             res.json(results);
         } else {
             res.send({ 'error': 404 });
@@ -118,12 +118,12 @@ router.post('/addcontact', passport.authenticate('jwt', { session: false }), (re
     new Chat({ 'chatname': username, 'username': contact, 'recipient': username }).save();
 });
 
-// remove contact
+// remove contact for both
 router.post('/removecontact', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     const username = req.user.username;
     const contact = req.body.contact;
 
-    User.remove({ 'username': req.user.username }, err => {
+    User.update({ 'username': username }, { '$pull': { 'contacts': contact } }, (err, any) => {
         if (err) {
             throw err;
             res.json({ 'success': false });
@@ -132,12 +132,25 @@ router.post('/removecontact', passport.authenticate('jwt', { session: false }), 
         }
     });
 
-    Chat.remove({ 'chatname': req.user.username }, err => {
+    User.update({ 'username': contact }, { '$pull': { 'contacts': username } }, (err, any) => {
+        if (err) {
+            throw err;
+            res.json({ 'success': false });
+        } else {
+            res.json({ 'success': true });
+        }
+    });
+
+    Chat.remove({ 'username': username, 'chatname': contact }, err => {
         if (err) throw err;
     });
 
+    Chat.remove({ 'username': contact, 'chatname': username }, err => {
+        if (err) throw err;
+    });
 
 });
+
 // Get Chat
 router.get('/getchat', passport.authenticate('jwt', { session: false }), (req, res, next) => {
 
@@ -171,8 +184,10 @@ router.post('/addchat', passport.authenticate('jwt', { session: false }), (req, 
 //add contact request
 router.post('/addcontactrequest', passport.authenticate('jwt', { session: false }), (req, res, next) => {
 
-    const newContactRequest = req.body.contactRequest;
-    ContactRequest.addContactRequest(newContactRequest, (err, contactRequest) => {
+    const contact = req.body.contact;
+    const username = req.user.username;
+
+    ContactRequest.addContactRequest(contact, username, (err, contactRequest) => {
         if (err) {
             throw err;
             res.json({ 'success': false });
@@ -186,7 +201,8 @@ router.post('/addcontactrequest', passport.authenticate('jwt', { session: false 
 router.get('/getcontactrequests', passport.authenticate('jwt', { session: false }), (req, res, next) => {
 
     const username = req.user.username;
-    ContactRequest.getContactRequest(username, (err, requests) => {
+    ContactRequest.getContactRequests(username, (err, requests) => {
+        if(err) throw err;
         res.json(requests);
     });
 });
