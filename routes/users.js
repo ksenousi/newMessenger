@@ -90,15 +90,11 @@ router.get('/search', passport.authenticate('jwt', { session: false }), (req, re
 
 });
 
-// Add Contact
+// Add Contact for both users
 router.post('/addcontact', passport.authenticate('jwt', { session: false }), (req, res, next) => {
 
     const username = req.user.username;
     const contact = req.body.contact;
-
-    User.findOne({ 'username': req.user.username }, (err, user) => {
-        console.log(user);
-    });
 
     User.update({ 'username': username }, { '$addToSet': { 'contacts': contact } }, (err, any) => {
         if (err) {
@@ -109,16 +105,17 @@ router.post('/addcontact', passport.authenticate('jwt', { session: false }), (re
         }
     });
 
-    new Chat({ 'chatname': contact, 'username': username, 'recipient': contact }).save();
-
-    User.findOne({ 'username': req.user.username }, (err, user) => {
-        console.log('newUser: ' + user);
+    User.update({ 'username': contact }, { '$addToSet': { 'contacts': username } }, (err, any) => {
+        if (err) {
+            throw err;
+            res.json({ 'success': false });
+        } else {
+            res.json({ 'success': true });
+        }
     });
 
-    Chat.findOne({ 'username': username }, (err, chat) => {
-        console.log('chats: ' + chat);
-    })
-
+    new Chat({ 'chatname': contact, 'username': username, 'recipient': contact }).save();
+    new Chat({ 'chatname': username, 'username': contact, 'recipient': username }).save();
 });
 
 // remove contact
@@ -159,7 +156,7 @@ router.get('/getchat', passport.authenticate('jwt', { session: false }), (req, r
 // Add Chat
 router.post('/addchat', passport.authenticate('jwt', { session: false }), (req, res, next) => {
 
-    const newChat = req.body.newChat;
+    const newChat = req.body.chat;
     Chat.addChat(newChat, (err, user) => {
         if (err) {
             throw err;
@@ -174,14 +171,15 @@ router.post('/addchat', passport.authenticate('jwt', { session: false }), (req, 
 //add contact request
 router.post('/addcontactrequest', passport.authenticate('jwt', { session: false }), (req, res, next) => {
 
-    const newContactRequest = req.body.newContactRequest;
-    ContactRequest.addContactRequest(newContactRequest);
-    if (err) {
-        throw err;
-        res.json({ 'success': false });
-    } else {
-        res.json({ 'success': true });
-    }
+    const newContactRequest = req.body.contactRequest;
+    ContactRequest.addContactRequest(newContactRequest, (err, contactRequest) => {
+        if (err) {
+            throw err;
+            res.json({ 'success': false });
+        } else {
+            res.json({ 'success': true });
+        }
+    });
 });
 
 //get contact request
