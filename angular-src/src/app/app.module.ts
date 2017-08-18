@@ -24,6 +24,8 @@ import {ChatService} from './services/chat.service';
 
 import { AuthGuard } from './guards/auth.guard';
 import { LoggedInGuard } from './guards/loggedIn.guard';
+import { SearchContactsComponent } from './contacts/search-contacts/search-contacts.component';
+import { ContactRequestsComponent } from './contacts/contact-requests/contact-requests.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent,canActivate:[LoggedInGuard]},
@@ -49,7 +51,9 @@ const appRoutes: Routes = [
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
-    ContactsComponent
+    ContactsComponent,
+    SearchContactsComponent,
+    ContactRequestsComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +62,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     FlashMessagesModule
   ],
-  providers: [ValidateService, AuthService, ChatService, AuthGuard,LoggedInGuard],
+  providers: [ValidateService, AuthService, ChatService, AuthGuard, LoggedInGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
