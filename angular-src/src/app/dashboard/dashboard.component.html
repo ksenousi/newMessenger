@@ -1,12 +1,12 @@
-<div class="container">
+<div class="container-fluid">
   <div class="row">
-    <div class="col-md-2">
+    <div id="chatlist" class="col-md-2 col-sm-3">
       <app-chat-list
         (chatSelected)="onChatSelected($event)"
         [chatlistData]="chatlistData"
       ></app-chat-list>
     </div>
-    <div class="col-md-10">
+    <div id="chatroom" class="col-md-10 col-sm-9">
       <app-chat-room
         [chatroomData]="chatroomData"
       ></app-chat-room>
