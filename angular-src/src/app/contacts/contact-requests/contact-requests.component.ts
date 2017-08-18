@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-contact-requests',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContactRequestsComponent implements OnInit {
 
-  constructor() { }
+  requests = [];
+
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
+    this.authService.getContactRequests().subscribe( requests => {
+      this.requests = requests;
+      console.log(this.requests);
+    });
   }
 
 }
