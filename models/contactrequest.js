@@ -17,5 +17,12 @@ const contactRequestSchema = mongoose.Schema({
 
 });
 
-const Chat = module.exports = mongoose.model('ContactRequest', contactRequestSchema);
+const ContactRequest = module.exports = mongoose.model('ContactRequest', contactRequestSchema);
 
+module.exports.addContactRequest = function(contactRequest) {
+  contactRequest.save();
+}
+
+module.exports.getContactRequests = function(username, callback) {
+  ContactRequest.find(callback)
+}
