@@ -4,25 +4,26 @@ const mongoose = require('mongoose');
 const contactRequestSchema = mongoose.Schema({
   sender: {
     type: String,
-    require:true
+    require: true
   },
   recipient: {
     type: String,
-    require:true
+    require: true
   },
   accepted: {
     type: Boolean,
-    require:true
+    require: true
   },
 
 });
 
 const ContactRequest = module.exports = mongoose.model('ContactRequest', contactRequestSchema);
 
-module.exports.addContactRequest = function(contactRequest, callback) {
+module.exports.addContactRequest = function (contact, username, callback) {
+  var contactRequest = { 'sender': username, 'recipient': contact };
   contactRequest.save(callback);
 }
 
-module.exports.getContactRequests = function(username, callback) {
-  ContactRequest.find(callback)
+module.exports.getContactRequests = function (username, callback) {
+  ContactRequest.find({ 'sender': username }, callback);
 }
