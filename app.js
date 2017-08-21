@@ -82,10 +82,7 @@ function client (username, socket) {
 
 io.on('connection', socket => {
   let username = socket.decoded._doc.username;
-  console.info('New client connected (id=' + socket.id + ').');
-  console.info('New client connected (username=' + username+ ').');
   clients.push(new client(username,socket));
-  console.log(clients.length);
 
   socket.on('add-message', incomingMessage => {
     var chatname = incomingMessage.chatname;
@@ -120,10 +117,8 @@ io.on('connection', socket => {
     if(index != -1) {
       const toDelete = new Set([socket.id]);
       clients = clients.filter(obj => !toDelete.has(obj.socket.id));
-      console.info('Client gone (id=' + socket.id + ').');
       console.log(clients.length);
     }
   });
 
 });
-
