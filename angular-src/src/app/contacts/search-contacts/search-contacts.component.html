@@ -26,24 +26,28 @@
       <table>
         <tr *ngFor="let result of results">
 
-          <td style="padding-right:10%"> <p>{{result}}</p> </td>
+          <td style="padding-right:10%"> <p>{{result.username}}</p> </td>
 
           <td>
             <button 
-              *ngIf="isContact(result); else notContactButton"
-              (click)="removeContact(result)" 
-              class="btn btn-danger"
-            >Remove from Contacts
-            </button>
-
-            <ng-template #notContactButton>
-            <button 
+              *ngIf="result.type=='newUser'"
               (click)="addRequest(result)" 
               class="btn btn-success"
-            >Add to Contacts
+            >Add to contacts
             </button>
-            </ng-template>
 
+            <button 
+              *ngIf="result.type=='isContact'"
+              (click)="removeContact(result)" 
+              class="btn btn-danger"
+            >Remove from contacts
+            </button>
+
+            <button 
+              *ngIf="result.type=='requestSent'"
+              class="btn disabled" 
+            >Request Sent
+            </button>
           </td>
 
         </tr>

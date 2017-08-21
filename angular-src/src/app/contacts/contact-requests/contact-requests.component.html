@@ -1,4 +1,20 @@
 <h3>Contact requests</h3>
-<div *ngFor="let request of requests">
-    {{request}}
-</div>
+      <table>
+        <tr *ngFor="let request of requests">
+
+          <td> <p style="padding:1cm; font-size:12pt">{{request.sender}}</p> </td>
+
+          <td>
+            <button 
+              class="btn btn-success"
+            > Accept
+            </button>
+
+            <button 
+              class="btn btn-danger"
+            >Reject
+            </button>
+          </td>
+
+        </tr>
+      </table>
