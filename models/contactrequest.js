@@ -20,10 +20,16 @@ const contactRequestSchema = mongoose.Schema({
 const ContactRequest = module.exports = mongoose.model('ContactRequest', contactRequestSchema);
 
 module.exports.addContactRequest = function (contact, username, callback) {
-  var contactRequest = { 'sender': username, 'recipient': contact };
+  var contactRequest = new ContactRequest({ 'sender': username, 'recipient': contact });
   contactRequest.save(callback);
 }
 
 module.exports.getContactRequests = function (username, callback) {
-  ContactRequest.find({ 'sender': username }, callback);
+  ContactRequest.find({ 'recipient': username }, callback);
 }
+
+module.exports.deleteContactRequest = function (username, recipient, callback) {
+  ContactRequest.remove({ 'sender': username, 'recipient': recipient }, callback);
+}
+
+
