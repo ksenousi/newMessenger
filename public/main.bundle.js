@@ -69,7 +69,7 @@ AppComponent = __decorate([
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(114);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(43);
@@ -87,9 +87,9 @@ AppComponent = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__profile_profile_component__ = __webpack_require__(131);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__contacts_contacts_component__ = __webpack_require__(119);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__services_validate_service__ = __webpack_require__(75);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18_angular2_flash_messages__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18_angular2_flash_messages__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18_angular2_flash_messages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_18_angular2_flash_messages__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__services_auth_service__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__services_auth_service__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__services_chat_service__ = __webpack_require__(44);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__guards_auth_guard__ = __webpack_require__(126);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__guards_loggedIn_guard__ = __webpack_require__(127);
@@ -179,6 +179,9 @@ AppModule = __decorate([
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_auth_service__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular2_flash_messages__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular2_flash_messages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_angular2_flash_messages__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContactRequestsComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -190,10 +193,40 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
+
 var ContactRequestsComponent = (function () {
-    function ContactRequestsComponent() {
+    function ContactRequestsComponent(authService, flashMessage) {
+        this.authService = authService;
+        this.flashMessage = flashMessage;
+        this.requests = [];
     }
     ContactRequestsComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.authService.getContactRequests().subscribe(function (requests) {
+            _this.requests = requests;
+            console.log(_this.requests);
+        });
+    };
+    ContactRequestsComponent.prototype.onAccept = function (contact) {
+        var _this = this;
+        this.authService.addContact(contact).subscribe(function (status) {
+            if (status.success == false) {
+                _this.flashMessage.show('Failed to add contact', { cssClass: 'alert-danger', timeout: 3000 });
+            }
+            var toDelete = new Set([contact]);
+            _this.requests = _this.requests.filter(function (request) { return !toDelete.has(request.sender); });
+        });
+    };
+    ContactRequestsComponent.prototype.onReject = function (contact) {
+        var _this = this;
+        this.authService.removeContactRequest(contact).subscribe(function (status) {
+            if (status.success = false) {
+                _this.flashMessage.show('Failed to remove request', { cssClass: 'alert-danger', timeout: 3000 });
+            }
+            var toDelete = new Set([contact]);
+            _this.requests = _this.requests.filter(function (request) { return !toDelete.has(request.sender); });
+        });
     };
     return ContactRequestsComponent;
 }());
@@ -203,9 +236,10 @@ ContactRequestsComponent = __decorate([
         template: __webpack_require__(221),
         styles: [__webpack_require__(201)]
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2_angular2_flash_messages__["FlashMessagesService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_angular2_flash_messages__["FlashMessagesService"]) === "function" && _b || Object])
 ], ContactRequestsComponent);
 
+var _a, _b;
 //# sourceMappingURL=contact-requests.component.js.map
 
 /***/ }),
@@ -215,9 +249,6 @@ ContactRequestsComponent = __decorate([
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_auth_service__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular2_flash_messages__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular2_flash_messages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_angular2_flash_messages__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContactsComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -229,59 +260,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
-
-
 var ContactsComponent = (function () {
-    function ContactsComponent(authService, flashMessage) {
-        this.authService = authService;
-        this.flashMessage = flashMessage;
-        this.results = [];
-        this.contacts = [];
+    function ContactsComponent() {
     }
     ContactsComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.authService.getProfile().subscribe(function (profile) {
-            _this.contacts = profile.user.contacts;
-            _this.username = profile.user.username;
-        });
-    };
-    ContactsComponent.prototype.searchContact = function () {
-        var _this = this;
-        this.results = [];
-        this.authService.searchUsers(this.searchCriteria).subscribe(function (users) {
-            if (users.error == 404) {
-                _this.flashMessage.show('User not found', { cssClass: 'alert-danger', timeout: 3000 });
-                return;
-            }
-            _this.results = users.map(function (user) { return user.username; }).filter(function (result) { return result != _this.username; });
-        });
-    };
-    ContactsComponent.prototype.addContact = function (contact) {
-        var _this = this;
-        this.authService.addContact({ 'contact': contact }).subscribe(function (status) {
-            if (status.success == true) {
-                _this.flashMessage.show('Contact has been added', { cssClass: 'alert-success', timeout: 3000 });
-            }
-            else {
-                _this.flashMessage.show('Failed to add contact', { cssClass: 'alert-danger', timeout: 3000 });
-            }
-        });
-        this.results = [];
-    };
-    ContactsComponent.prototype.removeContact = function (contact) {
-        var _this = this;
-        this.authService.removeContact({ 'contact': contact }).subscribe(function (status) {
-            if (status.success == true) {
-                _this.flashMessage.show('Contact has been removed', { cssClass: 'alert-success', timeout: 3000 });
-            }
-            else {
-                _this.flashMessage.show('Failed to remove contact', { cssClass: 'alert-danger', timeout: 3000 });
-            }
-        });
-    };
-    ContactsComponent.prototype.isContact = function (contact) {
-        console.log("iscontact" + (this.contacts.indexOf(contact) > -1));
-        return this.contacts.indexOf(contact) > -1;
     };
     return ContactsComponent;
 }());
@@ -291,10 +273,9 @@ ContactsComponent = __decorate([
         template: __webpack_require__(222),
         styles: [__webpack_require__(202)]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2_angular2_flash_messages__["FlashMessagesService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_angular2_flash_messages__["FlashMessagesService"]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [])
 ], ContactsComponent);
 
-var _a, _b;
 //# sourceMappingURL=contacts.component.js.map
 
 /***/ }),
@@ -304,6 +285,9 @@ var _a, _b;
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_auth_service__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular2_flash_messages__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular2_flash_messages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_angular2_flash_messages__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SearchContactsComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -315,10 +299,60 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
+
 var SearchContactsComponent = (function () {
-    function SearchContactsComponent() {
+    function SearchContactsComponent(authService, flashMessage) {
+        this.authService = authService;
+        this.flashMessage = flashMessage;
+        this.results = [];
+        this.contacts = [];
     }
     SearchContactsComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.authService.getProfile().subscribe(function (profile) {
+            _this.contacts = profile.user.contacts;
+            _this.username = profile.user.username;
+        });
+    };
+    SearchContactsComponent.prototype.searchContact = function () {
+        var _this = this;
+        this.results = [];
+        this.authService.searchUsers(this.searchCriteria).subscribe(function (users) {
+            if (users.error == 404) {
+                _this.flashMessage.show('User not found', { cssClass: 'alert-danger', timeout: 3000 });
+                return;
+            }
+            _this.results = users;
+            console.log(JSON.stringify(users));
+        });
+    };
+    SearchContactsComponent.prototype.addRequest = function (contact) {
+        var _this = this;
+        this.authService.addContactRequest({ 'contact': contact.username }).subscribe(function (status) {
+            if (status.success == true) {
+                _this.flashMessage.show('Contact request has been sent', { cssClass: 'alert-success', timeout: 3000 });
+                contact.type = 'requestSent';
+            }
+            else {
+                _this.flashMessage.show('Failed to add contact', { cssClass: 'alert-danger', timeout: 3000 });
+            }
+        });
+    };
+    SearchContactsComponent.prototype.removeContact = function (contact) {
+        var _this = this;
+        this.authService.removeContact({ 'contact': contact.username }).subscribe(function (status) {
+            if (status.success == true) {
+                _this.flashMessage.show('Contact has been removed', { cssClass: 'alert-success', timeout: 3000 });
+                contact.type = 'newUser';
+            }
+            else {
+                _this.flashMessage.show('Failed to remove contact', { cssClass: 'alert-danger', timeout: 3000 });
+            }
+        });
+    };
+    SearchContactsComponent.prototype.isContact = function (contact) {
+        return this.contacts.indexOf(contact) > -1;
     };
     return SearchContactsComponent;
 }());
@@ -328,9 +362,10 @@ SearchContactsComponent = __decorate([
         template: __webpack_require__(223),
         styles: [__webpack_require__(203)]
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2_angular2_flash_messages__["FlashMessagesService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_angular2_flash_messages__["FlashMessagesService"]) === "function" && _b || Object])
 ], SearchContactsComponent);
 
+var _a, _b;
 //# sourceMappingURL=search-contacts.component.js.map
 
 /***/ }),
@@ -340,7 +375,7 @@ SearchContactsComponent = __decorate([
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_auth_service__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_auth_service__ = __webpack_require__(8);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ChatListComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -546,7 +581,7 @@ MessageComponent = __decorate([
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_chat_service__ = __webpack_require__(44);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_auth_service__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_auth_service__ = __webpack_require__(8);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DashboardComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -626,7 +661,7 @@ var _a, _b;
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_auth_service__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_auth_service__ = __webpack_require__(8);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AuthGuard; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -671,7 +706,7 @@ var _a, _b;
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_auth_service__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_auth_service__ = __webpack_require__(8);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoggedInGuard; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -751,9 +786,9 @@ HomeComponent = __decorate([
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_auth_service__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_auth_service__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -822,8 +857,8 @@ var _a, _b, _c;
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_auth_service__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular2_flash_messages__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_auth_service__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular2_flash_messages__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular2_flash_messages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_angular2_flash_messages__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__(20);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NavbarComponent; });
@@ -877,7 +912,7 @@ var _a, _b, _c;
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_auth_service__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_auth_service__ = __webpack_require__(8);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProfileComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -925,8 +960,8 @@ var _a;
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_validate_service__ = __webpack_require__(75);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_auth_service__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_auth_service__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__(20);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RegisterComponent; });
@@ -1042,7 +1077,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".btn {\n    border-radius: 10px;\n}", ""]);
 
 // exports
 
@@ -1060,7 +1095,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, ".btn {\n    float: right;\n    border-radius: 10px;\n    \n}\n\ninput {\n    border-radius: 10px;\n}\n\ntd {\n    padding-bottom: 7%;\n    padding: 20px;\n    \n}\n\ntable {\n    font-size: 12pt;\n}\n\n#searchbar {\n    width:70%;\n    margin-bottom:20px;\n}\n\n#searchContactsHeader{\n    margin-bottom: 10px;\n}\n", ""]);
+exports.push([module.i, "", ""]);
 
 // exports
 
@@ -1078,7 +1113,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, "#searchbar {\n    width:70%;\n    margin-bottom:20px;\n}\n\n#searchContactsHeader{\n    margin-bottom: 10px;\n}\n\n.btn {\n    float: right;\n    border-radius: 10px;\n    \n}\n\ninput {\n    border-radius: 10px;\n}\n\ntd {\n    padding-bottom: 7%;\n    padding: 20px;\n    \n}\n\ntable {\n    font-size: 12pt;\n}", ""]);
 
 // exports
 
@@ -1278,21 +1313,21 @@ module.exports = "<app-navbar></app-navbar>\n<flash-messages></flash-messages>\n
 /***/ 221:
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  contact-requests works!\n</p>\n"
+module.exports = "<h3>Contact requests</h3>\n      <table>\n        <tr *ngFor=\"let request of requests\">\n\n          <td> <p style=\"padding:1cm; font-size:12pt\">{{request.sender}}</p> </td>\n\n          <td>\n            <button \n              (click)=\"onAccept(request.sender)\"\n              class=\"btn btn-success\"\n            > Accept\n            </button>\n\n            <button \n              (click)=\"onReject(request.sender)\"\n              class=\"btn btn-danger\"\n            >Reject\n            </button>\n          </td>\n\n        </tr>\n      </table>"
 
 /***/ }),
 
 /***/ 222:
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\n  <div class=\"row\">\n    <div class=\"col-md-6\">\n      <h3 id=\"searchContactsHeader\">Search Contacts</h3>\n\n      <div id=\"searchbar\">\n        <form ng-submit=\"searchContact()\">\n\n          <div class=\"input-group\">\n            <input type=\"text\"\n                  class=\"form-control\"\n                  [(ngModel)]=\"searchCriteria\"\n                    name=\"search-criteria\">\n            <span class=\"input-group-btn\">\n        <input type=\"submit\"\n              class=\"btn btn-primary\"\n              (click)=\"searchContact()\"\n              value=\"Search\"\n              [disabled] = \"messageInput === ''\"\n        >\n        </span>\n          </div>\n\n\n        </form>\n\n      </div>\n\n      <table>\n        <tr *ngFor=\"let result of results\">\n\n          <td style=\"padding-right:10%\"> <p>{{result}}</p> </td>\n\n          <td>\n            <button \n              *ngIf=\"isContact(result); else notContactButton\"\n              (click)=\"removeContact(result)\" \n              class=\"btn btn-danger\"\n            >Remove from Contacts\n            </button>\n\n            <ng-template #notContactButton>\n            <button \n              (click)=\"addContact(result)\" \n              class=\"btn btn-success\"\n            >Add to Contacts\n            </button>\n            </ng-template>\n\n          </td>\n\n        </tr>\n      </table>\n    </div>\n    <div class=\"col-md-4\">\n      <h3>Contact requests</h3>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"container-fluid\">\n  <div class=\"row\">\n    <div class=\"col-md-6\">\n      <app-search-contacts></app-search-contacts>\n    </div>\n    <div class=\"col-md-4\">\n      <app-contact-requests></app-contact-requests>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
 /***/ 223:
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  search-contacts works!\n</p>\n"
+module.exports = "<h3 id=\"searchContactsHeader\">Search Contacts</h3>\n\n      <div id=\"searchbar\">\n        <form ng-submit=\"searchContact()\">\n\n          <div class=\"input-group\">\n            <input type=\"text\"\n                  class=\"form-control\"\n                  [(ngModel)]=\"searchCriteria\"\n                    name=\"search-criteria\">\n            <span class=\"input-group-btn\">\n        <input type=\"submit\"\n              class=\"btn btn-primary\"\n              (click)=\"searchContact()\"\n              value=\"Search\"\n              [disabled] = \"messageInput === ''\"\n        >\n        </span>\n          </div>\n\n\n        </form>\n\n      </div>\n\n      <table>\n        <tr *ngFor=\"let result of results\">\n\n          <td style=\"padding-right:10%\"> <p>{{result.username}}</p> </td>\n\n          <td>\n            <button \n              *ngIf=\"result.type=='newUser'\"\n              (click)=\"addRequest(result)\" \n              class=\"btn btn-success\"\n            >Add to contacts\n            </button>\n\n            <button \n              *ngIf=\"result.type=='isContact'\"\n              (click)=\"removeContact(result)\" \n              class=\"btn btn-danger\"\n            >Remove from contacts\n            </button>\n\n            <button \n              *ngIf=\"result.type=='requestSent'\"\n              class=\"btn disabled\" \n            >Request Sent\n            </button>\n          </td>\n\n        </tr>\n      </table>\n "
 
 /***/ }),
 
@@ -1469,7 +1504,7 @@ ValidateService = __decorate([
 
 /***/ }),
 
-/***/ 9:
+/***/ 8:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1548,7 +1583,7 @@ var AuthService = (function () {
         headers.append('Authorization', this.authToken);
         headers.append('Content-Type', 'application/json');
         var ep = this.prepEndpoint('users/addcontact');
-        return this.http.post(ep, contact, { headers: headers })
+        return this.http.post(ep, { 'contact': contact }, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.removeContact = function (contact) {
@@ -1565,7 +1600,7 @@ var AuthService = (function () {
         this.loadToken();
         headers.append('Authorization', this.authToken);
         headers.append('Content-Type', 'application/json');
-        var ep = this.prepEndpoint('users/getcontactrequest');
+        var ep = this.prepEndpoint('users/getcontactrequests');
         return this.http.get(ep, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -1576,6 +1611,15 @@ var AuthService = (function () {
         headers.append('Content-Type', 'application/json');
         var ep = this.prepEndpoint('users/getcontactrequest');
         return this.http.post(ep, contactRequest, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    AuthService.prototype.removeContactRequest = function (contact) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Authorization', this.authToken);
+        headers.append('Content-Type', 'application/json');
+        var ep = this.prepEndpoint('users/removecontactrequest');
+        return this.http.post(ep, contact, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.storeUserData = function (token, user) {

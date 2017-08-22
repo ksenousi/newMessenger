@@ -42,7 +42,7 @@ module.exports = g;
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var global = __webpack_require__(8);
+var global = __webpack_require__(9);
 var core = __webpack_require__(26);
 var hide = __webpack_require__(37);
 var redefine = __webpack_require__(29);
@@ -99,7 +99,8 @@ module.exports = function (it) {
 
 /***/ }),
 /* 7 */,
-/* 8 */
+/* 8 */,
+/* 9 */
 /***/ (function(module, exports) {
 
 // https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
@@ -111,7 +112,6 @@ if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
 
 
 /***/ }),
-/* 9 */,
 /* 10 */
 /***/ (function(module, exports) {
 
@@ -197,7 +197,7 @@ module.exports = {
 
 var store = __webpack_require__(56)('wks');
 var uid = __webpack_require__(40);
-var Symbol = __webpack_require__(8).Symbol;
+var Symbol = __webpack_require__(9).Symbol;
 var USE_SYMBOL = typeof Symbol == 'function';
 
 var $exports = module.exports = function (name) {
@@ -337,7 +337,7 @@ exports.f = __webpack_require__(17) ? gOPD : function getOwnPropertyDescriptor(O
 /* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var global = __webpack_require__(8);
+var global = __webpack_require__(9);
 var hide = __webpack_require__(37);
 var has = __webpack_require__(10);
 var SRC = __webpack_require__(40)('src');
@@ -548,7 +548,7 @@ module.exports = function (it) {
 
 "use strict";
 
-var global = __webpack_require__(8);
+var global = __webpack_require__(9);
 var $export = __webpack_require__(4);
 var redefine = __webpack_require__(29);
 var redefineAll = __webpack_require__(53);
@@ -749,7 +749,7 @@ module.exports = function (key) {
 /* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var global = __webpack_require__(8);
+var global = __webpack_require__(9);
 var SHARED = '__core-js_shared__';
 var store = global[SHARED] || (global[SHARED] = {});
 module.exports = function (key) {
@@ -1043,7 +1043,7 @@ module.exports = function (it) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(6);
-var document = __webpack_require__(8).document;
+var document = __webpack_require__(9).document;
 // typeof document.createElement is 'object' in old IE
 var is = isObject(document) && isObject(document.createElement);
 module.exports = function (it) {
@@ -1568,7 +1568,7 @@ module.exports = {
 /* 153 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var document = __webpack_require__(8).document;
+var document = __webpack_require__(9).document;
 module.exports = document && document.documentElement;
 
 
@@ -1854,7 +1854,7 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 var gOPN = __webpack_require__(165);
 var gOPS = __webpack_require__(83);
 var anObject = __webpack_require__(1);
-var Reflect = __webpack_require__(8).Reflect;
+var Reflect = __webpack_require__(9).Reflect;
 module.exports = Reflect && Reflect.ownKeys || function ownKeys(it) {
   var keys = gOPN.f(anObject(it));
   var getSymbols = gOPS.f;
@@ -1868,7 +1868,7 @@ module.exports = Reflect && Reflect.ownKeys || function ownKeys(it) {
 
 "use strict";
 
-var global = __webpack_require__(8);
+var global = __webpack_require__(9);
 var dP = __webpack_require__(15);
 var DESCRIPTORS = __webpack_require__(17);
 var SPECIES = __webpack_require__(13)('species');
@@ -1943,7 +1943,7 @@ module.exports = __webpack_require__(48)(MAP, function (get) {
 var $export = __webpack_require__(4);
 var aFunction = __webpack_require__(25);
 var anObject = __webpack_require__(1);
-var rApply = (__webpack_require__(8).Reflect || {}).apply;
+var rApply = (__webpack_require__(9).Reflect || {}).apply;
 var fApply = Function.apply;
 // MS Edge argumentsList argument is optional
 $export($export.S + $export.F * !__webpack_require__(11)(function () {
@@ -1969,7 +1969,7 @@ var anObject = __webpack_require__(1);
 var isObject = __webpack_require__(6);
 var fails = __webpack_require__(11);
 var bind = __webpack_require__(150);
-var rConstruct = (__webpack_require__(8).Reflect || {}).construct;
+var rConstruct = (__webpack_require__(9).Reflect || {}).construct;
 
 // MS Edge supports only 2 arguments and argumentsList argument is optional
 // FF Nightly sets third argument as `new.target`, but does not create `this` from it
