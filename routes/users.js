@@ -79,13 +79,17 @@ router.get('/search', passport.authenticate('jwt', { session: false }), (req, re
     const userContacts = req.user.contacts;
 
     User.find({ "username": { $regex: ".*" + contact + ".*" } }, (err, contacts) => {
+
         if (err) return handleError(err);
         if (contacts != null && contacts != '') {
             var results = [];
             results = contacts.map(result => result.username).filter(result => result != username);
+
             ContactRequest.getContactRequests(username, (err, requests) => {
+
                 if (err) throw err;
                 let requestRecipients = requests.map(request => request.recipient);
+
                 results = results.map(result => {
                     if (requestRecipients.indexOf(result) > -1) {
                         return { 'username': result, 'type': 'requestSent' }
@@ -96,6 +100,7 @@ router.get('/search', passport.authenticate('jwt', { session: false }), (req, re
                         return { 'username': result, 'type': 'newUser' }
                     }
                 });
+                
                 res.json(results);
             });
         } else {
@@ -195,7 +200,6 @@ router.post('/addcontactrequest', passport.authenticate('jwt', { session: false 
 
     const contact = req.body.contact;
     const username = req.user.username;
-
     ContactRequest.addContactRequest(contact, username, (err, contactRequest) => {
         if (err) {
             throw err;
