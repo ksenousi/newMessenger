@@ -5,7 +5,7 @@ import * as io from 'socket.io-client';
 export class ChatService {
   private socket;
   authToken: any;
-
+  isDev: boolean = false; // change to false before deployment
 
   sendMessage(message){
     this.socket.emit('add-message', message);    
@@ -15,11 +15,20 @@ export class ChatService {
     this.loadToken();
     let observable = new Observable(observer => {
 
-      this.socket = io({
+      if(this.isDev){
+      this.socket = io('http://localhost:8080/',{
         query: {
           token: this.authToken
         }
       });
+
+    } else {
+      this.socket = io({
+        query: {
+          token: this.authToken
+        }
+      }); 
+    }
 
       this.socket.on('message', (data) => {
         observer.next(data);    
