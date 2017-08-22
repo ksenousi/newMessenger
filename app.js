@@ -105,7 +105,6 @@ io.on('connection', socket => {
     var index = clients.findIndex(client => client.username === chatname);
     console.log("index: "+index);
     if(index > -1){
-      console.log("sent");
       incomingMessage.chatname = username;
       clients[index].socket.emit("message",incomingMessage);
     }
@@ -117,7 +116,6 @@ io.on('connection', socket => {
     if(index != -1) {
       const toDelete = new Set([socket.id]);
       clients = clients.filter(obj => !toDelete.has(obj.socket.id));
-      console.log(clients.length);
     }
   });
 
