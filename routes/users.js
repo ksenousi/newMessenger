@@ -77,28 +77,29 @@ router.get('/search', passport.authenticate('jwt', { session: false }), (req, re
     const contact = req.get('username');
     const username = req.user.username;
     const userContacts = req.user.contacts;
+
     User.find({ "username": { $regex: ".*" + contact + ".*" } }, (err, contacts) => {
         if (err) return handleError(err);
         if (contacts != null && contacts != '') {
             var results = [];
             results = contacts.map(result => result.username).filter(result => result != username);
             ContactRequest.getContactRequests(username, (err, requests) => {
-                if(err) throw err;
+                if (err) throw err;
                 let requestRecipients = requests.map(request => request.recipient);
                 results = results.map(result => {
-                    if(requestRecipients.indexOf(result) > -1){
-                        return {'username':result,'type':'requestSent'}
-                    } 
-                    else if(userContacts.indexOf(result) > -1){
-                        return {'username':result,'type':'isContact'}
+                    if (requestRecipients.indexOf(result) > -1) {
+                        return { 'username': result, 'type': 'requestSent' }
+                    }
+                    else if (userContacts.indexOf(result) > -1) {
+                        return { 'username': result, 'type': 'isContact' }
                     } else {
-                        return {'username':result, 'type':'newUser'}
+                        return { 'username': result, 'type': 'newUser' }
                     }
                 });
                 res.json(results);
-            }); 
-            } else {
-                res.send({ 'error': 404 });
+            });
+        } else {
+            res.send({ 'error': 404 });
         }
     });
 
@@ -109,27 +110,27 @@ router.post('/addcontact', passport.authenticate('jwt', { session: false }), (re
 
     const username = req.user.username;
     const contact = req.body.contact;
-
     User.update({ 'username': username }, { '$addToSet': { 'contacts': contact } }, (err, any) => {
         if (err) {
             throw err;
-            res.json({ 'success': false });
-        } else {
-            res.json({ 'success': true });
         }
     });
 
     User.update({ 'username': contact }, { '$addToSet': { 'contacts': username } }, (err, any) => {
         if (err) {
             throw err;
-            res.json({ 'success': false });
-        } else {
-            res.json({ 'success': true });
         }
     });
 
     new Chat({ 'chatname': contact, 'username': username, 'recipient': contact }).save();
     new Chat({ 'chatname': username, 'username': contact, 'recipient': username }).save();
+
+    // receiver accepts request and therefore their username is passed as the receiver
+    ContactRequest.removeContactRequest(contact, username, err => {
+        if (err) {
+            throw err;
+        }
+    });
 });
 
 // remove contact for both
@@ -140,18 +141,12 @@ router.post('/removecontact', passport.authenticate('jwt', { session: false }), 
     User.update({ 'username': username }, { '$pull': { 'contacts': contact } }, (err, any) => {
         if (err) {
             throw err;
-            res.json({ 'success': false });
-        } else {
-            res.json({ 'success': true });
         }
     });
 
     User.update({ 'username': contact }, { '$pull': { 'contacts': username } }, (err, any) => {
         if (err) {
             throw err;
-            res.json({ 'success': false });
-        } else {
-            res.json({ 'success': true });
         }
     });
 
@@ -216,22 +211,22 @@ router.get('/getcontactrequests', passport.authenticate('jwt', { session: false 
 
     const username = req.user.username;
     ContactRequest.getContactRequests(username, (err, requests) => {
-        if(err) throw err;
+        if (err) throw err;
         res.json(requests);
     });
 });
 
 //remove contact request
-router.post('/removecontactrequest', passport.authenticate('jwt', {session:false}), (req, res, next) => {
+router.post('/removecontactrequest', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     const username = req.user.username;
     const contact = req.body.contact;
 
     ContactRequest.removeContactRequest(username, contact, err => {
         if (err) {
             throw err;
-            res.json({'success': false});
+            res.json({ 'success': false });
         } else {
-            res.json({'success': true});
+            res.json({ 'success': true });
         }
     });
 });
