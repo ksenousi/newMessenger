@@ -28,7 +28,7 @@ module.exports.getContactRequests = function (username, callback) {
   ContactRequest.find({ 'recipient': username }, callback);
 }
 
-module.exports.deleteContactRequest = function (username, recipient, callback) {
+module.exports.removeContactRequest = function (username, recipient, callback) {
   ContactRequest.remove({ 'sender': username, 'recipient': recipient }, callback);
 }
 

@@ -6,11 +6,13 @@
 
           <td>
             <button 
+              (click)="onAccept(request.sender)"
               class="btn btn-success"
             > Accept
             </button>
 
             <button 
+              (click)="onReject(request.sender)"
               class="btn btn-danger"
             >Reject
             </button>

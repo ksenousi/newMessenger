@@ -101,6 +101,17 @@ export class AuthService {
       .map(res => res.json());
   }
 
+  removeContactRequest(contact) {
+    let headers = new Headers();
+    this.loadToken();
+    headers.append('Authorization', this.authToken);
+    headers.append('Content-Type', 'application/json');
+    let ep = this.prepEndpoint('users/removecontactrequest');
+    return this.http.post(ep, contact, { headers: headers })
+      .map(res => res.json());
+  }
+
+
   storeUserData(token, user) {
     localStorage.setItem('id_token', token);
     localStorage.setItem('user', JSON.stringify(user));

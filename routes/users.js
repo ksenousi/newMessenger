@@ -221,5 +221,20 @@ router.get('/getcontactrequests', passport.authenticate('jwt', { session: false 
     });
 });
 
+//remove contact request
+router.post('/removecontactrequest', passport.authenticate('jwt', {session:false}), (req, res, next) => {
+    const username = req.user.username;
+    const contact = req.body.contact;
+
+    ContactRequest.removeContactRequest(username, contact, err => {
+        if (err) {
+            throw err;
+            res.json({'success': false});
+        } else {
+            res.json({'success': true});
+        }
+    });
+});
+
 
 module.exports = router;
