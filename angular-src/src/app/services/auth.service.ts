@@ -61,13 +61,13 @@ export class AuthService {
     return results;
   }
 
-  addContact(contact) {
+  addContact(contact: string) {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type', 'application/json');
     let ep = this.prepEndpoint('users/addcontact');
-    return this.http.post(ep, contact, { headers: headers })
+    return this.http.post(ep, { 'contact': contact }, { headers: headers })
       .map(res => res.json());
   }
 
@@ -86,7 +86,7 @@ export class AuthService {
     this.loadToken();
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type', 'application/json');
-    let ep = this.prepEndpoint('users/getcontactrequest');
+    let ep = this.prepEndpoint('users/getcontactrequests');
     return this.http.get(ep, { headers: headers })
       .map(res => res.json());
   }

@@ -10,11 +10,6 @@ const contactRequestSchema = mongoose.Schema({
     type: String,
     require: true
   },
-  accepted: {
-    type: Boolean,
-    require: true
-  },
-
 });
 
 const ContactRequest = module.exports = mongoose.model('ContactRequest', contactRequestSchema);
