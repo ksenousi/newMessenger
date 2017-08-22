@@ -91,13 +91,13 @@ export class AuthService {
       .map(res => res.json());
   }
 
-  addContactRequest(contactRequest) {
+  addContactRequest(contact) {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type', 'application/json');
-    let ep = this.prepEndpoint('users/getcontactrequest');
-    return this.http.post(ep, contactRequest, { headers: headers })
+    let ep = this.prepEndpoint('users/addcontactrequest');
+    return this.http.post(ep, { 'contact': contact }, { headers: headers })
       .map(res => res.json());
   }
 

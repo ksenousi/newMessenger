@@ -41,7 +41,7 @@ export class SearchContactsComponent implements OnInit {
   }
 
   addRequest(contact) {
-    this.authService.addContactRequest({ 'contact': contact.username }).subscribe(status => {
+    this.authService.addContactRequest(contact.username).subscribe(status => {
       if (status.success == true) {
         this.flashMessage.show('Contact request has been sent', { cssClass: 'alert-success', timeout: 3000 });
         contact.type = 'requestSent';
