@@ -329,7 +329,7 @@ var SearchContactsComponent = (function () {
     };
     SearchContactsComponent.prototype.addRequest = function (contact) {
         var _this = this;
-        this.authService.addContactRequest({ 'contact': contact.username }).subscribe(function (status) {
+        this.authService.addContactRequest(contact.username).subscribe(function (status) {
             if (status.success == true) {
                 _this.flashMessage.show('Contact request has been sent', { cssClass: 'alert-success', timeout: 3000 });
                 contact.type = 'requestSent';
@@ -1429,6 +1429,7 @@ module.exports = __webpack_require__(110);
 
 var ChatService = (function () {
     function ChatService() {
+        this.isDev = false; // change to false before deployment
     }
     ChatService.prototype.sendMessage = function (message) {
         this.socket.emit('add-message', message);
@@ -1437,11 +1438,20 @@ var ChatService = (function () {
         var _this = this;
         this.loadToken();
         var observable = new __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"](function (observer) {
-            _this.socket = __WEBPACK_IMPORTED_MODULE_1_socket_io_client__({
-                query: {
-                    token: _this.authToken
-                }
-            });
+            if (_this.isDev) {
+                _this.socket = __WEBPACK_IMPORTED_MODULE_1_socket_io_client__('http://localhost:8080/', {
+                    query: {
+                        token: _this.authToken
+                    }
+                });
+            }
+            else {
+                _this.socket = __WEBPACK_IMPORTED_MODULE_1_socket_io_client__({
+                    query: {
+                        token: _this.authToken
+                    }
+                });
+            }
             _this.socket.on('message', function (data) {
                 observer.next(data);
             });
@@ -1604,13 +1614,13 @@ var AuthService = (function () {
         return this.http.get(ep, { headers: headers })
             .map(function (res) { return res.json(); });
     };
-    AuthService.prototype.addContactRequest = function (contactRequest) {
+    AuthService.prototype.addContactRequest = function (contact) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         this.loadToken();
         headers.append('Authorization', this.authToken);
         headers.append('Content-Type', 'application/json');
-        var ep = this.prepEndpoint('users/getcontactrequest');
-        return this.http.post(ep, contactRequest, { headers: headers })
+        var ep = this.prepEndpoint('users/addcontactrequest');
+        return this.http.post(ep, { 'contact': contact }, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.removeContactRequest = function (contact) {
