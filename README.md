@@ -1,6 +1,5 @@
 <ol>
-<li>make sure other person also added you as a contact</li>
-<li>delete request after accept or reject</li>
-<li>create accepts/reject ui for contacts requests</li>
+<li>remove request from list after click</li>
+<li>request sent should be displayed even when list is searched again</li>
 <li>make user re-enter password when registering</li>
 </ol>
