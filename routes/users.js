@@ -81,11 +81,12 @@ router.get('/search', passport.authenticate('jwt', { session: false }), (req, re
     User.find({ "username": { $regex: ".*" + contact + ".*" } }, (err, contacts) => {
 
         if (err) return handleError(err);
+
         if (contacts != null && contacts != '') {
             var results = [];
             results = contacts.map(result => result.username).filter(result => result != username);
 
-            ContactRequest.getContactRequests(username, (err, requests) => {
+            ContactRequest.getSentContactRequests(username, (err, requests) => {
 
                 if (err) throw err;
                 let requestRecipients = requests.map(request => request.recipient);
@@ -115,6 +116,7 @@ router.post('/addcontact', passport.authenticate('jwt', { session: false }), (re
 
     const username = req.user.username;
     const contact = req.body.contact;
+
     User.update({ 'username': username }, { '$addToSet': { 'contacts': contact } }, (err, any) => {
         if (err) {
             throw err;
@@ -214,7 +216,7 @@ router.post('/addcontactrequest', passport.authenticate('jwt', { session: false 
 router.get('/getcontactrequests', passport.authenticate('jwt', { session: false }), (req, res, next) => {
 
     const username = req.user.username;
-    ContactRequest.getContactRequests(username, (err, requests) => {
+    ContactRequest.getIncomingContactRequests(username, (err, requests) => {
         if (err) throw err;
         res.json(requests);
     });

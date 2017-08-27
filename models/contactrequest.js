@@ -19,8 +19,12 @@ module.exports.addContactRequest = function (contact, username, callback) {
   contactRequest.save(callback);
 }
 
-module.exports.getContactRequests = function (username, callback) {
+module.exports.getIncomingContactRequests = function (username, callback) {
   ContactRequest.find({ 'recipient': username }, callback);
+}
+
+module.exports.getSentContactRequests = function (username, callback) {
+  ContactRequest.find({ 'sender': username }, callback);
 }
 
 module.exports.removeContactRequest = function (username, recipient, callback) {
