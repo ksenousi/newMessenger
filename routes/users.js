@@ -101,7 +101,7 @@ router.get('/search', passport.authenticate('jwt', { session: false }), (req, re
                         return { 'username': result, 'type': 'newUser' }
                     }
                 });
-                
+
                 res.json(results);
             });
         } else {
@@ -120,6 +120,9 @@ router.post('/addcontact', passport.authenticate('jwt', { session: false }), (re
     User.update({ 'username': username }, { '$addToSet': { 'contacts': contact } }, (err, any) => {
         if (err) {
             throw err;
+            res.json({ 'success': false });
+        } else {
+            res.json({ 'success': true });
         }
     });
 
@@ -132,8 +135,7 @@ router.post('/addcontact', passport.authenticate('jwt', { session: false }), (re
     new Chat({ 'chatname': contact, 'username': username, 'recipient': contact }).save();
     new Chat({ 'chatname': username, 'username': contact, 'recipient': username }).save();
 
-    // receiver accepts request and therefore their username is passed as the receiver
-    ContactRequest.removeContactRequest(contact, username, err => {
+    ContactRequest.removeContactRequest(username, contact, err => {
         if (err) {
             throw err;
         }
@@ -148,7 +150,11 @@ router.post('/removecontact', passport.authenticate('jwt', { session: false }), 
     User.update({ 'username': username }, { '$pull': { 'contacts': contact } }, (err, any) => {
         if (err) {
             throw err;
+            res.json({ 'success': false })
+        } else {
+            res.json({ 'success': true });
         }
+
     });
 
     User.update({ 'username': contact }, { '$pull': { 'contacts': username } }, (err, any) => {

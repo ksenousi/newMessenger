@@ -107,7 +107,7 @@ export class AuthService {
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type', 'application/json');
     let ep = this.prepEndpoint('users/removecontactrequest');
-    return this.http.post(ep, contact, { headers: headers })
+    return this.http.post(ep, { 'contact': contact }, { headers: headers })
       .map(res => res.json());
   }
 

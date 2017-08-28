@@ -27,8 +27,9 @@ module.exports.getSentContactRequests = function (username, callback) {
   ContactRequest.find({ 'sender': username }, callback);
 }
 
+// receiver accepts request and therefore their username is passed as the receiver
 module.exports.removeContactRequest = function (username, recipient, callback) {
-  ContactRequest.remove({ 'sender': username, 'recipient': recipient }, callback);
+  ContactRequest.remove({ 'sender': recipient, 'recipient': username }, callback);
 }
 
 
