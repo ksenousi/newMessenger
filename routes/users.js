@@ -83,15 +83,15 @@ router.get('/search', passport.authenticate('jwt', { session: false }), (req, re
             throw err;
             res.json({ 'success': false });
         })
-        .then(contacts => {
-            if (contacts != null && contacts != '') {
+        .then(users => {
+            if (users != null && users != '') {
                 ContactRequest.getSentContactRequests(username).exec()
                     .catch(err => {
                         throw err;
                         res.json({ 'success': false });
                     })
                     .then(requests => {
-                        results = formatResult(contacts, requests);
+                        results = formatResult(username, userContacts, users, requests);
                         res.json(results);
                     });
             } else {
@@ -100,9 +100,9 @@ router.get('/search', passport.authenticate('jwt', { session: false }), (req, re
         });
 });
 
-function formatResult(contacts, requests) {
+function formatResult(username, userContacts, users, requests) {
 
-    let results = contacts.map(result => result.username).filter(result => result != username);
+    let results = users.map(result => result.username).filter(result => result != username);
     let requestRecipients = requests.map(request => request.recipient);
 
     results = results.map(result => {
