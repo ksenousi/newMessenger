@@ -16,20 +16,20 @@ const ContactRequest = module.exports = mongoose.model('ContactRequest', contact
 
 module.exports.addContactRequest = function (contact, username, callback) {
   var contactRequest = new ContactRequest({ 'sender': username, 'recipient': contact });
-  contactRequest.save(callback);
+ return contactRequest.save(callback);
 }
 
 module.exports.getIncomingContactRequests = function (username, callback) {
-  ContactRequest.find({ 'recipient': username }, callback);
+  return ContactRequest.find({ 'recipient': username }, callback);
 }
 
 module.exports.getSentContactRequests = function (username, callback) {
-  ContactRequest.find({ 'sender': username }, callback);
+  return ContactRequest.find({ 'sender': username }, callback);
 }
 
 // receiver accepts request and therefore their username is passed as the receiver
 module.exports.removeContactRequest = function (username, recipient, callback) {
-  ContactRequest.remove({ 'sender': recipient, 'recipient': username }, callback);
+   return ContactRequest.remove({ 'sender': recipient, 'recipient': username }, callback);
 }
 
 
