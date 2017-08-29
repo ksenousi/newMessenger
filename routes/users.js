@@ -77,35 +77,21 @@ router.get('/search', passport.authenticate('jwt', { session: false }), (req, re
     const contact = req.get('username');
     const username = req.user.username;
     const userContacts = req.user.contacts;
-    console.log("search");
+
     User.find({ "username": { $regex: ".*" + contact + ".*" } }).exec()
         .catch(err => {
             throw err;
-            res.json({'success': false});
+            res.json({ 'success': false });
         })
         .then(contacts => {
             if (contacts != null && contacts != '') {
-                let results = contacts.map(result => result.username).filter(result => result != username);
-
                 ContactRequest.getSentContactRequests(username).exec()
-                    .catch( err => {
+                    .catch(err => {
                         throw err;
-                        res.json({'success': false});
+                        res.json({ 'success': false });
                     })
                     .then(requests => {
-                        let requestRecipients = requests.map(request => request.recipient);
-
-                        results = results.map(result => {
-                            if (requestRecipients.indexOf(result) > -1) {
-                                return { 'username': result, 'type': 'requestSent' }
-                            }
-                            else if (userContacts.indexOf(result) > -1) {
-                                return { 'username': result, 'type': 'isContact' }
-                            } else {
-                                return { 'username': result, 'type': 'newUser' }
-                            }
-                        });
-
+                        results = formatResult(contacts, requests);
                         res.json(results);
                     });
             } else {
@@ -113,6 +99,25 @@ router.get('/search', passport.authenticate('jwt', { session: false }), (req, re
             }
         });
 });
+
+function formatResult(contacts, requests) {
+
+    let results = contacts.map(result => result.username).filter(result => result != username);
+    let requestRecipients = requests.map(request => request.recipient);
+
+    results = results.map(result => {
+        if (requestRecipients.indexOf(result) > -1) {
+            return { 'username': result, 'type': 'requestSent' }
+        }
+        else if (userContacts.indexOf(result) > -1) {
+            return { 'username': result, 'type': 'isContact' }
+        } else {
+            return { 'username': result, 'type': 'newUser' }
+        }
+    });
+
+    return results;
+}
 
 // Add Contact for both users
 router.post('/addcontact', passport.authenticate('jwt', { session: false }), (req, res, next) => {
@@ -130,18 +135,14 @@ router.post('/addcontact', passport.authenticate('jwt', { session: false }), (re
     });
 
     User.update({ 'username': contact }, { '$addToSet': { 'contacts': username } }, (err, any) => {
-        if (err) {
-            throw err;
-        }
+        if (err) throw err;
     });
 
     new Chat({ 'chatname': contact, 'username': username, 'recipient': contact }).save();
     new Chat({ 'chatname': username, 'username': contact, 'recipient': username }).save();
 
     ContactRequest.removeContactRequest(username, contact, err => {
-        if (err) {
-            throw err;
-        }
+        if (err) throw err;
     });
 });
 
@@ -161,9 +162,7 @@ router.post('/removecontact', passport.authenticate('jwt', { session: false }), 
     });
 
     User.update({ 'username': contact }, { '$pull': { 'contacts': username } }, (err, any) => {
-        if (err) {
-            throw err;
-        }
+        if (err) throw err;
     });
 
     Chat.remove({ 'username': username, 'chatname': contact }, err => {
@@ -183,9 +182,7 @@ router.get('/getchat', passport.authenticate('jwt', { session: false }), (req, r
     const chatname = req.get('chatname');
 
     Chat.getChatByName(username, chatname, (err, chat) => {
-        if (err) {
-            throw err;
-        }
+        if (err) throw err;
         res.json(chat);
     });
 
