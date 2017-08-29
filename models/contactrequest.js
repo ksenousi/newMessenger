@@ -19,7 +19,7 @@ module.exports.addContactRequest = function (contact, username, callback) {
  return contactRequest.save(callback);
 }
 
-module.exports.getIncomingContactRequests = function (username, callback) {
+module.exports.getReceivedContactRequests = function (username, callback) {
   return ContactRequest.find({ 'recipient': username }, callback);
 }
 

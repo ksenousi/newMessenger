@@ -48,6 +48,13 @@
               class="btn disabled" 
             >Request Sent
             </button>
+
+            <button 
+            *ngIf="result.type=='requestReceived'"
+            class="btn disabled" 
+          >Request Received
+          </button>
+
           </td>
 
         </tr>

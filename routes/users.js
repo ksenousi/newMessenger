@@ -74,50 +74,63 @@ router.get('/validate', (req, res, next) => {
 
 // Search Contacts
 router.get('/search', passport.authenticate('jwt', { session: false }), (req, res, next) => {
-    const contact = req.get('username');
+    const searchCriteria = req.get('searchcriteria');
     const username = req.user.username;
     const userContacts = req.user.contacts;
+    let results = [];
 
-    User.find({ "username": { $regex: ".*" + contact + ".*" } }).exec()
+    User.find({ "username": { $regex: ".*" + searchCriteria + ".*" } }).exec()
         .catch(err => {
             throw err;
             res.json({ 'success': false });
         })
         .then(users => {
-            if (users != null && users != '') {
-                ContactRequest.getSentContactRequests(username).exec()
-                    .catch(err => {
-                        throw err;
-                        res.json({ 'success': false });
-                    })
-                    .then(requests => {
-                        results = formatResult(username, userContacts, users, requests);
-                        res.json(results);
-                    });
+            if (users != '') {
+                results = users.map(result => result.username).filter(result => result != username);
+
+                results = results.map(result => {
+                    return { 'username': result, 'type': 'newUser' }
+                });
+
+                results = results.map(result => {
+                    if (userContacts.indexOf(result.username) > -1) {
+                        return { 'username': result.username, 'type': 'isContact' }
+                    } else { return result; }
+                });
+                return ContactRequest.getSentContactRequests(username).exec();
+
             } else {
                 res.json({ 'error': 404 });
             }
+        })
+        .catch(err => {
+            throw err;
+            res.json({ 'success': false });
+        })
+        .then(sentRequests => {
+            let requestRecipients = sentRequests.map(request => request.recipient);
+            results = results.map(result => {
+                if (requestRecipients.indexOf(result.username) > -1) {
+                    return { 'username': result.username, 'type': 'requestSent' }
+                } else { return result; }
+            });
+            return ContactRequest.getReceivedContactRequests(username).exec();
+        })
+    .catch(err => {
+        throw err;
+        res.json({ 'success': false });
+    })
+    .then(receivedRequests => {
+        let requestSenders = receivedRequests.map(request => request.sender);
+        results = results.map(result => {
+            if (requestSenders.indexOf(result.username) > -1) {
+                return { 'username': result.username, 'type': 'requestReceived' }
+            } else { return result; }
         });
+        res.json(results);
+    });
 });
 
-function formatResult(username, userContacts, users, requests) {
-
-    let results = users.map(result => result.username).filter(result => result != username);
-    let requestRecipients = requests.map(request => request.recipient);
-
-    results = results.map(result => {
-        if (requestRecipients.indexOf(result) > -1) {
-            return { 'username': result, 'type': 'requestSent' }
-        }
-        else if (userContacts.indexOf(result) > -1) {
-            return { 'username': result, 'type': 'isContact' }
-        } else {
-            return { 'username': result, 'type': 'newUser' }
-        }
-    });
-
-    return results;
-}
 
 // Add Contact for both users
 router.post('/addcontact', passport.authenticate('jwt', { session: false }), (req, res, next) => {
@@ -222,7 +235,7 @@ router.post('/addcontactrequest', passport.authenticate('jwt', { session: false 
 router.get('/getcontactrequests', passport.authenticate('jwt', { session: false }), (req, res, next) => {
 
     const username = req.user.username;
-    ContactRequest.getIncomingContactRequests(username, (err, requests) => {
+    ContactRequest.getReceivedContactRequests(username, (err, requests) => {
         if (err) throw err;
         res.json(requests);
     });

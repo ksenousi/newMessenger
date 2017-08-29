@@ -54,7 +54,7 @@ export class AuthService {
     this.loadToken();
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type', 'application/json');
-    headers.append('username', searchCriteria);
+    headers.append('searchcriteria', searchCriteria);
     let ep = this.prepEndpoint('users/search');
     var results = this.http.get(ep, { headers: headers })
       .map(res => res.json());
