@@ -77,38 +77,41 @@ router.get('/search', passport.authenticate('jwt', { session: false }), (req, re
     const contact = req.get('username');
     const username = req.user.username;
     const userContacts = req.user.contacts;
+    console.log("search");
+    User.find({ "username": { $regex: ".*" + contact + ".*" } }).exec()
+        .catch(err => {
+            throw err;
+            res.json({'success': false});
+        })
+        .then(contacts => {
+            if (contacts != null && contacts != '') {
+                let results = contacts.map(result => result.username).filter(result => result != username);
 
-    User.find({ "username": { $regex: ".*" + contact + ".*" } }, (err, contacts) => {
+                ContactRequest.getSentContactRequests(username).exec()
+                    .catch( err => {
+                        throw err;
+                        res.json({'success': false});
+                    })
+                    .then(requests => {
+                        let requestRecipients = requests.map(request => request.recipient);
 
-        if (err) return handleError(err);
+                        results = results.map(result => {
+                            if (requestRecipients.indexOf(result) > -1) {
+                                return { 'username': result, 'type': 'requestSent' }
+                            }
+                            else if (userContacts.indexOf(result) > -1) {
+                                return { 'username': result, 'type': 'isContact' }
+                            } else {
+                                return { 'username': result, 'type': 'newUser' }
+                            }
+                        });
 
-        if (contacts != null && contacts != '') {
-            var results = [];
-            results = contacts.map(result => result.username).filter(result => result != username);
-
-            ContactRequest.getSentContactRequests(username, (err, requests) => {
-
-                if (err) throw err;
-                let requestRecipients = requests.map(request => request.recipient);
-
-                results = results.map(result => {
-                    if (requestRecipients.indexOf(result) > -1) {
-                        return { 'username': result, 'type': 'requestSent' }
-                    }
-                    else if (userContacts.indexOf(result) > -1) {
-                        return { 'username': result, 'type': 'isContact' }
-                    } else {
-                        return { 'username': result, 'type': 'newUser' }
-                    }
-                });
-
-                res.json(results);
-            });
-        } else {
-            res.send({ 'error': 404 });
-        }
-    });
-
+                        res.json(results);
+                    });
+            } else {
+                res.json({ 'error': 404 });
+            }
+        });
 });
 
 // Add Contact for both users
