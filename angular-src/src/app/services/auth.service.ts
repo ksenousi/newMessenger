@@ -44,7 +44,7 @@ export class AuthService {
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type', 'application/json');
     headers.append('chatname', chatname);
-    let ep = this.prepEndpoint('users/getchat');
+    let ep = this.prepEndpoint('chats/getchat');
     return this.http.get(ep, { headers: headers })
       .map(res => res.json());
   }
@@ -66,7 +66,7 @@ export class AuthService {
     this.loadToken();
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type', 'application/json');
-    let ep = this.prepEndpoint('users/addcontact');
+    let ep = this.prepEndpoint('contacts/addcontact');
     return this.http.post(ep, { 'contact': contact }, { headers: headers })
       .map(res => res.json());
   }
@@ -76,7 +76,7 @@ export class AuthService {
     this.loadToken();
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type', 'application/json');
-    let ep = this.prepEndpoint('users/removecontact');
+    let ep = this.prepEndpoint('contacts/removecontact');
     return this.http.post(ep, contact, { headers: headers })
       .map(res => res.json());
   }
@@ -86,7 +86,7 @@ export class AuthService {
     this.loadToken();
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type', 'application/json');
-    let ep = this.prepEndpoint('users/getcontactrequests');
+    let ep = this.prepEndpoint('requests/getcontactrequests');
     return this.http.get(ep, { headers: headers })
       .map(res => res.json());
   }
@@ -96,7 +96,7 @@ export class AuthService {
     this.loadToken();
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type', 'application/json');
-    let ep = this.prepEndpoint('users/addcontactrequest');
+    let ep = this.prepEndpoint('requests/addcontactrequest');
     return this.http.post(ep, { 'contact': contact }, { headers: headers })
       .map(res => res.json());
   }
@@ -106,7 +106,7 @@ export class AuthService {
     this.loadToken();
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type', 'application/json');
-    let ep = this.prepEndpoint('users/removecontactrequest');
+    let ep = this.prepEndpoint('requests/removecontactrequest');
     return this.http.post(ep, { 'contact': contact }, { headers: headers })
       .map(res => res.json());
   }
