@@ -6,10 +6,10 @@ webpackJsonp([2,4],{
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(197);
+var content = __webpack_require__(198);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
-var update = __webpack_require__(276)(content, {});
+var update = __webpack_require__(279)(content, {});
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -27,7 +27,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 197:
+/***/ 198:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(5)(false);
@@ -42,7 +42,7 @@ exports.push([module.i, "/* You can add global styles to this file, and also imp
 
 /***/ }),
 
-/***/ 276:
+/***/ 279:
 /***/ (function(module, exports) {
 
 /*
@@ -295,7 +295,7 @@ function updateLink(linkElement, obj) {
 
 /***/ }),
 
-/***/ 283:
+/***/ 286:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(113);
@@ -386,5 +386,5 @@ function toComment(sourceMap) {
 
 /***/ })
 
-},[283]);
+},[286]);
 //# sourceMappingURL=styles.bundle.js.map

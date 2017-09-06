@@ -22,7 +22,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__ = __webpack_require__(116);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_app_module__ = __webpack_require__(118);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__(134);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__(135);
 
 
 
@@ -56,8 +56,8 @@ var AppComponent = (function () {
 AppComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'app-root',
-        template: __webpack_require__(225),
-        styles: [__webpack_require__(207)]
+        template: __webpack_require__(227),
+        styles: [__webpack_require__(208)]
     })
 ], AppComponent);
 
@@ -95,6 +95,7 @@ AppComponent = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__guards_loggedIn_guard__ = __webpack_require__(128);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__contacts_search_contacts_search_contacts_component__ = __webpack_require__(121);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__contacts_contact_requests_contact_requests_component__ = __webpack_require__(119);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__ui_loading_spinner_loading_spinner_component__ = __webpack_require__(134);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -102,6 +103,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -156,7 +158,8 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_15__profile_profile_component__["a" /* ProfileComponent */],
             __WEBPACK_IMPORTED_MODULE_16__contacts_contacts_component__["a" /* ContactsComponent */],
             __WEBPACK_IMPORTED_MODULE_23__contacts_search_contacts_search_contacts_component__["a" /* SearchContactsComponent */],
-            __WEBPACK_IMPORTED_MODULE_24__contacts_contact_requests_contact_requests_component__["a" /* ContactRequestsComponent */]
+            __WEBPACK_IMPORTED_MODULE_24__contacts_contact_requests_contact_requests_component__["a" /* ContactRequestsComponent */],
+            __WEBPACK_IMPORTED_MODULE_25__ui_loading_spinner_loading_spinner_component__["a" /* LoadingSpinnerComponent */]
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
@@ -233,8 +236,8 @@ var ContactRequestsComponent = (function () {
 ContactRequestsComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'app-contact-requests',
-        template: __webpack_require__(226),
-        styles: [__webpack_require__(208)]
+        template: __webpack_require__(228),
+        styles: [__webpack_require__(209)]
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2_angular2_flash_messages__["FlashMessagesService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_angular2_flash_messages__["FlashMessagesService"]) === "function" && _b || Object])
 ], ContactRequestsComponent);
@@ -270,8 +273,8 @@ var ContactsComponent = (function () {
 ContactsComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'app-contacts',
-        template: __webpack_require__(227),
-        styles: [__webpack_require__(209)]
+        template: __webpack_require__(229),
+        styles: [__webpack_require__(210)]
     }),
     __metadata("design:paramtypes", [])
 ], ContactsComponent);
@@ -359,8 +362,8 @@ var SearchContactsComponent = (function () {
 SearchContactsComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'app-search-contacts',
-        template: __webpack_require__(228),
-        styles: [__webpack_require__(210)]
+        template: __webpack_require__(230),
+        styles: [__webpack_require__(211)]
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2_angular2_flash_messages__["FlashMessagesService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_angular2_flash_messages__["FlashMessagesService"]) === "function" && _b || Object])
 ], SearchContactsComponent);
@@ -411,8 +414,8 @@ __decorate([
 ChatListComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'app-chat-list',
-        template: __webpack_require__(229),
-        styles: [__webpack_require__(211)]
+        template: __webpack_require__(231),
+        styles: [__webpack_require__(212)]
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */]) === "function" && _a || Object])
 ], ChatListComponent);
@@ -459,8 +462,8 @@ __decorate([
 ChatBarComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'app-chat-bar',
-        template: __webpack_require__(230),
-        styles: [__webpack_require__(212)]
+        template: __webpack_require__(232),
+        styles: [__webpack_require__(213)]
     }),
     __metadata("design:paramtypes", [])
 ], ChatBarComponent);
@@ -524,8 +527,8 @@ __decorate([
 ChatRoomComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'app-chat-room',
-        template: __webpack_require__(231),
-        styles: [__webpack_require__(213)]
+        template: __webpack_require__(233),
+        styles: [__webpack_require__(214)]
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_chat_service__["a" /* ChatService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_chat_service__["a" /* ChatService */]) === "function" && _a || Object])
 ], ChatRoomComponent);
@@ -565,8 +568,8 @@ __decorate([
 MessageComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'app-message',
-        template: __webpack_require__(232),
-        styles: [__webpack_require__(214)]
+        template: __webpack_require__(234),
+        styles: [__webpack_require__(215)]
     }),
     __metadata("design:paramtypes", [])
 ], MessageComponent);
@@ -599,7 +602,7 @@ var DashboardComponent = (function () {
     function DashboardComponent(authService, chatService) {
         this.authService = authService;
         this.chatService = chatService;
-        this.chatroomData = { chatname: '', messages: [] };
+        this.chatroomData = { chatname: '', messages: [], showSpinner: true };
         this.chatlistData = { chatlist: [{ chat: '', badge: 0 }], selectedChat: '' };
     }
     DashboardComponent.prototype.ngOnInit = function () {
@@ -629,9 +632,11 @@ var DashboardComponent = (function () {
         this.chatlistData.selectedChat = chatItem.chat;
         this.chatroomData.chatname = chatItem.chat;
         chatItem.badge = 0;
+        this.chatroomData.showSpinner = true;
         if (typeof this.chatroomData.chatname != 'undefined') {
             this.authService.getChat(this.chatroomData.chatname).subscribe(function (chat) {
                 _this.chatroomData.messages = chat.messages;
+                _this.chatroomData.showSpinner = false;
                 _this.chatroomData = Object.assign({}, _this.chatroomData);
             });
         }
@@ -644,8 +649,8 @@ var DashboardComponent = (function () {
 DashboardComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'app-dashboard',
-        template: __webpack_require__(233),
-        styles: [__webpack_require__(215)]
+        template: __webpack_require__(235),
+        styles: [__webpack_require__(216)]
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__services_chat_service__["a" /* ChatService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_chat_service__["a" /* ChatService */]) === "function" && _b || Object])
 ], DashboardComponent);
@@ -771,8 +776,8 @@ var HomeComponent = (function () {
 HomeComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'app-home',
-        template: __webpack_require__(234),
-        styles: [__webpack_require__(216)]
+        template: __webpack_require__(236),
+        styles: [__webpack_require__(217)]
     }),
     __metadata("design:paramtypes", [])
 ], HomeComponent);
@@ -841,8 +846,8 @@ var LoginComponent = (function () {
 LoginComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'app-login',
-        template: __webpack_require__(235),
-        styles: [__webpack_require__(217)]
+        template: __webpack_require__(237),
+        styles: [__webpack_require__(218)]
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"]) === "function" && _c || Object])
 ], LoginComponent);
@@ -896,8 +901,8 @@ var NavbarComponent = (function () {
 NavbarComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'app-navbar',
-        template: __webpack_require__(236),
-        styles: [__webpack_require__(218)]
+        template: __webpack_require__(238),
+        styles: [__webpack_require__(219)]
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2_angular2_flash_messages__["FlashMessagesService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_angular2_flash_messages__["FlashMessagesService"]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_router__["b" /* Router */]) === "function" && _c || Object])
 ], NavbarComponent);
@@ -943,8 +948,8 @@ var ProfileComponent = (function () {
 ProfileComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'app-profile',
-        template: __webpack_require__(237),
-        styles: [__webpack_require__(219)]
+        template: __webpack_require__(239),
+        styles: [__webpack_require__(220)]
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */]) === "function" && _a || Object])
 ], ProfileComponent);
@@ -1023,8 +1028,8 @@ var RegisterComponent = (function () {
 RegisterComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'app-register',
-        template: __webpack_require__(238),
-        styles: [__webpack_require__(220)]
+        template: __webpack_require__(240),
+        styles: [__webpack_require__(221)]
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_validate_service__["a" /* ValidateService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_validate_service__["a" /* ValidateService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__angular_router__["b" /* Router */]) === "function" && _d || Object])
 ], RegisterComponent);
@@ -1035,6 +1040,42 @@ var _a, _b, _c, _d;
 /***/ }),
 
 /***/ 134:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoadingSpinnerComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var LoadingSpinnerComponent = (function () {
+    function LoadingSpinnerComponent() {
+    }
+    LoadingSpinnerComponent.prototype.ngOnInit = function () {
+    };
+    return LoadingSpinnerComponent;
+}());
+LoadingSpinnerComponent = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'app-loading-spinner',
+        template: __webpack_require__(241),
+        styles: [__webpack_require__(222)]
+    }),
+    __metadata("design:paramtypes", [])
+], LoadingSpinnerComponent);
+
+//# sourceMappingURL=loading-spinner.component.js.map
+
+/***/ }),
+
+/***/ 135:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1051,24 +1092,6 @@ var environment = {
 
 /***/ }),
 
-/***/ 207:
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(5)(false);
-// imports
-
-
-// module
-exports.push([module.i, "", ""]);
-
-// exports
-
-
-/*** EXPORTS FROM exports-loader ***/
-module.exports = module.exports.toString();
-
-/***/ }),
-
 /***/ 208:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1077,7 +1100,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, ".btn {\n    border-radius: 10px;\n}", ""]);
+exports.push([module.i, "", ""]);
 
 // exports
 
@@ -1095,7 +1118,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".btn {\n    border-radius: 10px;\n}", ""]);
 
 // exports
 
@@ -1113,7 +1136,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "#searchbar {\n    width:70%;\n    margin-bottom:20px;\n}\n\n#searchContactsHeader{\n    margin-bottom: 10px;\n}\n\n.btn {\n    float: right;\n    border-radius: 10px;\n    \n}\n\ninput {\n    border-radius: 10px;\n}\n\ntd {\n    padding-bottom: 7%;\n    padding: 20px;\n    \n}\n\ntable {\n    font-size: 12pt;\n}", ""]);
+exports.push([module.i, "", ""]);
 
 // exports
 
@@ -1131,7 +1154,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "#chatlist {\n  height: 80vh;\n  border: solid;\n  border-radius: 23px;\n  overflow: auto;\n  margin-bottom: 10px;\n}\n\n.badge {\n  background-color:#00b300;\n}\n\na {\n  cursor: pointer;\n}\n\n.active a{\n  background-color: rgb(78, 93, 108) !important;\n}\n\n@media (max-width: 767px) {\n  #chatlist {\n      height: 30vh;\n  } \n}", ""]);
+exports.push([module.i, "#searchbar {\n    width:70%;\n    margin-bottom:20px;\n}\n\n#searchContactsHeader{\n    margin-bottom: 10px;\n}\n\n.btn {\n    float: right;\n    border-radius: 10px;\n    \n}\n\ninput {\n    border-radius: 10px;\n}\n\ntd {\n    padding-bottom: 7%;\n    padding: 20px;\n    \n}\n\ntable {\n    font-size: 12pt;\n}", ""]);
 
 // exports
 
@@ -1149,7 +1172,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "#chatbar {\n  padding-top: 10px;\n  padding-left: 20px;\n  padding-right: 20px;\n  margin-bottom: 20px;\n}\n\n.btn {\n  border-radius:10px;\n}\n\ninput {\n  border-radius:5px;\n}\n\n", ""]);
+exports.push([module.i, "#chatlist {\n  height: 80vh;\n  border: solid;\n  border-radius: 23px;\n  overflow: auto;\n  margin-bottom: 10px;\n}\n\n.badge {\n  background-color:#00b300;\n}\n\na {\n  cursor: pointer;\n}\n\n.active a{\n  background-color: rgb(78, 93, 108) !important;\n}\n\n@media (max-width: 767px) {\n  #chatlist {\n      height: 30vh;\n  } \n}", ""]);
 
 // exports
 
@@ -1167,7 +1190,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "#chatroom {\n  border: solid;\n  border-radius: 23px;\n}\n\n#chatBody {\n  overflow: auto;\n  height: 60vh;\n}\n\nhr {\n  border: none;\n  height: 1px;\n  /* Set the hr color */\n  color: white; /* old IE */\n  background-color:white; /* Modern Browsers */\n}\n\nh2 {\n  margin-left:20px;\n}", ""]);
+exports.push([module.i, "#chatbar {\n  padding-top: 10px;\n  padding-left: 20px;\n  padding-right: 20px;\n  margin-bottom: 20px;\n}\n\n.btn {\n  border-radius:10px;\n}\n\ninput {\n  border-radius:5px;\n}\n\n", ""]);
 
 // exports
 
@@ -1185,7 +1208,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, ".outgoing {\n  background-color: cornflowerblue;\n  float: right;\n  clear: both;\n  border-radius:25px;\n  padding-left: 15px;\n  padding-right: 15px;\n  padding-top: 5px;\n  padding-bottom: 5px;\n  margin-right: 5px;\n  word-break: normal;\n}\n\n.incoming {\n  background-color: orangered;\n  float: left;\n  clear: both;\n  border-radius:25px;\n  padding-left: 15px;\n  padding-right: 15px;\n  padding-top: 5px;\n  padding-bottom: 5px;\n  margin-left: 5px;\n}\n\n\n", ""]);
+exports.push([module.i, "#chatroom {\n  border: solid;\n  border-radius: 23px;\n}\n\n#chatBody {\n  overflow: auto;\n  height: 60vh;\n}\n\nhr {\n  border: none;\n  height: 1px;\n  /* Set the hr color */\n  color: white; /* old IE */\n  background-color:white; /* Modern Browsers */\n}\n\nh2 {\n  margin-left:20px;\n}", ""]);
 
 // exports
 
@@ -1203,7 +1226,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".outgoing {\n  background-color: cornflowerblue;\n  float: right;\n  clear: both;\n  border-radius:25px;\n  padding-left: 15px;\n  padding-right: 15px;\n  padding-top: 5px;\n  padding-bottom: 5px;\n  margin-right: 5px;\n  word-break: normal;\n}\n\n.incoming {\n  background-color: orangered;\n  float: left;\n  clear: both;\n  border-radius:25px;\n  padding-left: 15px;\n  padding-right: 15px;\n  padding-top: 5px;\n  padding-bottom: 5px;\n  margin-left: 5px;\n}\n\n\n", ""]);
 
 // exports
 
@@ -1221,7 +1244,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n.btn {\n  border-radius:5px;\n  margin: 5px;\n  margin-top: 50px;\n}\n\n.display-3 {\n  padding-top: 40px;\n  padding-bottom: 100px;\n}\n", ""]);
+exports.push([module.i, "", ""]);
 
 // exports
 
@@ -1239,7 +1262,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "input {\n    width:40%;\n    border-radius:10px;\n}\n\n.btn {\n    width:auto;\n}\n\nform {\n    margin-left: 2%;\n}\n\nh2 {\n    margin-left: 2%;\n}\n", ""]);
+exports.push([module.i, "\n.btn {\n  border-radius:5px;\n  margin: 5px;\n  margin-top: 50px;\n}\n\n.display-3 {\n  padding-top: 40px;\n  padding-bottom: 100px;\n}\n", ""]);
 
 // exports
 
@@ -1257,7 +1280,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, ".navbar {\n  padding: 10px;\n}\na {\n  font-weight: bold;\n  font-size: small;\n}\n\n.navbar-brand {\n  font-size: large;\n}\n", ""]);
+exports.push([module.i, "input {\n    width:40%;\n    border-radius:10px;\n}\n\n.btn {\n    width:auto;\n}\n\nform {\n    margin-left: 2%;\n}\n\nh2 {\n    margin-left: 2%;\n}\n", ""]);
 
 // exports
 
@@ -1275,7 +1298,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "td {\n    font-size: 17pt;\n    padding-left: 30px;\n    padding-bottom: 20px;\n}", ""]);
+exports.push([module.i, ".navbar {\n  padding: 10px;\n}\na {\n  font-weight: bold;\n  font-size: small;\n}\n\n.navbar-brand {\n  font-size: large;\n}\n", ""]);
 
 // exports
 
@@ -1293,6 +1316,24 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
+exports.push([module.i, "td {\n    font-size: 17pt;\n    padding-left: 30px;\n    padding-bottom: 20px;\n}", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ 221:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(5)(false);
+// imports
+
+
+// module
 exports.push([module.i, "input {\n    width:40%;\n    border-radius:10px;\n}\n\n.btn {\n    width:auto;\n    \n}\n\nform {\n    margin-left: 2%;\n}\n\nh2 {\n    margin-left: 2%;\n}\n\n", ""]);
 
 // exports
@@ -1303,112 +1344,137 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 225:
-/***/ (function(module, exports) {
+/***/ 222:
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = "<app-navbar></app-navbar>\n<flash-messages></flash-messages>\n<router-outlet></router-outlet>"
+exports = module.exports = __webpack_require__(5)(false);
+// imports
 
-/***/ }),
 
-/***/ 226:
-/***/ (function(module, exports) {
+// module
+exports.push([module.i, ".spinner {\n  margin: 100px auto;\n  width: 10vw;\n  height: 10vw;\n  max-height: 80px;\n  max-width: 80px;\n  position: relative;\n  text-align: center;\n  \n  -webkit-animation: sk-rotate 2.0s infinite linear;\n  animation: sk-rotate 2.0s infinite linear;\n}\n\n.dot1, .dot2 {\n  width: 60%;\n  height: 60%;\n  display: inline-block;\n  position: absolute;\n  top: 0;\n  background-color: white;\n  border-radius: 100%;\n  \n  -webkit-animation: sk-bounce 2.0s infinite ease-in-out;\n  animation: sk-bounce 2.0s infinite ease-in-out;\n}\n\n.dot2 {\n  top: auto;\n  bottom: 0;\n  -webkit-animation-delay: -1.0s;\n  animation-delay: -1.0s;\n}\n\n@-webkit-keyframes sk-rotate { 100% { -webkit-transform: rotate(360deg) }}\n@keyframes sk-rotate { 100% { transform: rotate(360deg); -webkit-transform: rotate(360deg) }}\n\n@-webkit-keyframes sk-bounce {\n  0%, 100% { -webkit-transform: scale(0.0) }\n  50% { -webkit-transform: scale(1.0) }\n}\n\n@keyframes sk-bounce {\n  0%, 100% { \n    transform: scale(0.0);\n    -webkit-transform: scale(0.0);\n  } 50% { \n    transform: scale(1.0);\n    -webkit-transform: scale(1.0);\n  }\n}", ""]);
 
-module.exports = "<h3>Contact requests</h3>\n      <table>\n        <tr *ngFor=\"let request of requests\">\n\n          <td> <p style=\"padding:1cm; font-size:12pt\">{{request.sender}}</p> </td>\n\n          <td>\n            <button \n              (click)=\"onAccept(request.sender)\"\n              class=\"btn btn-success\"\n            > Accept\n            </button>\n\n            <button \n              (click)=\"onReject(request.sender)\"\n              class=\"btn btn-danger\"\n            >Reject\n            </button>\n          </td>\n\n        </tr>\n      </table>"
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
 
 /***/ }),
 
 /***/ 227:
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\n  <div class=\"row\">\n    <div class=\"col-md-6\">\n      <app-search-contacts></app-search-contacts>\n    </div>\n    <div class=\"col-md-4\">\n      <app-contact-requests></app-contact-requests>\n    </div>\n  </div>\n</div>"
+module.exports = "<app-navbar></app-navbar>\n<flash-messages></flash-messages>\n<router-outlet></router-outlet>"
 
 /***/ }),
 
 /***/ 228:
 /***/ (function(module, exports) {
 
-module.exports = "<h3 id=\"searchContactsHeader\">Search Contacts</h3>\n\n      <div id=\"searchbar\">\n        <form ng-submit=\"searchContact()\">\n\n          <div class=\"input-group\">\n            <input type=\"text\"\n                  class=\"form-control\"\n                  [(ngModel)]=\"searchCriteria\"\n                    name=\"search-criteria\">\n            <span class=\"input-group-btn\">\n        <input type=\"submit\"\n              class=\"btn btn-primary\"\n              (click)=\"searchContact()\"\n              value=\"Search\"\n              [disabled] = \"messageInput === ''\"\n        >\n        </span>\n          </div>\n\n\n        </form>\n\n      </div>\n\n      <table>\n        <tr *ngFor=\"let result of results\">\n\n          <td style=\"padding-right:10%\"> <p>{{result.username}}</p> </td>\n\n          <td>\n            <button \n              *ngIf=\"result.type=='newUser'\"\n              (click)=\"addRequest(result)\" \n              class=\"btn btn-success\"\n            >Add to contacts\n            </button>\n\n            <button \n              *ngIf=\"result.type=='isContact'\"\n              (click)=\"removeContact(result)\" \n              class=\"btn btn-danger\"\n            >Remove from contacts\n            </button>\n\n            <button \n              *ngIf=\"result.type=='requestSent'\"\n              class=\"btn disabled\" \n            >Request Sent\n            </button>\n\n            <button \n            *ngIf=\"result.type=='requestReceived'\"\n            class=\"btn disabled\" \n          >Request Received\n          </button>\n\n          </td>\n\n        </tr>\n      </table>\n "
+module.exports = "<h3>Contact requests</h3>\n      <table>\n        <tr *ngFor=\"let request of requests\">\n\n          <td> <p style=\"padding:1cm; font-size:12pt\">{{request.sender}}</p> </td>\n\n          <td>\n            <button \n              (click)=\"onAccept(request.sender)\"\n              class=\"btn btn-success\"\n            > Accept\n            </button>\n\n            <button \n              (click)=\"onReject(request.sender)\"\n              class=\"btn btn-danger\"\n            >Reject\n            </button>\n          </td>\n\n        </tr>\n      </table>"
 
 /***/ }),
 
 /***/ 229:
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"chatlist\">\n  <h3> &nbsp; Chat List</h3>\n  <ul class=\"nav nav-pills nav-stacked\">\n    <li *ngFor=\"let chatItem of chatlistData.chatlist\" [ngClass]=\" chatItem.chat == chatlistData.selectedChat  ? 'active' : ''\" >\n      <a (click)=\"onChatSelected(chatItem)\" >\n\n        {{chatItem.chat}} <span *ngIf=\"chatItem.badge != 0\" class=\"badge\">{{chatItem.badge}}</span>\n        \n      </a>\n    </li>\n  </ul>\n</div>"
+module.exports = "<div class=\"container-fluid\">\n  <div class=\"row\">\n    <div class=\"col-md-6\">\n      <app-search-contacts></app-search-contacts>\n    </div>\n    <div class=\"col-md-4\">\n      <app-contact-requests></app-contact-requests>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
 /***/ 230:
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"chatbar\">\n  <form ng-submit=\"sendMessage()\">\n\n    <div class=\"input-group\">\n      <input type=\"text\"\n             class=\"form-control\"\n             [(ngModel)]=\"messageInput\"\n              name=\"message\">\n      <span class=\"input-group-btn\">\n  <input type=\"submit\"\n         class=\"btn btn-primary\"\n         (click)=\"sendMessage()\"\n         value=\"Send\"\n         [disabled] = \"messageInput === ''\"\n  >\n  </span>\n    </div>\n\n\n  </form>\n\n</div>\n"
+module.exports = "<h3 id=\"searchContactsHeader\">Search Contacts</h3>\n\n      <div id=\"searchbar\">\n        <form ng-submit=\"searchContact()\">\n\n          <div class=\"input-group\">\n            <input type=\"text\"\n                  class=\"form-control\"\n                  [(ngModel)]=\"searchCriteria\"\n                    name=\"search-criteria\">\n            <span class=\"input-group-btn\">\n        <input type=\"submit\"\n              class=\"btn btn-primary\"\n              (click)=\"searchContact()\"\n              value=\"Search\"\n              [disabled] = \"messageInput === ''\"\n        >\n        </span>\n          </div>\n\n\n        </form>\n\n      </div>\n\n      <table>\n        <tr *ngFor=\"let result of results\">\n\n          <td style=\"padding-right:10%\"> <p>{{result.username}}</p> </td>\n\n          <td>\n            <button \n              *ngIf=\"result.type=='newUser'\"\n              (click)=\"addRequest(result)\" \n              class=\"btn btn-success\"\n            >Add to contacts\n            </button>\n\n            <button \n              *ngIf=\"result.type=='isContact'\"\n              (click)=\"removeContact(result)\" \n              class=\"btn btn-danger\"\n            >Remove from contacts\n            </button>\n\n            <button \n              *ngIf=\"result.type=='requestSent'\"\n              class=\"btn disabled\" \n            >Request Sent\n            </button>\n\n            <button \n            *ngIf=\"result.type=='requestReceived'\"\n            class=\"btn disabled\" \n          >Request Received\n          </button>\n\n          </td>\n\n        </tr>\n      </table>\n "
 
 /***/ }),
 
 /***/ 231:
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"chatroom\" >\n<div id=\"chatHeader\">\n  <h2 >{{chatroomData.chatname}}</h2>\n  <hr>\n</div>\n\n<div id=\"chatBody\" #messageScroller > \n  <app-message \n    *ngFor=\"let message of chatroomData.messages \"\n    [messageContent]=\"message\"\n  ></app-message>\n  </div>\n</div>\n\n<app-chat-bar\n  (messageEntered)=\"onMessageEntered($event)\"\n></app-chat-bar>\n"
+module.exports = "<div id=\"chatlist\">\n  <h3> &nbsp; Chat List</h3>\n  <ul class=\"nav nav-pills nav-stacked\">\n    <li *ngFor=\"let chatItem of chatlistData.chatlist\" [ngClass]=\" chatItem.chat == chatlistData.selectedChat  ? 'active' : ''\" >\n      <a (click)=\"onChatSelected(chatItem)\" >\n\n        {{chatItem.chat}} <span *ngIf=\"chatItem.badge != 0\" class=\"badge\">{{chatItem.badge}}</span>\n        \n      </a>\n    </li>\n  </ul>\n</div>"
 
 /***/ }),
 
 /***/ 232:
 /***/ (function(module, exports) {
 
-module.exports = "  <p\n    [ngClass]=\"messageContent.outgoing  ? 'outgoing' : 'incoming'\"\n    \n  >\n  {{messageContent.content}}\n  </p>\n\n\n"
+module.exports = "<div id=\"chatbar\">\n  <form ng-submit=\"sendMessage()\">\n\n    <div class=\"input-group\">\n      <input type=\"text\"\n             class=\"form-control\"\n             [(ngModel)]=\"messageInput\"\n              name=\"message\">\n      <span class=\"input-group-btn\">\n  <input type=\"submit\"\n         class=\"btn btn-primary\"\n         (click)=\"sendMessage()\"\n         value=\"Send\"\n         [disabled] = \"messageInput === ''\"\n  >\n  </span>\n    </div>\n\n\n  </form>\n\n</div>\n"
 
 /***/ }),
 
 /***/ 233:
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\n  <div class=\"row\">\n    <div id=\"chatlist\" class=\"col-md-2 col-sm-3\">\n      <app-chat-list\n        (chatSelected)=\"onChatSelected($event)\"\n        [chatlistData]=\"chatlistData\"\n      ></app-chat-list>\n    </div>\n    <div id=\"chatroom\" class=\"col-md-10 col-sm-9\">\n      <app-chat-room\n        [chatroomData]=\"chatroomData\"\n      ></app-chat-room>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div id=\"chatroom\" >\n<div id=\"chatHeader\">\n  <h2 >{{chatroomData.chatname}}</h2>\n  <hr>\n</div>\n\n<div id=\"chatBody\" #messageScroller > \n  <app-loading-spinner *ngIf=\"chatroomData.showSpinner\"></app-loading-spinner>\n  \n  <div id=\"messages\" *ngIf=\"!chatroomData.showSpinner\">\n    <app-message\n      *ngFor=\"let message of chatroomData.messages \"\n      [messageContent]=\"message\"\n    ></app-message>\n  </div>\n\n </div>\n</div>\n\n<app-chat-bar\n  (messageEntered)=\"onMessageEntered($event)\"\n></app-chat-bar>\n"
 
 /***/ }),
 
 /***/ 234:
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"jumbotron\">\n  <h1 class=\"display-3 text-center\">New Messenger</h1>\n  <hr class=\"my-4\">\n  <p class=\"lead text-center\">\n    <a class=\"btn btn-success btn-lg\" routerLink=\"/login\" role=\"button\">Login</a>\n    <a class=\"btn btn-primary btn-lg\" routerLink=\"/register\" href=\"#\" role=\"button\">Register</a>\n  </p>\n</div>\n"
+module.exports = "  <p\n    [ngClass]=\"messageContent.outgoing  ? 'outgoing' : 'incoming'\"\n    \n  >\n  {{messageContent.content}}\n  </p>\n\n\n"
 
 /***/ }),
 
 /***/ 235:
 /***/ (function(module, exports) {
 
-module.exports = "<h2 class=\"page-header\">Login</h2>\n<form (submit)=\"onLoginSubmit()\">\n  <div class=\"form-group\">\n    <label>Username</label>\n    <input type=\"text\" class=\"form-control\" [(ngModel)]=\"username\" name=\"username\">\n  </div>\n  <div class=\"form-group\">\n    <label>Password</label>\n    <input type=\"password\" class=\"form-control\" [(ngModel)]=\"password\" name=\"password\">\n  </div>\n  <input type=\"submit\" class=\"btn btn-primary\" value=\"Login\">\n</form>\n"
+module.exports = "<div class=\"container-fluid\">\n  <div class=\"row\">\n    <div id=\"chatlist\" class=\"col-md-2 col-sm-3\">\n      <app-chat-list\n        (chatSelected)=\"onChatSelected($event)\"\n        [chatlistData]=\"chatlistData\"\n      ></app-chat-list>\n    </div>\n    <div id=\"chatroom\" class=\"col-md-10 col-sm-9\">\n      <app-chat-room\n        [chatroomData]=\"chatroomData\"\n      ></app-chat-room>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
 /***/ 236:
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-default\">\n  <div class=\"container-fluid\">\n    <div class=\"navbar-header\">\n      <a class=\"navbar-brand\" routerLink=\"/\">New Messenger</a>\n    </div>\n    <ul class=\"nav navbar-nav navbar-right\">\n      <li *ngIf=\"authService.loggedIn()\"  routerLinkActive=\"active\"><a routerLink=\"/dashboard\" href=\"#\">Dashboard</a></li>\n      <li *ngIf=\"!authService.loggedIn()\" routerLinkActive=\"active\"><a routerLink=\"/login\"    href=\"#\">Login</a></li>\n      <li *ngIf=\"!authService.loggedIn()\" routerLinkActive=\"active\"><a routerLink=\"/register\" href=\"#\">Register</a></li>\n      <li *ngIf=\"authService.loggedIn()\"  routerLinkActive=\"active\"><a routerLink=\"/contacts\" href=\"#\">Contacts</a></li>\n      <li *ngIf=\"authService.loggedIn()\"  routerLinkActive=\"active\"><a routerLink=\"/profile\" href=\"#\">Profile</a></li>\n      <li *ngIf=\"authService.loggedIn()\"  routerLinkActive=\"active\"><a (click)=\"onLogout()\" style=\"cursor:pointer\">Log out</a></li>\n    </ul>\n  </div>\n</nav>\n"
+module.exports = "<div class=\"jumbotron\">\n  <h1 class=\"display-3 text-center\">New Messenger</h1>\n  <hr class=\"my-4\">\n  <p class=\"lead text-center\">\n    <a class=\"btn btn-success btn-lg\" routerLink=\"/login\" role=\"button\">Login</a>\n    <a class=\"btn btn-primary btn-lg\" routerLink=\"/register\" href=\"#\" role=\"button\">Register</a>\n  </p>\n</div>\n"
 
 /***/ }),
 
 /***/ 237:
 /***/ (function(module, exports) {
 
-module.exports = "<table>\n  <tr>\n    <td>\n      Name:\n    </td>\n    <td>\n      {{user.name}}\n    </td>\n  </tr>\n  \n  <tr>\n    <td>\n      Username:\n    </td>\n    <td>\n      {{user.username}}\n    </td>\n  </tr>\n  \n  <tr>\n    <td>\n      Email:\n    </td>\n    <td>\n      {{user.email}}\n    </td>\n  </tr>\n  \n  <tr>\n    <td>\n      Contacts:\n    </td>\n    <td>\n      {{user.contacts}}\n    </td>\n  </tr>\n</table>\n\n\n"
+module.exports = "<h2 class=\"page-header\">Login</h2>\n<form (submit)=\"onLoginSubmit()\">\n  <div class=\"form-group\">\n    <label>Username</label>\n    <input type=\"text\" class=\"form-control\" [(ngModel)]=\"username\" name=\"username\">\n  </div>\n  <div class=\"form-group\">\n    <label>Password</label>\n    <input type=\"password\" class=\"form-control\" [(ngModel)]=\"password\" name=\"password\">\n  </div>\n  <input type=\"submit\" class=\"btn btn-primary\" value=\"Login\">\n</form>\n"
 
 /***/ }),
 
 /***/ 238:
 /***/ (function(module, exports) {
 
+module.exports = "<nav class=\"navbar navbar-default\">\n  <div class=\"container-fluid\">\n    <div class=\"navbar-header\">\n      <a class=\"navbar-brand\" routerLink=\"/\">New Messenger</a>\n    </div>\n    <ul class=\"nav navbar-nav navbar-right\">\n      <li *ngIf=\"authService.loggedIn()\"  routerLinkActive=\"active\"><a routerLink=\"/dashboard\" href=\"#\">Dashboard</a></li>\n      <li *ngIf=\"!authService.loggedIn()\" routerLinkActive=\"active\"><a routerLink=\"/login\"    href=\"#\">Login</a></li>\n      <li *ngIf=\"!authService.loggedIn()\" routerLinkActive=\"active\"><a routerLink=\"/register\" href=\"#\">Register</a></li>\n      <li *ngIf=\"authService.loggedIn()\"  routerLinkActive=\"active\"><a routerLink=\"/contacts\" href=\"#\">Contacts</a></li>\n      <li *ngIf=\"authService.loggedIn()\"  routerLinkActive=\"active\"><a routerLink=\"/profile\" href=\"#\">Profile</a></li>\n      <li *ngIf=\"authService.loggedIn()\"  routerLinkActive=\"active\"><a (click)=\"onLogout()\" style=\"cursor:pointer\">Log out</a></li>\n    </ul>\n  </div>\n</nav>\n"
+
+/***/ }),
+
+/***/ 239:
+/***/ (function(module, exports) {
+
+module.exports = "<table>\n  <tr>\n    <td>\n      Name:\n    </td>\n    <td>\n      {{user.name}}\n    </td>\n  </tr>\n  \n  <tr>\n    <td>\n      Username:\n    </td>\n    <td>\n      {{user.username}}\n    </td>\n  </tr>\n  \n  <tr>\n    <td>\n      Email:\n    </td>\n    <td>\n      {{user.email}}\n    </td>\n  </tr>\n  \n  <tr>\n    <td>\n      Contacts:\n    </td>\n    <td>\n      {{user.contacts}}\n    </td>\n  </tr>\n</table>\n\n\n"
+
+/***/ }),
+
+/***/ 240:
+/***/ (function(module, exports) {
+
 module.exports = "<h2 class=\"page-header\">Register</h2>\n<form (submit)=\"onRegisterSubmit()\">\n  <div class=\"form-group\">\n    <label>Name</label>\n    <input type=\"text\" [(ngModel)]=\"name\" name=\"name\" class=\"form-control\">\n  </div>\n  <div class=\"form-group\">\n    <label>Username</label>\n    <input type=\"text\" [(ngModel)]=\"username\" name=\"username\" class=\"form-control\">\n  </div>\n  <div class=\"form-group\">\n    <label>Email</label>\n    <input type=\"text\" [(ngModel)]=\"email\" name=\"email\" class=\"form-control\" >\n  </div>\n  <div class=\"form-group\">\n    <label>Password</label>\n    <input type=\"password\" [(ngModel)]=\"password\" name=\"password\" class=\"form-control\">\n  </div>\n  <input type=\"submit\" class=\"btn btn-primary\" value=\"Submit\">\n</form>\n"
 
 /***/ }),
 
-/***/ 280:
+/***/ 241:
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"spinner\">\n    <div class=\"dot1\"></div>\n    <div class=\"dot2\"></div>\n  </div>"
+
+/***/ }),
+
+/***/ 283:
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
 
-/***/ 281:
+/***/ 284:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(111);
@@ -1422,7 +1488,7 @@ module.exports = __webpack_require__(111);
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_socket_io_client__ = __webpack_require__(273);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_socket_io_client__ = __webpack_require__(276);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_socket_io_client___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_socket_io_client__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ChatService; });
 
@@ -1520,9 +1586,9 @@ ValidateService = __decorate([
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(245);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(248);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_jwt__ = __webpack_require__(140);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_jwt__ = __webpack_require__(141);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_jwt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_angular2_jwt__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AuthService; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1670,5 +1736,5 @@ var _a;
 
 /***/ })
 
-},[281]);
+},[284]);
 //# sourceMappingURL=main.bundle.js.map
