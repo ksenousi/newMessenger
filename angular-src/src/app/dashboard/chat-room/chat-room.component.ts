@@ -10,7 +10,7 @@ import { MessageComponent } from "./message/message.component";
 export class ChatRoomComponent implements OnInit, OnChanges{
 
   @ViewChild('messageScroller') private messageScroller;
-  @Input() chatroomData:{ chatname: string, messages: any[]};
+  @Input() chatroomData:{ chatname: string, messages: any[], showSpinner: boolean};
 
   constructor(private chatService: ChatService) { }
 

@@ -5,11 +5,16 @@
 </div>
 
 <div id="chatBody" #messageScroller > 
-  <app-message 
-    *ngFor="let message of chatroomData.messages "
-    [messageContent]="message"
-  ></app-message>
+  <app-loading-spinner *ngIf="chatroomData.showSpinner"></app-loading-spinner>
+  
+  <div id="messages" *ngIf="!chatroomData.showSpinner">
+    <app-message
+      *ngFor="let message of chatroomData.messages "
+      [messageContent]="message"
+    ></app-message>
   </div>
+
+ </div>
 </div>
 
 <app-chat-bar

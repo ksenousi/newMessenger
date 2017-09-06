@@ -9,7 +9,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
-  chatroomData = { chatname: '', messages: [] };
+  chatroomData = { chatname: '', messages: [], showSpinner: true};
   chatlistData = { chatlist: [{ chat: '', badge: 0 }], selectedChat: '' };
   connection: any;
 
@@ -44,10 +44,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.chatlistData.selectedChat = chatItem.chat;
     this.chatroomData.chatname = chatItem.chat;
     chatItem.badge = 0;
+    this.chatroomData.showSpinner = true;
 
     if (typeof this.chatroomData.chatname != 'undefined') {
       this.authService.getChat(this.chatroomData.chatname).subscribe(chat => {
         this.chatroomData.messages = chat.messages;
+        this.chatroomData.showSpinner = false;
         this.chatroomData = Object.assign({}, this.chatroomData);
       });
     }

@@ -26,6 +26,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { LoggedInGuard } from './guards/loggedIn.guard';
 import { SearchContactsComponent } from './contacts/search-contacts/search-contacts.component';
 import { ContactRequestsComponent } from './contacts/contact-requests/contact-requests.component';
+import { LoadingSpinnerComponent } from './ui/loading-spinner/loading-spinner.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent,canActivate:[LoggedInGuard]},
@@ -53,7 +54,8 @@ const appRoutes: Routes = [
     ProfileComponent,
     ContactsComponent,
     SearchContactsComponent,
-    ContactRequestsComponent
+    ContactRequestsComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule,
