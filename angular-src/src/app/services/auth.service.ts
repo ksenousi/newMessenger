@@ -13,104 +13,122 @@ export class AuthService {
   }
 
   registerUser(user) {
-    let headers = new Headers();
+    const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    let ep = this.prepEndpoint('users/register');
+    const ep = this.prepEndpoint('users/register');
     return this.http.post(ep, user, { headers: headers })
       .map(res => res.json());
   }
 
   authenticateUser(user) {
-    let headers = new Headers();
+    const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    let ep = this.prepEndpoint('users/authenticate');
+    const ep = this.prepEndpoint('users/authenticate');
     return this.http.post(ep, user, { headers: headers })
       .map(res => res.json());
   }
 
   getProfile() {
-    let headers = new Headers();
+    const headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type', 'application/json');
-    let ep = this.prepEndpoint('users/profile');
+    const ep = this.prepEndpoint('users/profile');
     return this.http.get(ep, { headers: headers })
       .map(res => res.json());
   }
 
   getChat(chatname) {
-    let headers = new Headers();
+    const headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type', 'application/json');
     headers.append('chatname', chatname);
-    let ep = this.prepEndpoint('chats/getchat');
+    const ep = this.prepEndpoint('chats/getchat');
+    return this.http.get(ep, { headers: headers })
+      .map(res => res.json());
+  }
+
+  getChatlist() {
+    const headers = new Headers();
+    this.loadToken();
+    headers.append('Authorization', this.authToken);
+    headers.append('Content-Type', 'application/json');
+    const ep = this.prepEndpoint('chats/getchatlist');
     return this.http.get(ep, { headers: headers })
       .map(res => res.json());
   }
 
   searchUsers(searchCriteria: string) {
-    let headers = new Headers();
+    const headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type', 'application/json');
     headers.append('searchcriteria', searchCriteria);
-    let ep = this.prepEndpoint('users/search');
-    var results = this.http.get(ep, { headers: headers })
+    const ep = this.prepEndpoint('users/search');
+    return this.http.get(ep, { headers: headers })
       .map(res => res.json());
-    return results;
   }
 
   addContact(contact: string) {
-    let headers = new Headers();
+    const headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type', 'application/json');
-    let ep = this.prepEndpoint('contacts/addcontact');
+    const ep = this.prepEndpoint('contacts/addcontact');
     return this.http.post(ep, { 'contact': contact }, { headers: headers })
       .map(res => res.json());
   }
 
   removeContact(contact) {
-    let headers = new Headers();
+    const headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type', 'application/json');
-    let ep = this.prepEndpoint('contacts/removecontact');
+    const ep = this.prepEndpoint('contacts/removecontact');
     return this.http.post(ep, contact, { headers: headers })
       .map(res => res.json());
   }
 
   getContactRequests() {
-    let headers = new Headers();
+    const headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type', 'application/json');
-    let ep = this.prepEndpoint('requests/getcontactrequests');
+    const ep = this.prepEndpoint('requests/getcontactrequests');
     return this.http.get(ep, { headers: headers })
       .map(res => res.json());
   }
 
   addContactRequest(contact) {
-    let headers = new Headers();
+    const headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type', 'application/json');
-    let ep = this.prepEndpoint('requests/addcontactrequest');
+    const ep = this.prepEndpoint('requests/addcontactrequest');
     return this.http.post(ep, { 'contact': contact }, { headers: headers })
       .map(res => res.json());
   }
 
   removeContactRequest(contact) {
-    let headers = new Headers();
+    const headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type', 'application/json');
-    let ep = this.prepEndpoint('requests/removecontactrequest');
+    const ep = this.prepEndpoint('requests/removecontactrequest');
     return this.http.post(ep, { 'contact': contact }, { headers: headers })
       .map(res => res.json());
   }
 
+  setMessagesSeen(chatname, numSeen) {
+    const headers = new Headers();
+    this.loadToken();
+    headers.append('Authorization', this.authToken);
+    headers.append('Content-Type', 'application/json');
+    const ep = this.prepEndpoint('chat/setmessagesseen');
+    return this.http.post(ep, { 'chatname': chatname, 'numSeen': numSeen }, { headers: headers })
+      .map(res => res.json());
+  }
 
   storeUserData(token, user) {
     localStorage.setItem('id_token', token);

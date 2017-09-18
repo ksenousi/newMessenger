@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild, EventEmitter, Output} from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-chat-bar',
@@ -6,7 +6,7 @@ import {Component, ElementRef, OnInit, ViewChild, EventEmitter, Output} from '@a
   styleUrls: ['./chat-bar.component.css']
 })
 export class ChatBarComponent implements OnInit {
-  @Output('messageEntered') messageEntered = new EventEmitter<{content: string, outgoing: boolean}>();
+  @Output('messageEntered') messageEntered = new EventEmitter<{ content: string, outgoing: boolean, seen: boolean }>();
   messageInput = '';
 
   constructor() { }
@@ -15,8 +15,11 @@ export class ChatBarComponent implements OnInit {
   }
 
   sendMessage() {
-    this.messageEntered.emit({content: this.messageInput,
-      outgoing: true});
+    this.messageEntered.emit({
+      content: this.messageInput,
+      outgoing: true,
+      seen: true
+    });
     this.messageInput = '';
   }
 

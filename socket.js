@@ -42,6 +42,7 @@ module.exports = function (server) {
 
             // inverse direction for receiving user
             message.outgoing = false;
+            message.seen = false;
 
             // add to db for receiving user
             Chat.addMessage(chatname, username, message, err => {
