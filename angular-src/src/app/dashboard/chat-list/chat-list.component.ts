@@ -7,16 +7,16 @@ import {AuthService} from '../../services/auth.service';
   styleUrls: ['./chat-list.component.css']
 })
 export class ChatListComponent implements OnInit {
-  
+
   @Output('chatSelected') chatSelected = new EventEmitter<string>();
   @Input() chatlistData: any;
-  
-  constructor(private authService: AuthService) {
+
+  constructor() {
   }
-  
+
   ngOnInit() {
   }
-  
+
   onChatSelected(chatname: string) {
     this.chatSelected.emit(chatname);
   }
