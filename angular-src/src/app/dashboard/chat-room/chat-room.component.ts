@@ -1,26 +1,26 @@
-import { Component, OnInit, OnChanges, OnDestroy, Input, SimpleChanges, ElementRef, ViewChild, DoCheck, AfterViewInit } from '@angular/core';
-import {ChatService} from '../../services/chat.service';
-import { MessageComponent } from "./message/message.component";
+import { Component, OnInit, OnChanges, Input, ViewChild, SimpleChanges} from '@angular/core';
+import { ChatService } from '../../services/chat.service';
+import { MessageComponent } from './message/message.component';
 
 @Component({
   selector: 'app-chat-room',
   templateUrl: './chat-room.component.html',
   styleUrls: ['./chat-room.component.css']
 })
-export class ChatRoomComponent implements OnInit, OnChanges{
+export class ChatRoomComponent implements OnInit, OnChanges {
 
   @ViewChild('messageScroller') private messageScroller;
-  @Input() chatroomData:{ chatname: string, messages: any[], showSpinner: boolean};
+  @Input() chatroomData: { chatname: string, messages: any[], showSpinner: boolean };
 
   constructor(private chatService: ChatService) { }
 
-   ngOnInit(){
-   } 
+  ngOnInit() {
+  }
 
   onMessageEntered(messageData) {
     this.chatroomData.messages.push(messageData);
     this.scrollToBottom();
-    this.chatService.sendMessage({messageData, 'chatname' :this.chatroomData.chatname});
+    this.chatService.sendMessage({ messageData, 'chatname': this.chatroomData.chatname });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -29,12 +29,10 @@ export class ChatRoomComponent implements OnInit, OnChanges{
   }
 
   scrollToBottom() {
-
     setTimeout(() => {
       try {
-         this.messageScroller.nativeElement.scrollTop = this.messageScroller.nativeElement.scrollHeight;
-      } catch(err) { }                 
+        this.messageScroller.nativeElement.scrollTop = this.messageScroller.nativeElement.scrollHeight;
+      } catch (err) { }
     });
-}
-
+  }
 }
