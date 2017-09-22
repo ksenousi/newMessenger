@@ -51,6 +51,6 @@ module.exports.addMessage = function (username, chatname, message, callback) {
 
 // TODO get num of how many has been seen and update the array based on that number 
 // so 3 would mean update the last three items in the array
-module.exports.setMessagesSeen = function (username, chatname, numSeen) {
+module.exports.setMessagesSeen = function (username, chatname, ids) {
   //Chat.update({ 'username': username, 'chatname': chatname }, { '$push': { 'messages': message } });
 }
