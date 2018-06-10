@@ -28,9 +28,12 @@ module.exports.getChatByName = function (username, chatname, callback) {
 }
 
 module.exports.getChatlist = function (username, callback) {
-  Chat.find({ 'username': username }, chats => {
+  Chat.find({ 'username': username }, (err, chats) => {
     chats = chats.map(chat => {
-      let numUnseen = chat.message.reduce(countUnseenMsg);
+      let numUnseen =0;
+      if(chat.messages.length > 0){
+        numUnseen = chat.messages.reduce(countUnseenMsg);
+      }
       return { 'chat': chat.chatname, 'numUnseen': numUnseen }
     });
     callback(chats);

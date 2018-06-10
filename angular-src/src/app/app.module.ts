@@ -35,8 +35,6 @@ const appRoutes: Routes = [
   {path: 'register', component: RegisterComponent,canActivate:[LoggedInGuard]},
   {path: 'profile', component: ProfileComponent, canActivate:[AuthGuard]},
   {path: 'contacts', component: ContactsComponent, canActivate:[AuthGuard]},
-
-
 ]
 
 @NgModule({

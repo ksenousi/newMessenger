@@ -27,15 +27,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
 
     this.connection = this.chatService.getMessages().subscribe((incomingMessage: any) => {
-      let chatname = incomingMessage.chatname;
-      let message = incomingMessage.messageData;
+      const chatname = incomingMessage.chatname;
+      const message = incomingMessage.messageData;
 
       if (chatname === this.chatroomData.chatname) {
         message.seen = true;
         this.chatroomData.messages.push(message);
         this.chatroomData = Object.assign({}, this.chatroomData);
       } else {
-        let index = this.chatlistData.chatlist.findIndex(chatItem => chatItem.chat === chatname);
+        const index = this.chatlistData.chatlist.findIndex(chatItem => chatItem.chat === chatname);
         this.chatlistData.chatlist[index].numUnseen += 1;
       }
     });
@@ -45,10 +45,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   onChatSelected(chatItem) {
     this.chatlistData.selectedChat = chatItem.chat;
     this.chatroomData.chatname = chatItem.chat;
+    this.setMessagesSeen(chatItem);
     chatItem.numUnseen = 0;
     this.chatroomData.showSpinner = true;
 
-    this.setMessagesSeen(chatItem);
     if (typeof this.chatroomData.chatname !== 'undefined') {
       this.authService.getChat(this.chatroomData.chatname).subscribe(chat => {
         this.chatroomData.messages = chat.messages;
@@ -60,7 +60,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   setMessagesSeen(chat) {
-    chat.messages.map(message => message.seen = true);
+    const length = this.chatroomData.messages.length - 1;
+    for (let i = length; i > length - chat.numUnseen; i--){
+      chat.messages[i].seen = true;
+    }
+    const seenIds = this.chatroomData.messages.slice(length - chat.numUnseen, length).map(message => message._id);
+    console.log('ids: ' + seenIds);
   }
 
   ngOnDestroy() {

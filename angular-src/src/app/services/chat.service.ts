@@ -5,9 +5,9 @@ import * as io from 'socket.io-client';
 export class ChatService {
   private socket;
   authToken: any;
-  isDev = false; // change to false before deployment
+  isDev = true; // change to false before deployment
 
-  sendMessage(message){
+  sendMessage(message) {
     this.socket.emit('add-message', message);
   }
 
