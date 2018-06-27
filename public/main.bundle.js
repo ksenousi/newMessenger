@@ -476,7 +476,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/dashboard/chat-list/chat-list.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"chatlist\">\n  <h3> &nbsp; Chat List</h3>\n  <ul class=\"nav nav-pills nav-stacked\">\n    <li *ngFor=\"let chatItem of chatlistData.chatlist\" [ngClass]=\" chatItem.chat == chatlistData.selectedChat  ? 'active' : ''\" >\n      <a (click)=\"onChatSelected(chatItem)\" >\n\n        {{chatItem.chat}} <span *ngIf=\"chatItem.badge != 0\" class=\"badge\">{{chatItem.unseen}}</span>\n        \n      </a>\n    </li>\n  </ul>\n</div>"
+module.exports = "<div id=\"chatlist\">\n  <h3> &nbsp; Chat List</h3>\n  <ul class=\"nav nav-pills nav-stacked\">\n    <li *ngFor=\"let chatItem of chatlistData.chatlist\" [ngClass]=\" chatItem.chat == chatlistData.selectedChat  ? 'active' : ''\" >\n      <a (click)=\"onChatSelected(chatItem)\" >\n\n        {{chatItem.chat}} <span *ngIf=\"chatItem.badge != 0\" class=\"badge\">{{chatItem.badge}}</span>\n        \n      </a>\n    </li>\n  </ul>\n</div>"
 
 /***/ }),
 
@@ -577,11 +577,8 @@ var ChatBarComponent = (function () {
     ChatBarComponent.prototype.ngOnInit = function () {
     };
     ChatBarComponent.prototype.sendMessage = function () {
-        this.messageEntered.emit({
-            content: this.messageInput,
-            outgoing: true,
-            seen: true
-        });
+        this.messageEntered.emit({ content: this.messageInput,
+            outgoing: true });
         this.messageInput = '';
     };
     return ChatBarComponent;
@@ -780,7 +777,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/dashboard/dashboard.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\n  <div class=\"row\">\n    <div id=\"chatlist\" class=\"col-md-2 col-sm-3\">\n      <app-chat-list\n        (chatSelected)=\"onChatSelected($event)\"\n        [chatlistData]=\"chatlistData\"\n      ></app-chat-list>\n    </div>\n    <div id=\"chatroom\" class=\"col-md-10 col-sm-9\">\n      <app-chat-room\n        [chatroomData]=\"chatroomData\"\n      ></app-chat-room>\n    </div>\n  </div>\n</div>\n\n"
+module.exports = "<div class=\"container-fluid\">\n  <div class=\"row\">\n    <div id=\"chatlist\" class=\"col-md-2 col-sm-3\">\n      <app-chat-list\n        (chatSelected)=\"onChatSelected($event)\"\n        [chatlistData]=\"chatlistData\"\n      ></app-chat-list>\n    </div>\n    <div id=\"chatroom\" class=\"col-md-10 col-sm-9\">\n      <app-chat-room\n        [chatroomData]=\"chatroomData\"\n      ></app-chat-room>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -809,12 +806,12 @@ var DashboardComponent = (function () {
         this.authService = authService;
         this.chatService = chatService;
         this.chatroomData = { chatname: '', messages: [], showSpinner: true };
-        this.chatlistData = { chatlist: [{ chat: '', numUnseen: 0 }], selectedChat: '' };
+        this.chatlistData = { chatlist: [{ chat: '', badge: 0 }], selectedChat: '' };
     }
     DashboardComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.authService.getChatlist().subscribe(function (chatlist) {
-            _this.chatlistData.chatlist = chatlist;
+        this.authService.getProfile().subscribe(function (profile) {
+            _this.chatlistData.chatlist = profile.user.contacts.map(function (chatItem) { return { chat: chatItem, badge: 0 }; });
             _this.onChatSelected(_this.chatlistData.chatlist[0]);
         }, function (err) {
             console.log(err);
@@ -823,14 +820,13 @@ var DashboardComponent = (function () {
         this.connection = this.chatService.getMessages().subscribe(function (incomingMessage) {
             var chatname = incomingMessage.chatname;
             var message = incomingMessage.messageData;
-            if (chatname === _this.chatroomData.chatname) {
-                message.seen = true;
+            if (chatname == _this.chatroomData.chatname) {
                 _this.chatroomData.messages.push(message);
                 _this.chatroomData = Object.assign({}, _this.chatroomData);
             }
             else {
-                var index = _this.chatlistData.chatlist.findIndex(function (chatItem) { return chatItem.chat === chatname; });
-                _this.chatlistData.chatlist[index].numUnseen += 1;
+                var index = _this.chatlistData.chatlist.findIndex(function (chatItem) { return chatItem.chat == chatname; });
+                _this.chatlistData.chatlist[index].badge += 1;
             }
         });
     };
@@ -838,20 +834,15 @@ var DashboardComponent = (function () {
         var _this = this;
         this.chatlistData.selectedChat = chatItem.chat;
         this.chatroomData.chatname = chatItem.chat;
-        chatItem.numUnseen = 0;
+        chatItem.badge = 0;
         this.chatroomData.showSpinner = true;
-        this.setMessagesSeen(chatItem);
-        if (typeof this.chatroomData.chatname !== 'undefined') {
+        if (typeof this.chatroomData.chatname != 'undefined') {
             this.authService.getChat(this.chatroomData.chatname).subscribe(function (chat) {
                 _this.chatroomData.messages = chat.messages;
                 _this.chatroomData.showSpinner = false;
-                // reset object for changes to be noticed
                 _this.chatroomData = Object.assign({}, _this.chatroomData);
             });
         }
-    };
-    DashboardComponent.prototype.setMessagesSeen = function (chat) {
-        chat.messages.map(function (message) { return message.seen = true; });
     };
     DashboardComponent.prototype.ngOnDestroy = function () {
         this.connection.unsubscribe();
@@ -1438,15 +1429,6 @@ var AuthService = (function () {
         return this.http.get(ep, { headers: headers })
             .map(function (res) { return res.json(); });
     };
-    AuthService.prototype.getChatlist = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
-        this.loadToken();
-        headers.append('Authorization', this.authToken);
-        headers.append('Content-Type', 'application/json');
-        var ep = this.prepEndpoint('chats/getchatlist');
-        return this.http.get(ep, { headers: headers })
-            .map(function (res) { return res.json(); });
-    };
     AuthService.prototype.searchUsers = function (searchCriteria) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         this.loadToken();
@@ -1454,8 +1436,9 @@ var AuthService = (function () {
         headers.append('Content-Type', 'application/json');
         headers.append('searchcriteria', searchCriteria);
         var ep = this.prepEndpoint('users/search');
-        return this.http.get(ep, { headers: headers })
+        var results = this.http.get(ep, { headers: headers })
             .map(function (res) { return res.json(); });
+        return results;
     };
     AuthService.prototype.addContact = function (contact) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
@@ -1500,15 +1483,6 @@ var AuthService = (function () {
         headers.append('Content-Type', 'application/json');
         var ep = this.prepEndpoint('requests/removecontactrequest');
         return this.http.post(ep, { 'contact': contact }, { headers: headers })
-            .map(function (res) { return res.json(); });
-    };
-    AuthService.prototype.setMessagesSeen = function (chatname, numSeen) {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
-        this.loadToken();
-        headers.append('Authorization', this.authToken);
-        headers.append('Content-Type', 'application/json');
-        var ep = this.prepEndpoint('chat/setmessagesseen');
-        return this.http.post(ep, { 'chatname': chatname, 'numSeen': numSeen }, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.storeUserData = function (token, user) {
