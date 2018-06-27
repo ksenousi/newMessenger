@@ -86,17 +86,20 @@ router.get('/search', passport.authenticate('jwt', { session: false }), (req, re
         })
         .then(users => {
             if (users != '') {
+                // filter out own username
                 results = users.map(result => result.username).filter(result => result != username);
 
+                // map results to only username and type
                 results = results.map(result => {
                     return { 'username': result, 'type': 'newUser' }
                 });
-
+                // check if is in contacts
                 results = results.map(result => {
                     if (userContacts.indexOf(result.username) > -1) {
                         return { 'username': result.username, 'type': 'isContact' }
                     } else { return result; }
                 });
+                // check for sent requests
                 return ContactRequest.getSentContactRequests(username).exec();
 
             } else {
@@ -114,6 +117,7 @@ router.get('/search', passport.authenticate('jwt', { session: false }), (req, re
                     return { 'username': result.username, 'type': 'requestSent' }
                 } else { return result; }
             });
+            // check for received requests
             return ContactRequest.getReceivedContactRequests(username).exec();
         })
     .catch(err => {

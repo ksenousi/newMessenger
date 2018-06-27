@@ -2,13 +2,11 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const mongoose = require('mongoose');
 const config = require('./config/database');
-const Chat = require('./models/chat');
 const app = express();
-var server = require('http').createServer(app);  
+const server = require('http').createServer(app);  
 const users = require('./routes/users');
 const chats = require('./routes/chats');
 const requests = require('./routes/requests');
@@ -35,11 +33,10 @@ mongoose.connection.on('error', (err) => {
 });
 
 // force ssl
-if(env = 'production') {
+if(env === 'production') {
   app.get('*', function(req, res, next) {
     if(req.headers['x-forwarded-proto'] != 'https')
-     // res.redirect(['https://', req.get('Host'), req.url].join(''));
-     console.log(req.get('Host'));
+      res.redirect(`https://${req.get('Host')}${req.url}`);
     else
       next();
   });
