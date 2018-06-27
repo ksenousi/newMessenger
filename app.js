@@ -13,6 +13,7 @@ const users = require('./routes/users');
 const chats = require('./routes/chats');
 const requests = require('./routes/requests');
 const contacts = require('./routes/contacts');
+const env = process.env.NODE_ENV || 'development';
 
 // Port Number
 const port = process.env.PORT || 8080;
@@ -32,6 +33,16 @@ mongoose.connection.on('connected', () => {
 mongoose.connection.on('error', (err) => {
   console.log('Error : ' + err);
 });
+
+// force ssl
+if(env = 'production') {
+  app.get('*', function(req, res, next) {
+    if(req.headers['x-forwarded-proto'] != 'https')
+      res.redirect(['https://', req.get('Host'), req.url].join(''));
+    else
+      next();
+  });
+}
 
 // CORS Middleware
 app.use(cors());
