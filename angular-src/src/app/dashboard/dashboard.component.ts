@@ -9,7 +9,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
-  chatroomData = { chatname: '', messages: [], showSpinner: true};
+  chatroomData = { chatname: '', messages: [], showSpinner: true };
   chatlistData = { chatlist: [{ chat: '', badge: 0 }], selectedChat: '' };
   connection: any;
 
@@ -18,7 +18,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.authService.getProfile().subscribe(profile => {
       this.chatlistData.chatlist = profile.user.contacts.map(chatItem => { return { chat: chatItem, badge: 0 } });
-      this.onChatSelected(this.chatlistData.chatlist[0]);
+      if (this.chatlistData.chatlist.length > 0) {
+        this.onChatSelected(this.chatlistData.chatlist[0]);
+      } else {
+        this.chatroomData.showSpinner = false;
+      }
     },
       err => {
         console.log(err);
