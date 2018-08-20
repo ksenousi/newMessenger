@@ -1,0 +1,4 @@
+   add delete profile button
+   add seen and not seen notifications
+   refactor auth service
+   update server on seen messages
