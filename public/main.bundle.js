@@ -812,7 +812,12 @@ var DashboardComponent = (function () {
         var _this = this;
         this.authService.getProfile().subscribe(function (profile) {
             _this.chatlistData.chatlist = profile.user.contacts.map(function (chatItem) { return { chat: chatItem, badge: 0 }; });
-            _this.onChatSelected(_this.chatlistData.chatlist[0]);
+            if (_this.chatlistData.chatlist.length > 0) {
+                _this.onChatSelected(_this.chatlistData.chatlist[0]);
+            }
+            else {
+                _this.chatroomData.showSpinner = false;
+            }
         }, function (err) {
             console.log(err);
             return false;
