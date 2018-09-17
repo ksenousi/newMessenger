@@ -4,32 +4,31 @@ const mongoose = require('mongoose');
 const contactRequestSchema = mongoose.Schema({
   sender: {
     type: String,
-    require: true
+    required: true,
   },
   recipient: {
     type: String,
-    require: true
+    required: true,
   },
 });
 
-const ContactRequest = module.exports = mongoose.model('ContactRequest', contactRequestSchema);
+const ContactRequest = mongoose.model('ContactRequest', contactRequestSchema);
+module.exports = ContactRequest;
 
-module.exports.addContactRequest = function (contact, username, callback) {
-  var contactRequest = new ContactRequest({ 'sender': username, 'recipient': contact });
- return contactRequest.save(callback);
-}
+module.exports.addContactRequest = (contact, username, callback) => {
+  const contactRequest = new ContactRequest({ sender: username, recipient: contact });
+  return contactRequest.save(callback);
+};
 
-module.exports.getReceivedContactRequests = function (username, callback) {
-  return ContactRequest.find({ 'recipient': username }, callback);
-}
+module.exports.getReceivedContactRequests = (username, callback) => {
+  return ContactRequest.find({ recipient: username }, callback);
+};
 
-module.exports.getSentContactRequests = function (username, callback) {
-  return ContactRequest.find({ 'sender': username }, callback);
-}
+module.exports.getSentContactRequests = (username, callback) => {
+  return ContactRequest.find({ sender: username }, callback);
+};
 
 // receiver accepts request and therefore their username is passed as the receiver
-module.exports.removeContactRequest = function (username, recipient, callback) {
-   return ContactRequest.remove({ 'sender': recipient, 'recipient': username }, callback);
-}
-
-
+module.exports.removeContactRequest = (username, recipient, callback) => {
+  return ContactRequest.remove({ sender: recipient, recipient: username }, callback);
+};

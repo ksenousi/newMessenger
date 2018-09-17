@@ -1,54 +1,53 @@
 const express = require('express');
+
 const router = express.Router();
 const passport = require('passport');
 const Chat = require('../models/chat');
 
 // Get Chat
 router.get('/getchat', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+  const username = req.user.username;
+  const chatname = req.get('chatname');
 
-    const username = req.user.username;
-    const chatname = req.get('chatname');
-
-    Chat.getChatByName(username, chatname, (err, chat) => {
-        if (err) throw err;
-        res.json(chat);
-    });
-
+  Chat.getChatByName(username, chatname, (err, chat) => {
+    if (err) throw err;
+    res.json(chat);
+  });
+  next();
 });
 
 // Get Chat list
 router.get('/getchatlist', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+  const username = req.user.username;
 
-    const username = req.user.username;
-
-    Chat.getChatlist(username, chatlist => {
-        res.json(chatlist)
-    })
-
+  Chat.getChatlist(username, (chatlist) => {
+    res.json(chatlist);
+  });
+  next();
 });
 
-//TODO Set messages as seen
-router.post('/setmessagesseen', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    const username = req.user.username;
-    const chatname = req.body.chatname;
-    const numSeen = req. body.numseen;
+// TODO Set messages as seen
+router.post('/setmessagesseen', passport.authenticate('jwt', { session: false }), (req, _res, next) => {
+  const username = req.user.username;
+  const chatname = req.body.chatname;
+  const numSeen = req.body.numseen;
 
-    Chat.setMessagesSeen(username, chatname, numSeen);
-
+  Chat.setMessagesSeen(username, chatname, numSeen);
+  next();
 });
 
 // Add Chat
 router.post('/addchat', passport.authenticate('jwt', { session: false }), (req, res, next) => {
-
-    const newChat = req.body.chat;
-    Chat.addChat(newChat, (err, user) => {
-        if (err) {
-            throw err;
-            res.json({ 'success': false });
-        } else {
-            res.json({ 'success': true });
-        }
-    });
+  const newChat = req.body.chat;
+  Chat.addChat(newChat, (err) => {
+    if (err) {
+      res.json({ success: false });
+      throw err;
+    } else {
+      res.json({ success: true });
+    }
+  });
+  next();
 });
 
 module.exports = router;

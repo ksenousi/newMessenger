@@ -1,54 +1,57 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-const config = require('../config/database');
 
 // User Schema
 const UserSchema = mongoose.Schema({
   name: {
-    type: String
+    type: String,
   },
   email: {
     type: String,
-    required: true
+    required: true,
   },
   username: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   password: {
     type: String,
-    required: true
+    required: true,
   },
   contacts: {
-   type: [String],
+    type: [String],
   },
 });
 
-const User = module.exports = mongoose.model('User', UserSchema);
-
-module.exports.getUserById = function(id, callback){
+const User = mongoose.model('User', UserSchema);
+module.exports = User;
+module.exports.getUserById = (id, callback) => {
   User.findById(id, callback);
-}
+};
 
-module.exports.getUserByUsername = function(username, callback){
-  const query = {username: username}
+module.exports.getUserByUsername = (username, callback) => {
+  const query = { username };
   User.findOne(query, callback);
-}
+};
 
-module.exports.addUser = function(newUser, callback){
-  bcrypt.genSalt(10, (err, salt) => {
-    bcrypt.hash(newUser.password, salt, (err, hash) => {
-      if(err) throw err;
-      newUser.password = hash;
-      newUser.save(callback);
+module.exports.addUser = (newUser, callback) => {
+  const user = newUser;
+
+  bcrypt.genSalt(10, (saltErr, salt) => {
+    if (saltErr) throw saltErr;
+
+    bcrypt.hash(newUser.password, salt, (hashErr, hash) => {
+      if (hashErr) throw hashErr;
+      user.password = hash;
+      user.save(callback);
     });
   });
-}
+};
 
-module.exports.comparePassword = function(candidatePassword, hash, callback){
+module.exports.comparePassword = (candidatePassword, hash, callback) => {
   bcrypt.compare(candidatePassword, hash, (err, isMatch) => {
-    if(err) throw err;
+    if (err) throw err;
     callback(null, isMatch);
   });
-}
+};

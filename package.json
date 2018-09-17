@@ -8,7 +8,8 @@
   "scripts": {
     "test": "mocha --exit",
     "start": "node app",
-    "build": "cd ./angular-src && ng build"
+    "build": "cd ./angular-src && ng build",
+    "lint": "eslint"
   },
   "dependencies": {
     "bcryptjs": "~2.4.3",

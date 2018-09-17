@@ -4,37 +4,34 @@ const mongoose = require('mongoose');
 const ChatSchema = mongoose.Schema({
   chatname: {
     type: String,
-    require:true
+    required: true,
   },
   username: {
     type: String,
-    require:true
+    required: true,
   },
   recipient: {
-   type: String,
-   require:true
+    type: String,
+    required: true,
   },
   messages: [{
     content: String,
     outgoing: Boolean,
-  }]
-    
+  }],
+
 });
 
-const Chat = module.exports = mongoose.model('Chat', ChatSchema);
+const Chat = mongoose.model('Chat', ChatSchema);
+module.exports = Chat;
 
-module.exports.getChatByName = function(username, chatname, callback) {
+module.exports.getChatByName = (username, chatname, callback) => {
+  Chat.findOne({ username, chatname }, callback);
+};
 
-   Chat.findOne({'username': username, 'chatname': chatname},callback);
-}
-
-module.exports.addChat = function(newChat,callback) {
+module.exports.addChat = (newChat, callback) => {
   newChat.save(callback);
-}
+};
 
-module.exports.addMessage = function(username, chatname, message, callback) {
-
-  Chat.update({'username': username, 'chatname': chatname},{'$push':{'messages':message}},callback);
-}
-
-
+module.exports.addMessage = (username, chatname, message, callback) => {
+  Chat.update({ username, chatname }, { $push: { messages: message } }, callback);
+};
