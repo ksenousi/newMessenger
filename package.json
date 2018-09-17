@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "messenger",
   "author": "karim",
-  "license": "ISC",
+  "license": "MIT",
   "main": "app.js",
   "scripts": {
     "test": "mocha --exit",
