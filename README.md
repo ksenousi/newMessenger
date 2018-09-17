@@ -1,7 +1,7 @@
 # New Messenger
 
 An instant messaging web app using the MEAN Stack
-https://newmessenger.herokuapp.com
+Demo: https://newmessenger.herokuapp.com
 
 ## Table of Contents
 
