@@ -19,7 +19,7 @@ const port = process.env.PORT || 8080;
 // Connect to database
 mongoose.Promise = global.Promise;
 mongoose.connect(config.database, {
-  useMongoClient: true,
+  useNewUrlParser: true 
 });
 
 // On Connection
