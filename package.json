@@ -2,9 +2,11 @@
   "name": "newMessenger",
   "version": "1.0.0",
   "description": "messenger",
+  "author": "karim",
+  "license": "ISC",
   "main": "app.js",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha --exit",
     "start": "node app",
     "build": "cd ./angular-src && ng build"
   },
@@ -14,15 +16,16 @@
     "cors": "~2.8.4",
     "express": "~4.16.3",
     "jsonwebtoken": "~8.3.0",
-    "mocha": "~3.5.3",
-    "mongoose": "~5.2.9",
+    "mongoose": "^5.2.8",
     "passport": "~0.4.0",
     "passport-jwt": "~4.0.0",
     "socket.io": "~2.0.3"
   },
-  "author": "karim",
-  "license": "ISC",
   "devDependencies": {
+    "eslint": "^5.6.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "mocha": "^5.2.0",
     "mockgoose": "^7.3.3"
   }
 }
