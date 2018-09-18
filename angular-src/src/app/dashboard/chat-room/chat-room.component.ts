@@ -25,7 +25,6 @@ export class ChatRoomComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.scrollToBottom();
-    console.log('things changed');
   }
 
   scrollToBottom() {

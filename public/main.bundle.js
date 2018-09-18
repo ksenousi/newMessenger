@@ -1399,7 +1399,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var AuthService = (function () {
     function AuthService(http) {
         this.http = http;
-        this.isDev = false; // Change to false before deployment
+        this.isDev = true; // Change to false before deployment
     }
     AuthService.prototype.registerUser = function (user) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
@@ -1541,7 +1541,7 @@ var _a;
 
 var ChatService = (function () {
     function ChatService() {
-        this.isDev = false; // change to false before deployment
+        this.isDev = true; // change to false before deployment
     }
     ChatService.prototype.sendMessage = function (message) {
         this.socket.emit('add-message', message);
