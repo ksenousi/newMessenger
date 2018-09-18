@@ -16,7 +16,6 @@ router.post('/addcontactrequest', passport.authenticate('jwt', { session: false 
       res.json({ success: true });
     }
   });
-  next();
 });
 
 // get contact request
@@ -26,7 +25,6 @@ router.get('/getcontactrequests', passport.authenticate('jwt', { session: false 
     if (err) throw err;
     res.json(requests);
   });
-  next();
 });
 
 // remove contact request
@@ -42,7 +40,6 @@ router.post('/removecontactrequest', passport.authenticate('jwt', { session: fal
       res.json({ success: true });
     }
   });
-  next();
 });
 
 module.exports = router;

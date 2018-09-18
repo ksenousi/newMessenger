@@ -13,7 +13,6 @@ router.get('/getchat', passport.authenticate('jwt', { session: false }), (req, r
     if (err) throw err;
     res.json(chat);
   });
-  next();
 });
 
 // Get Chat list
@@ -23,7 +22,6 @@ router.get('/getchatlist', passport.authenticate('jwt', { session: false }), (re
   Chat.getChatlist(username, (chatlist) => {
     res.json(chatlist);
   });
-  next();
 });
 
 // TODO Set messages as seen
@@ -33,7 +31,6 @@ router.post('/setmessagesseen', passport.authenticate('jwt', { session: false })
   const numSeen = req.body.numseen;
 
   Chat.setMessagesSeen(username, chatname, numSeen);
-  next();
 });
 
 // Add Chat
@@ -47,7 +44,6 @@ router.post('/addchat', passport.authenticate('jwt', { session: false }), (req, 
       res.json({ success: true });
     }
   });
-  next();
 });
 
 module.exports = router;

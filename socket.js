@@ -27,7 +27,7 @@ module.exports = (server) => {
 
 
   io.on('connection', (socket) => {
-    const username = socket.decoded._doc.username;
+    const username = socket.decoded.username;
     clients.push(new client(username, socket));
 
     socket.on('add-message', (incomingMessage) => {

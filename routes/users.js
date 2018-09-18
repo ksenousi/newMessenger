@@ -23,7 +23,6 @@ router.post('/register', (req, res, next) => {
       res.json({ success: true, msg: 'User registered' });
     }
   });
-  next();
 });
 
 // Authenticate
@@ -40,7 +39,7 @@ router.post('/authenticate', (req, res, next) => {
     User.comparePassword(password, user.password, (passErr, isMatch) => {
       if (passErr) throw passErr;
       if (isMatch) {
-        const token = jwt.sign(user, config.secret, {
+        const token = jwt.sign(user.toJSON(), config.secret, {
           expiresIn: 604800, // 1 week worth of seconds
         });
 
@@ -58,19 +57,16 @@ router.post('/authenticate', (req, res, next) => {
       return res.json({ success: false, msg: 'wrong password' });
     });
   });
-  next();
 });
 
 // Profile
 router.get('/profile', passport.authenticate('jwt', { session: false }), (req, res, next) => {
   res.json({ user: req.user });
-  next();
 });
 
 // Validate
 router.get('/validate', (req, res, next) => {
   res.send('validate');
-  next();
 });
 
 // Search Users
@@ -132,7 +128,6 @@ router.get('/search', passport.authenticate('jwt', { session: false }), (req, re
       });
       res.json(results);
     });
-  next();
 });
 
 module.exports = router;

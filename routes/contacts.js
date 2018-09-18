@@ -31,7 +31,6 @@ router.post('/addcontact', passport.authenticate('jwt', { session: false }), (re
   ContactRequest.removeContactRequest(username, contact, (err) => {
     if (err) throw err;
   });
-  next();
 });
 
 // remove contact for both
@@ -59,7 +58,6 @@ router.post('/removecontact', passport.authenticate('jwt', { session: false }), 
   Chat.remove({ username: contact, chatname: username }, (err) => {
     if (err) throw err;
   });
-  next();
 });
 
 module.exports = router;
