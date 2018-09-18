@@ -29,11 +29,13 @@ In addition Socket.io and Bootstrap was used.
 
 ### Installation
 ```bash
-    git clone https://github.com/ksenousi/newmessenger
+   git clone https://github.com/ksenousi/newmessenger
+   cd ./newmessenger
+   npm install
 ```
 ### Usage
 ```bash
-    npm start
+   npm start
 ```
 
 **[Back to top](#table-of-contents)**
