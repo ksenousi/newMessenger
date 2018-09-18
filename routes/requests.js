@@ -5,7 +5,7 @@ const passport = require('passport');
 const ContactRequest = require('../models/contactrequest');
 
 // add contact request
-router.post('/addcontactrequest', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+router.post('/addcontactrequest', passport.authenticate('jwt', { session: false }), (req, res) => {
   const contact = req.body.contact;
   const username = req.user.username;
   ContactRequest.addContactRequest(contact, username, (err) => {
@@ -19,7 +19,7 @@ router.post('/addcontactrequest', passport.authenticate('jwt', { session: false 
 });
 
 // get contact request
-router.get('/getcontactrequests', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+router.get('/getcontactrequests', passport.authenticate('jwt', { session: false }), (req, res) => {
   const username = req.user.username;
   ContactRequest.getReceivedContactRequests(username, (err, requests) => {
     if (err) throw err;
@@ -28,7 +28,7 @@ router.get('/getcontactrequests', passport.authenticate('jwt', { session: false 
 });
 
 // remove contact request
-router.post('/removecontactrequest', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+router.post('/removecontactrequest', passport.authenticate('jwt', { session: false }), (req, res) => {
   const username = req.user.username;
   const contact = req.body.contact;
 

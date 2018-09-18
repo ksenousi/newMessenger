@@ -8,7 +8,7 @@ const ContactRequest = require('../models/contactrequest');
 
 
 // Add Contact for both users
-router.post('/addcontact', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+router.post('/addcontact', passport.authenticate('jwt', { session: false }), (req, res) => {
   const username = req.user.username;
   const contact = req.body.contact;
 
@@ -34,7 +34,7 @@ router.post('/addcontact', passport.authenticate('jwt', { session: false }), (re
 });
 
 // remove contact for both
-router.post('/removecontact', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+router.post('/removecontact', passport.authenticate('jwt', { session: false }), (req, res) => {
   const username = req.user.username;
   const contact = req.body.contact;
 

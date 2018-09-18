@@ -8,7 +8,7 @@ const User = require('../models/user');
 const ContactRequest = require('../models/contactrequest');
 
 // Register
-router.post('/register', (req, res, next) => {
+router.post('/register', (req, res) => {
   const newUser = new User({
     name: req.body.name,
     email: req.body.email,
@@ -26,7 +26,7 @@ router.post('/register', (req, res, next) => {
 });
 
 // Authenticate
-router.post('/authenticate', (req, res, next) => {
+router.post('/authenticate', (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
 
@@ -60,17 +60,17 @@ router.post('/authenticate', (req, res, next) => {
 });
 
 // Profile
-router.get('/profile', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+router.get('/profile', passport.authenticate('jwt', { session: false }), (req, res) => {
   res.json({ user: req.user });
 });
 
 // Validate
-router.get('/validate', (req, res, next) => {
+router.get('/validate', (req, res) => {
   res.send('validate');
 });
 
 // Search Users
-router.get('/search', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+router.get('/search', passport.authenticate('jwt', { session: false }), (req, res) => {
   const searchCriteria = req.get('searchcriteria');
   const username = req.user.username;
   const userContacts = req.user.contacts;

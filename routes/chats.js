@@ -5,7 +5,7 @@ const passport = require('passport');
 const Chat = require('../models/chat');
 
 // Get Chat
-router.get('/getchat', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+router.get('/getchat', passport.authenticate('jwt', { session: false }), (req, res) => {
   const username = req.user.username;
   const chatname = req.get('chatname');
 
@@ -16,7 +16,7 @@ router.get('/getchat', passport.authenticate('jwt', { session: false }), (req, r
 });
 
 // Get Chat list
-router.get('/getchatlist', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+router.get('/getchatlist', passport.authenticate('jwt', { session: false }), (req, res) => {
   const username = req.user.username;
 
   Chat.getChatlist(username, (chatlist) => {
@@ -25,7 +25,7 @@ router.get('/getchatlist', passport.authenticate('jwt', { session: false }), (re
 });
 
 // TODO Set messages as seen
-router.post('/setmessagesseen', passport.authenticate('jwt', { session: false }), (req, _res, next) => {
+router.post('/setmessagesseen', passport.authenticate('jwt', { session: false }), (req) => {
   const username = req.user.username;
   const chatname = req.body.chatname;
   const numSeen = req.body.numseen;
@@ -34,7 +34,7 @@ router.post('/setmessagesseen', passport.authenticate('jwt', { session: false })
 });
 
 // Add Chat
-router.post('/addchat', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+router.post('/addchat', passport.authenticate('jwt', { session: false }), (req, res) => {
   const newChat = req.body.chat;
   Chat.addChat(newChat, (err) => {
     if (err) {

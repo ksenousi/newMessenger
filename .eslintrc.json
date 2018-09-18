@@ -4,7 +4,6 @@
         "prefer-destructuring":"off",
         "arrow-body-style":"off",
         "no-underscore-dangle":"off",
-        "consistent-return":"off",
-        "no-unused-vars":"off"
+        "consistent-return":"off"
     }
 }
