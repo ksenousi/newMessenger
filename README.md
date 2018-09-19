@@ -32,6 +32,7 @@ In addition Socket.io and Bootstrap was used.
    git clone https://github.com/ksenousi/newmessenger
    cd ./newmessenger
    npm install
+   Open localhost:8080 on browser
 ```
 ### Usage
 ```bash
